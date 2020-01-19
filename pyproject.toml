@@ -1,9 +1,38 @@
 [tool.poetry]
 name = "fastapi-utils"
 version = "0.1.0"
-description = ""
+description = "Reusable utilities for FastAPI"
 license = "MIT"
 authors = ["David Montague <davwmont@gmail.com>"]
+readme = "README.md"
+homepage = "https://fastapi-utils.davidmontague.xyz"
+repository = "https://github.com/dmontagu/fastapi-utils"
+documentation = "https://fastapi-utils.davidmontague.xyz"
+keywords = ["fastapi", "utilities", "utils"]
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Internet",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Utilities"
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -59,3 +88,7 @@ multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 combine_as_imports = true
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
