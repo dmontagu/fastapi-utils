@@ -2,6 +2,7 @@
 
 pkg_src = fastapi_utils
 tests_src = tests
+docs_src = docs/src
 all_src = $(pkg_src) $(tests_src)
 
 isort = isort -rc $(all_src)
@@ -92,6 +93,12 @@ docs-build:
 	python -m mkdocs build
 	cp ./docs/index.md ./README.md
 	cp ./docs/contributing.md ./CONTRIBUTING.md
+
+.PHONY: docs-format  ## Format the python code that is part of the docs
+docs-format:
+	isort -rc docs/src
+	autoflake -r --remove-all-unused-imports --ignore-init-module-imports docs/src
+	black -l 82 docs/src
 
 
 .PHONY: docs-live  ## Serve the docs with live reload as you make changes

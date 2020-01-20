@@ -12,5 +12,6 @@ def get_resource(resource_id: int) -> int:
 
 simplify_operation_ids(app)
 
-operation_id = app.openapi()["paths"]["/api/v1/resource/{resource_id}"]["get"]["operationId"]
+path_spec = app.openapi()["paths"]["/api/v1/resource/{resource_id}"]
+operation_id = path_spec["get"]["operationId"]
 assert operation_id == "get_resource"

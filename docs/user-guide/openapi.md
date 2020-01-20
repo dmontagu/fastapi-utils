@@ -14,7 +14,7 @@ that hits the associated endpoint.
 When generating the OpenAPI spec, by default FastAPI includes the function name, endpoint path, and request method,
 in the generated `operationId`:
 
-```python hl_lines="12"
+```python hl_lines="13"
 {!./src/openapi1.py!}
 ```
 
@@ -25,7 +25,7 @@ extremely verbose function names like `getResourceApiV1ResourceResourceIdGet`.
 To simplify your operation IDs, you can use `fastapi_utils.openapi.simplify_operation_ids` to replace
 the generated operation IDs with ones generated using *only* the function name:
 
-```python hl_lines="3 13 16"
+```python hl_lines="3 13 17"
 {!./src/openapi2.py!}
 ```
 

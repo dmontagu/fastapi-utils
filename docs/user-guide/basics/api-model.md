@@ -54,6 +54,6 @@ In addition, if you set the `response_model` argument to the endpoint decorator 
 be converted to a dict, but has appropriately named fields, FastAPI will use pydantic's `orm_mode` to automatically
 serialize it.
 
-```python hl_lines="29 30 31"
+```python hl_lines="30 32"
 {!./src/api_model.py!}
 ```

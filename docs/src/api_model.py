@@ -19,6 +19,7 @@ class UserORM:
     """
     You can pretend this class is a SQLAlchemy model
     """
+
     user_id: UserID
     email_address: str
 
