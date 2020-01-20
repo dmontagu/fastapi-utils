@@ -10,10 +10,9 @@ from starlette.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 from fastapi_utils.api_model import APIMessage, APIModel
 from fastapi_utils.cbv import cbv
 from fastapi_utils.guid_type import GUID
-
-# Begin Setup
 from fastapi_utils.inferring_router import InferringRouter
 
+# Begin Setup
 UserID = NewType("UserID", UUID)
 ItemID = NewType("ItemID", UUID)
 

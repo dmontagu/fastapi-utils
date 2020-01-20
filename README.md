@@ -25,8 +25,8 @@ This package includes a number of utilities to help reduce boilerplate and reuse
 * **Response-Model Inferring Router**: Let FastAPI infer the `response_model` to use based on your return type annotation. 
 * **Repeated Tasks**: Easily trigger periodic tasks on server startup
 * **Timing Middleware**: Log basic timing information for every request
-* **SQLAlchemy Sessions**: The `FastAPISessionMaker` class provides an easily-customized SQLAlchemy Session dependency
-* **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables 
+* **SQLAlchemy Sessions**: The `FastAPISessionMaker` class provides an easily-customized SQLAlchemy Session dependency 
+* **OpenAPI Spec Simplification**: Simplify your OpenAPI Operation IDs for cleaner output from OpenAPI Generator
 
 ---
 
@@ -36,7 +36,7 @@ It also adds a variety of more basic utilities that are useful across a wide var
 * **APISettings**: A subclass of `pydantic.BaseSettings` that makes it easy to configure FastAPI through environment variables 
 * **String-Valued Enums**: The `StrEnum` and `CamelStrEnum` classes make string-valued enums easier to maintain
 * **CamelCase Conversions**: Convenience functions for converting strings from `snake_case` to `camelCase` or `PascalCase` and back
-* **OpenAPI Spec Simplification**: Simplify your OpenAPI Operation IDs for cleaner output from OpenAPI Generator
+* **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables
 
 See the [docs](https://fastapi-utils.davidmontague.xyz/) for more details and examples. 
 

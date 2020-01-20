@@ -35,7 +35,7 @@ To use the `@cbv` decorator, you need to:
 
 Let's follow these steps to simplify the example above, while preserving all of the original logic:
 
-```python hl_lines="59 62 64 65 66 70 71 72"
+```python hl_lines="11 58 61 63 64 65 69 70 71"
 {!./src/class_based_views2.py!}
 ```
 

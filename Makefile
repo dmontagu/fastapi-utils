@@ -97,7 +97,7 @@ docs-build:
 .PHONY: docs-format  ## Format the python code that is part of the docs
 docs-format:
 	isort -rc docs/src
-	autoflake -r --remove-all-unused-imports --ignore-init-module-imports docs/src
+	autoflake -r --remove-all-unused-imports --ignore-init-module-imports docs/src -i
 	black -l 82 docs/src
 
 

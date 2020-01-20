@@ -25,16 +25,13 @@ nav:
       - Repeated Tasks: 'user-guide/repeated-tasks.md'
       - Timing Middleware: 'user-guide/timing-middleware.md'
       - SQLAlchemy Sessions: 'user-guide/sessions.md'
-      - GUID Type: 'user-guide/guid-type.md'
       - OpenAPI Spec Simplification: 'user-guide/openapi.md'
       - Other Utilities:
           - APIModel: 'user-guide/basics/api-model.md'
           - APISettings: 'user-guide/basics/api-settings.md'
           - String-Valued Enums: 'user-guide/basics/enums.md'
           - CamelCase Conversion: 'user-guide/basics/camelcase.md'
-
-
-
+          - GUID Type: 'user-guide/basics/guid-type.md'
   - Get Help: 'help-fastapi-utils.md'
   - Development - Contributing: 'contributing.md'
   - Release Notes: 'release-notes.md'
