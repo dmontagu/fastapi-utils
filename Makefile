@@ -100,7 +100,6 @@ docs-format:
 	autoflake -r --remove-all-unused-imports --ignore-init-module-imports docs/src -i
 	black -l 82 docs/src
 
-
 .PHONY: docs-live  ## Serve the docs with live reload as you make changes
 docs-live:
 	mkdocs serve --dev-addr 0.0.0.0:8008
