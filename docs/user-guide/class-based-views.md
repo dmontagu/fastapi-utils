@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.cbv`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/cbv.py){.internal-link target=_blank}
+
+---
+
 As you create more complex FastAPI applications, you may find yourself
 frequently repeating the same dependencies in multiple related endpoints.
 

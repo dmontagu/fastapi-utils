@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.inferring_router`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/inferring_router.py){.internal-link target=_blank}
+
+---
+
 ## Using `response_model`
 One of the few places where FastAPI can't always infer everything you might want it to
 purely from type hints is the `response_model` to use for a specific endpoint.

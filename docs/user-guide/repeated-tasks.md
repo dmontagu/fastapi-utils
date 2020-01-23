@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.tasks`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/tasks.py){.internal-link target=_blank}
+
+---
+
 Startup and shutdown events are a great way to trigger actions related to the server lifecycle.
 
 However, sometimes you want a task to trigger not just when the server starts, but also
@@ -58,4 +62,4 @@ function is first called. If `True`, the decorated function will wait one period
     For example, you could use `asyncio.get_running_loop().set_exception_handler(...)`, as documented 
     [here](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.set_exception_handler). 
 * `max_repetitions: Optional[int] = None` : If `None` (the default), the decorated function will keep repeating forever.
-Otherwise, it will stop repeated execution after the specified number of calls   
+Otherwise, it will stop repeated execution after the specified number of calls

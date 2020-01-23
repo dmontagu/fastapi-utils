@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.camelcase`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/camelcase.py){.internal-link target=_blank}
+
+---
+
 The `fastapi_utils.camelcase` module contains functions for converting `camelCase` or `CamelCase`
 strings to `snake_case`, and vice versa:
 

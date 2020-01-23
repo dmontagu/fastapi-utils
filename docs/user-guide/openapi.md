@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.openapi`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/openapi.py){.internal-link target=_blank}
+
+---
+
 One of the biggest benefits of working with FastAPI is the auto-generated OpenAPI spec, which enables
 integration with a variety of API development and documentation tooling, like Swagger UI and Redoc.
 

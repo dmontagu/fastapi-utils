@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.enums`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/enums.py){.internal-link target=_blank}
+
+---
+
 Using enums as fields of a JSON payloads is a great way to force provided values into one
 of a limited number of self-documenting fields.
 

@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.guid_type`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/guid_type.py){.internal-link target=_blank}
+
+---
+
 The two most common types used for primary keys in database tables are integers and UUIDs
 (sometimes referred to as GUIDs).
 

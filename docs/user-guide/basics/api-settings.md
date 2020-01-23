@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.api_settings`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/api_settings.py){.internal-link target=_blank}
+
+---
+
 The `BaseSettings` class provided as part of pydantic makes it very easy to load variables
 from the environment for use as part of application configuration.
 

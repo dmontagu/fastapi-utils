@@ -1,3 +1,7 @@
+#### Source module: [`fastapi_utils.api_model`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/api_model.py){.internal-link target=_blank}
+
+---
+
 One of the most common nuisances when developing a python web API is that python style typically involves
 `snake_case` attributes, whereas typical JSON style is to use `camelCase` field names.
 
