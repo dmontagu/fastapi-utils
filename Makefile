@@ -53,10 +53,11 @@ ci: check-format lint mypy test
 
 .PHONY: check-format  ## Check the source code format without changes
 check-format:
-	$(isort) --check-only
-	@echo $(autoflake) --check
-	@( set -o pipefail; $(autoflake) --check | (grep -v "No issues detected!" || true) )
+	$(isort) $(docs_src) --check-only
+	@echo $(autoflake) $(docs_src) --check
+	@( set -o pipefail; $(autoflake) $(docs_src) --check | (grep -v "No issues detected!" || true) )
 	$(black) --check
+	black -l 82 $(docs_src) --check
 
 .PHONY: clean  ## Remove temporary and cache files/directories
 clean:
@@ -92,14 +93,20 @@ version: poetryversion
 .PHONY: docs-build  ## Generate the docs and update README.md
 docs-build:
 	python -m mkdocs build
-	cp docs/index.md README.md
-	cp docs/contributing.md CONTRIBUTING.md
+	cp ./docs/index.md ./README.md
+	cp ./docs/contributing.md ./CONTRIBUTING.md
+
+.PHONY: docs-build-ci  ## Generate the docs and check README.md is up-to-date
+docs-build-ci:
+	python -m mkdocs build
+	cmp README.md docs/index.md
+	cmp CONTRIBUTING.md docs/contributing.md
 
 .PHONY: docs-format  ## Format the python code that is part of the docs
 docs-format:
-	isort -rc docs/src
-	autoflake -r --remove-all-unused-imports --ignore-init-module-imports docs/src -i
-	black -l 82 docs/src
+	isort -rc $(docs_src)
+	autoflake -r --remove-all-unused-imports --ignore-init-module-imports $(docs_src) -i
+	black -l 82 $(docs_src)
 
 .PHONY: docs-live  ## Serve the docs with live reload as you make changes
 docs-live:
