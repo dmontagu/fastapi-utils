@@ -1,9 +1,11 @@
-name: build-pull-request
+name: build
 
 on:
-  pull_request:
+  push:
     branches:
       - master
+  schedule:
+    - cron: '0 0 * * *'  # Nightly build
 
 jobs:
   build:
