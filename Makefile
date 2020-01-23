@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 pkg_src = fastapi_utils
@@ -48,7 +49,7 @@ testcov:
 	fi
 
 .PHONY: ci  ## Run all CI validation steps without making any changes to code
-default: test lint mypy check-format
+ci: check-format lint mypy test
 
 .PHONY: check-format  ## Check the source code format without changes
 check-format:

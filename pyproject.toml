@@ -52,6 +52,10 @@ pytest-cov = "*"
 pytest-asyncio = "*"
 coverage = "*"
 
+# Python 3.6 Testing
+async-exit-stack = { version = "*", python = "~3.6" }
+async-generator = { version = "*", python = "~3.6" }
+
 # Static
 isort = "*"
 autoflake = "*"
