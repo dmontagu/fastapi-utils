@@ -56,6 +56,9 @@ coverage = "*"
 async-exit-stack = { version = "*", python = "~3.6" }
 async-generator = { version = "*", python = "~3.6" }
 
+# CI
+codecov = "*"
+
 # Static
 isort = "*"
 autoflake = "*"

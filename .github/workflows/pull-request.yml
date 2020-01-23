@@ -41,3 +41,6 @@ jobs:
     - name: Perform CI steps
       run: |
         make ci
+    - name: Submit coverage report
+      run: |
+        codecov --token=${{ secrets.CODECOV_TOKEN }}
