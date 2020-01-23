@@ -92,8 +92,8 @@ version: poetryversion
 .PHONY: docs-build  ## Generate the docs and update README.md
 docs-build:
 	python -m mkdocs build
-	cp ./docs/index.md ./README.md
-	cp ./docs/contributing.md ./CONTRIBUTING.md
+	cp docs/index.md README.md
+	cp docs/contributing.md CONTRIBUTING.md
 
 .PHONY: docs-format  ## Format the python code that is part of the docs
 docs-format:

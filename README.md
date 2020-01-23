@@ -1,7 +1,24 @@
 <p align="center">
     <em>Reusable utilities for FastAPI</em>
 </p>
-
+<p align="center">
+<img src="https://img.shields.io/github/last-commit/dmontagu/fastapi-utils.svg">
+<a href="https://github.com/dmontagu/" target="_blank">
+    <img src="https://github.com/dmontagu/fastapi-utils/workflows/build/badge.svg" alt="Build">
+</a>
+<a href="https://codecov.io/gh/dmontagu/fastapi-utils" target="_blank">
+    <img src="https://codecov.io/gh/dmontagu/fastapi-utils/branch/master/graph/badge.svg" alt="Coverage">
+</a>
+<a href="https://app.netlify.com/sites/trusting-archimedes-72b369/deploys">
+    <img src="https://img.shields.io/netlify/28b2a077-65b1-4d6c-9dba-13aaf6059877" alt="Netlify status">
+</a>
+<br />
+<a href="https://pypi.org/project/fastapi-utils" target="_blank">
+    <img src="https://badge.fury.io/py/fastapi-utils.svg" alt="Package version">
+</a>
+    <img src="https://img.shields.io/pypi/pyversions/fastapi-utils.svg">
+    <img src="https://img.shields.io/github/license/dmontagu/fastapi-utils.svg">
+</p>
 
 ---
 

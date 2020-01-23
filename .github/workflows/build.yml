@@ -1,9 +1,11 @@
-name: build-pull-request
+name: build
 
 on:
-  pull_request:
+  push:
     branches:
       - master
+  schedule:
+    - cron: '0 0 * * *'  # Nightly build
 
 jobs:
   build:
@@ -11,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [3.7]
+        python-version: [3.6, 3.7]
 
     steps:
       - uses: actions/checkout@v1
