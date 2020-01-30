@@ -1,6 +1,6 @@
 import functools
 import inspect
-from copy import deepcopy
+from copy import copy
 from types import FunctionType
 from typing import Any, Callable, Dict, List, Optional, Type, TypeVar, Union, get_type_hints
 
@@ -49,7 +49,7 @@ def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
                 continue
         else:
             router.routes.remove(route)
-        route = deepcopy(route)
+        route = copy(route)
         route.endpoint = replace_method_with_copy(cls, func)
         _update_cbv_route_endpoint_signature(cls, route)
         cbv_router.routes.append(route)
