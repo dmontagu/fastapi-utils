@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi_utils.inferring_router import InferringRouter
 
 openapi_spec = {
-    "info": {"title": "Fast API", "version": "0.1.0"},
+    "info": {"title": "FastAPI", "version": "0.1.0"},
     "openapi": "3.0.2",
     "paths": {
         "/1": {
