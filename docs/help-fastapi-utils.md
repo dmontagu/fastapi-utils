@@ -9,13 +9,6 @@ See more details about how to help FastAPI at
 <a href="https://fastapi.tiangolo.com/help-fastapi/" target="blank">https://fastapi.tiangolo.com/help-fastapi/</a>
 
 
-### Get more serious help
-
-You can get paid technical support for FastAPI projects, including project audits, app deployments, or custom development
-by contacting me on <a href="https://www.linkedin.com/in/david-montague/" class="external-link" target="_blank">**Linkedin**</a>
-or emailing me at <a href="mailto:davwmont@gmail.com">davwmont@gmail.com</a>.
-
-
 ## Star `fastapi-utils` on GitHub
 
 You can "star" `fastapi-utils` in GitHub (clicking the star button at the top right): <a href="https://github.com/dmontagu/fastapi-utils" class="external-link" target="_blank">https://github.com/dmontagu/fastapi-utils</a>.
