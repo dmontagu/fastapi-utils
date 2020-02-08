@@ -77,12 +77,12 @@ async def test_repeat_unlogged_error(caplog: LogCaptureFixture) -> None:
 async def test_repeat_log_error(caplog: LogCaptureFixture) -> None:
     logger = logging.getLogger(__name__)
 
-    @repeat_every(seconds=0.07, max_repetitions=None, logger=logger)
+    @repeat_every(seconds=0.1, max_repetitions=None, logger=logger)
     def log_exc() -> NoReturn:
         raise ValueError("repeat")
 
     await log_exc()
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(0.18)  # should be enough time
     record_tuples = [x for x in caplog.record_tuples if x[0] == __name__]
     print(caplog.record_tuples)
     assert len(record_tuples) == 2
