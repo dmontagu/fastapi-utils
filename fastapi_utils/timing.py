@@ -1,5 +1,11 @@
 """
 Based on https://github.com/steinnes/timing-asgi.git
+
+The middleware from this module is intended for use during both development and production,
+but only reports timing data at the granularity of individual endpoint calls.
+
+For more detailed performance investigations (during development only, due to added overhead),
+consider using the coroutine-aware profiling library `yappi`.
 """
 import resource
 import time

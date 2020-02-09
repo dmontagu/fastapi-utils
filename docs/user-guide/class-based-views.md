@@ -52,3 +52,15 @@ to that endpoint.
 here to remove the need to specify a `response_model` in the endpoint decorators.)
 
 Hopefully this helps you to better reuse dependencies across endpoints!
+
+!!! info
+    While it is not demonstrated above, you can also make use of custom instance-initialization logic
+    by defining an `__init__` method on the CBV class.
+    
+    Arguments to the `__init__` function are injected by FastAPI in the same way they would be for normal
+    functions.
+    
+    You should **not** make use of any arguments to `__init__` with the same name as any annotated instance attributes
+    on the class. Those values will be set as attributes on the class instance prior to calling the `__init__` function
+    you define, so you can still safely access them inside your custom `__init__` function if desired.
+     

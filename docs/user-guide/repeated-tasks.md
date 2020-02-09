@@ -60,6 +60,7 @@ function is first called. If `True`, the decorated function will wait one period
     * If `True`, an exception will be raised. 
     In order to handle this exception, you'll need to register an exception handler that is able to catch it
     For example, you could use `asyncio.get_running_loop().set_exception_handler(...)`, as documented 
-    [here](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.set_exception_handler). 
+    [here](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.set_exception_handler).
+    * Note that if an exception is raised, the repeated execution will stop.   
 * `max_repetitions: Optional[int] = None` : If `None` (the default), the decorated function will keep repeating forever.
 Otherwise, it will stop repeated execution after the specified number of calls

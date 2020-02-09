@@ -1,7 +1,8 @@
 import asyncio
 import logging
+import time
 from asyncio import AbstractEventLoop
-from typing import Any, Dict, NoReturn
+from typing import Any, Dict, List, NoReturn, Tuple
 
 import pytest
 from _pytest.capture import CaptureFixture
@@ -82,10 +83,17 @@ async def test_repeat_log_error(caplog: LogCaptureFixture) -> None:
         raise ValueError("repeat")
 
     await log_exc()
-    await asyncio.sleep(0.18)  # should be enough time
-    record_tuples = [x for x in caplog.record_tuples if x[0] == __name__]
-    print(caplog.record_tuples)
-    assert len(record_tuples) == 2
+    n_record_tuples = 0
+    record_tuples: List[Tuple[Any, ...]] = []
+    start_time = time.time()
+    while n_record_tuples < 2:  # ensure multiple records are logged
+        time_elapsed = time.time() - start_time
+        if time_elapsed > 1:
+            print(record_tuples)
+            assert False, "Test timed out"
+        await asyncio.sleep(0.05)
+        record_tuples = [x for x in caplog.record_tuples if x[0] == __name__]
+        n_record_tuples = len(record_tuples)
 
 
 @pytest.mark.asyncio
