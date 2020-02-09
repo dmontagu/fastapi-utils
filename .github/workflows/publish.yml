@@ -1,0 +1,31 @@
+name: publish
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        python-version: [3.7]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      # Use no caching to be 100% confident things are working properly
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Check that formatting, linting, and tests pass
+        run: |
+          make ci
+      - name: Check docs are up to date
+        run: |
+          make docs-build-ci
+      - name: Build distribution
+        run: |
+          poetry build
+          poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}
