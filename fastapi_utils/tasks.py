@@ -37,7 +37,8 @@ def repeat_every(
         If not provided, exceptions will not be logged by this function (though they may be handled by the event loop).
     raise_exceptions: bool (default False)
         If True, errors raised by the decorated function will be raised to the event loop's exception handler.
-        Otherwise, they are just logged.
+        Note that if an error is raised, the repeated execution will stop.
+        Otherwise, exceptions are just logged and the execution continues to repeat.
         See https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.set_exception_handler for more info.
     max_repetitions: Optional[int] (default None)
         The maximum number of times to call the repeated function. If `None`, the function is repeated forever.
