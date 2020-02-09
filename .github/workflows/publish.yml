@@ -1,10 +1,11 @@
 name: publish
 
-on: push
+on:
+  registry_package:
+    types: [published]
 
 jobs:
   publish:
-#    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -17,7 +18,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
-      # Use no caching to be 100% confident things are working properly
+      # Avoid caching to be 100% confident things are working properly
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -34,10 +35,7 @@ jobs:
       - name: Build distribution
         run: |
           source $HOME/.poetry/env && poetry build
-      # poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}
       - name: Publish distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
-          password: ${{ secrets.TEST_PYPI_PASSWORD }}
-          repository_url: https://test.pypi.org/legacy/
-
+          password: ${{ secrets.PYPI_PASSWORD }}
