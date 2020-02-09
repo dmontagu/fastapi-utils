@@ -31,7 +31,7 @@ Here's a hypothetical example that could be used to periodically clean up expire
 {!./src/repeated_tasks1.py!}
 ```
 
-(You may want to reference the [sessions docs](sessions.md){.internal-link target=_blank} for more
+(You may want to reference the [sessions docs](session.md){.internal-link target=_blank} for more
 information about `FastAPISessionMaker`.)
 
 By passing `seconds=60 * 60`, we ensure that the decorated function is called once every hour.

@@ -24,7 +24,7 @@ nav:
       - Inferring Router: 'user-guide/inferring-router.md'
       - Repeated Tasks: 'user-guide/repeated-tasks.md'
       - Timing Middleware: 'user-guide/timing-middleware.md'
-      - SQLAlchemy Sessions: 'user-guide/sessions.md'
+      - SQLAlchemy Sessions: 'user-guide/session.md'
       - OpenAPI Spec Simplification: 'user-guide/openapi.md'
       - Other Utilities:
           - APIModel: 'user-guide/basics/api-model.md'
