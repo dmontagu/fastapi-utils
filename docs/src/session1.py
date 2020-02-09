@@ -1,9 +1,10 @@
-from pathlib import Path
+from functools import lru_cache
 from typing import Iterator
 from uuid import UUID
 
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
+from pydantic import BaseSettings
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
@@ -12,22 +13,29 @@ from fastapi_utils.session import FastAPISessionMaker
 
 Base = declarative_base()
 
-# TODO: Read the database_uri from an environment variable by way of a BaseSettings subclass
 
 class User(Base):
     __tablename__ = "user"
     id = sa.Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
     name = sa.Column(sa.String, nullable=False)
-    related_id = sa.Column(GUID)
 
 
-sqlite_db_path = Path("./test.db")
-database_uri = f"sqlite:///{sqlite_db_path}?check_same_thread=False"
-session_maker = FastAPISessionMaker(database_uri=database_uri)
+class DBSettings(BaseSettings):
+    """ Parses variables from environment on instantiation """
+
+    database_uri: str  # could break up into scheme, username, password, host, db
 
 
 def get_db() -> Iterator[Session]:
-    yield from session_maker.get_db()
+    """ FastAPI dependency that provides a sqlalchemy session """
+    yield from _get_fastapi_sessionmaker().get_db()
+
+
+@lru_cache()
+def _get_fastapi_sessionmaker() -> FastAPISessionMaker:
+    """ This function could be replaced with a global variable if preferred """
+    database_uri = DBSettings().database_uri
+    return FastAPISessionMaker(database_uri)
 
 
 app = FastAPI()
