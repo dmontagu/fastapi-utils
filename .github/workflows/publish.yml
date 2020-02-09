@@ -4,7 +4,7 @@ on: push
 
 jobs:
   publish:
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+#    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -33,7 +33,7 @@ jobs:
           curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
       - name: Build distribution
         run: |
-          poetry build
+          source $HOME/.poetry/env && poetry build
       # poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}
       - name: Publish distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@master
