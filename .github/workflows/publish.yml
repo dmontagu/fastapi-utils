@@ -1,11 +1,11 @@
 name: publish
 
 on:
-  registry_package:
-    types: [published]
+  push
 
 jobs:
   publish:
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
