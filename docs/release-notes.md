@@ -1,6 +1,10 @@
 ## Latest changes
 
-* Fix bug with ordering of routes in a CBV router
+## 0.2.0
+
+* Make some of the functions/classes in `fastapi_utils.timing` private to clarify the intended public API
+* Add documentation for `fastapi_utils.timing` module 
+* Fix bug with ordering of routes in a CBV router 
 
 ## 0.1.1
 

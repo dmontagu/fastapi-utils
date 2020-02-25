@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pytest
 from _pytest.capture import CaptureFixture
 from fastapi import FastAPI
 from starlette.requests import Request
@@ -95,8 +96,7 @@ def fail_to_record(request: Request) -> None:
 client3 = TestClient(app3)
 
 
-def test_recording_fails_without_middleware(capsys: CaptureFixture) -> None:
-    client3.get("/")
-    out, err = capsys.readouterr()
-    assert err == ""
-    assert out.strip() == "TIMING ERROR: No timer present on request"
+def test_recording_fails_without_middleware() -> None:
+    with pytest.raises(ValueError) as exc_info:
+        client3.get("/")
+    assert str(exc_info.value) == "No timer present on request"
