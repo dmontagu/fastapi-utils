@@ -40,3 +40,23 @@ def test_cbv() -> None:
     response_2 = client.get("/classvar")
     assert response_2.status_code == 200
     assert response_2.content == b"false"
+
+
+def test_method_order_preserved() -> None:
+    router = APIRouter()
+
+    @cbv(router)
+    class TestCBV:
+        @router.get("/test")
+        def get_test(self) -> int:
+            return 1
+
+        @router.get("/{item_id}")
+        def get_item(self) -> int:  # Alphabetically before `get_test`
+            return 2
+
+    app = FastAPI()
+    app.include_router(router)
+
+    assert TestClient(app).get("/test").json() == 1
+    assert TestClient(app).get("/other").json() == 2
