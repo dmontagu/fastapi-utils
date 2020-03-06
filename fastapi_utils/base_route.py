@@ -1,7 +1,7 @@
 from typing import Dict, Generic, List, TypeVar
 
-from fastapi_utils.crud_base import CRUDBase, Base
 from fastapi import Depends, HTTPException
+from fastapi_utils.crud_base import Base, CRUDBase
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
