@@ -603,7 +603,7 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7)", "win-inet-pton"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -629,6 +629,24 @@ postgresql_pg8000 = ["pg8000"]
 postgresql_psycopg2binary = ["psycopg2-binary"]
 postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql"]
+
+[[package]]
+category = "main"
+description = "A library to filter SQLAlchemy queries."
+name = "sqlalchemy-filters"
+optional = false
+python-versions = "*"
+version = "0.10.0"
+
+[package.dependencies]
+six = ">=1.10.0"
+sqlalchemy = ">=1.0.16"
+
+[package.extras]
+dev = ["pytest (4.3.0)", "flake8 (3.7.7)", "coverage (4.5.3)", "sqlalchemy-utils (0.33.11)", "restructuredtext-lint (1.2.2)", "Pygments (2.3.1)"]
+mysql = ["mysql-connector-python-rf (2.2.2)"]
+postgresql = ["psycopg2 (2.7.7)"]
+python2 = ["funcsigs (>=1.0.2)"]
 
 [[package]]
 category = "dev"
@@ -720,7 +738,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "2b727851846408766afb773a03cef7946f566c0817623186d8bcfed2e9d62557"
+content-hash = "aa4f526dbf926321768fab7d310bdc0a449537a074babec63c01ea88c0cadacf"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -886,11 +904,6 @@ markupsafe = [
     {file = "MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win32.whl", hash = "sha256:b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2"},
     {file = "MarkupSafe-1.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6788b695d50a51edb699cb55e35487e430fa21f1ed838122d722e0ff0ac5ba15"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_i686.whl", hash = "sha256:cdb132fc825c38e1aeec2c8aa9338310d29d337bebbd7baa06889d09a60a1fa2"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:13d3144e1e340870b25e7b10b98d779608c02016d5184cfb9927a9f10c689f42"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-win32.whl", hash = "sha256:596510de112c685489095da617b5bcbbac7dd6384aeebeda4df6025d0256a81b"},
-    {file = "MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:e8313f01ba26fbbe36c7be1966a7b7424942f670f38e666995b88d012765b9be"},
     {file = "MarkupSafe-1.1.1.tar.gz", hash = "sha256:29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b"},
 ]
 mccabe = [
@@ -1043,6 +1056,10 @@ six = [
 ]
 sqlalchemy = [
     {file = "SQLAlchemy-1.3.13.tar.gz", hash = "sha256:64a7b71846db6423807e96820993fa12a03b89127d278290ca25c0b11ed7b4fb"},
+]
+sqlalchemy-filters = [
+    {file = "sqlalchemy-filters-0.10.0.tar.gz", hash = "sha256:3b0d4fc39075cd1079e6089ac3165c1930b74fb1804515f109ec80e75fec46c8"},
+    {file = "sqlalchemy_filters-0.10.0-py3-none-any.whl", hash = "sha256:34265e3b4605aae6e7c7fe3082b1de148c6295409f4d34286447f8c195bac699"},
 ]
 sqlalchemy-stubs = [
     {file = "sqlalchemy-stubs-0.3.tar.gz", hash = "sha256:a3318c810697164e8c818aa2d90bac570c1a0e752ced3ec25455b309c0bee8fd"},
