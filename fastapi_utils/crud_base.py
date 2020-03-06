@@ -2,10 +2,10 @@ from decimal import Decimal
 from enum import Enum
 from typing import Dict, Generic, List, Optional, Type, TypeVar, Union
 
-from sqlalchemy.ext.declarative import declarative_base
 from fastapi.encoders import jsonable_encoder
 from fastapi_utils.camelcase import snake2camel
 from pydantic import BaseModel
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 from sqlalchemy_filters import apply_filters, apply_sort
 
