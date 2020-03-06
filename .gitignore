@@ -87,3 +87,4 @@ venv.bak/
 site
 
 .bento/
+.vscode/

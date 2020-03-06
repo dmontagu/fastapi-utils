@@ -1,9 +1,10 @@
 from typing import Dict, Generic, List, TypeVar
 
 from fastapi import Depends, HTTPException
-from fastapi_utils.crud_base import Base, CRUDBase
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+
+from fastapi_utils.crud_base import Base, CRUDBase
 
 ResponseModelType = TypeVar("ResponseModelType", bound=BaseModel)
 ResponseModelManyType = TypeVar("ResponseModelManyType", bound=BaseModel)
