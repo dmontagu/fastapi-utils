@@ -1,4 +1,4 @@
-from typing import Dict, Generic, List, TypeVar
+from typing import Dict, Generic, List, TypeVar, ClassVar, Tuple
 
 from fastapi import Depends, HTTPException
 from pydantic import BaseModel
@@ -13,23 +13,14 @@ UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 IDType = TypeVar("IDType")
 
 
-def get_filter_fields(self) -> List[str]:
-    """This would need to get overridden for each BaseRoute where the filter fields are defined.
-
-    Returns:
-        List[str] -- List of fields to filter by
-    """
-    return []
-
-
-class BaseRoute(Generic[ResponseModelType, ResponseModelManyType, CreateSchemaType, UpdateSchemaType, IDType]):
+class CRUDRoute(Generic[ResponseModelType, ResponseModelManyType, CreateSchemaType, UpdateSchemaType, IDType]):
     """A base route that has the basic CRUD endpoints.
 
     For read_many
 
     """
 
-    filter_fields: List[str] = Depends(get_filter_fields)
+    filter_fields: ClassVar[Tuple[str]] = ()
     crud_base = CRUDBase(Base)  # type: ignore
     db: Session = Depends(None)
     object_name = "Base"
