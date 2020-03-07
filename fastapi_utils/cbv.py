@@ -1,5 +1,5 @@
 import inspect
-from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, get_type_hints
+from typing import Any, Callable, List, Type, TypeVar, Union, get_type_hints
 
 from fastapi import APIRouter, Depends
 from pydantic.typing import is_classvar
@@ -35,25 +35,17 @@ def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
     """
     _init_cbv(cls)
     cbv_router = APIRouter()
-    functions = inspect.getmembers(cls, inspect.isfunction)
-    # Note inspect.getmembers returns results ordered alphabetically
-    # Need to preserve ordering of routes in router to preserve matching logic
-    numbered_routes_by_endpoint = {
-        route.endpoint: (i, route)
-        for i, route in enumerate(router.routes)
-        if isinstance(route, (Route, WebSocketRoute))
-    }
-    routes_to_append: List[Tuple[int, Union[Route, WebSocketRoute]]] = []
-    for _, func in functions:
-        index_route = numbered_routes_by_endpoint.get(func)
-        if index_route is None:
-            continue
-        _, route = index_route
-        routes_to_append.append(index_route)
+    function_members = inspect.getmembers(cls, inspect.isfunction)
+    functions_set = set(func for _, func in function_members)
+    cbv_routes = [
+        route
+        for route in router.routes
+        if isinstance(route, (Route, WebSocketRoute)) and route.endpoint in functions_set
+    ]
+    for route in cbv_routes:
         router.routes.remove(route)
         _update_cbv_route_endpoint_signature(cls, route)
-    routes_to_append.sort(key=lambda x: x[0])
-    cbv_router.routes.extend(route for _, route in routes_to_append)
+        cbv_router.routes.append(route)
     router.include_router(cbv_router)
     return cls
 

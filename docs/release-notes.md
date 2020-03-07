@@ -1,5 +1,9 @@
 ## Latest changes
 
+## 0.2.1
+
+* Fix bug with multiple decorators on same method 
+
 ## 0.2.0
 
 * Make some of the functions/classes in `fastapi_utils.timing` private to clarify the intended public API

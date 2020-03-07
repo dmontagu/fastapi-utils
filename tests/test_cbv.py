@@ -1,4 +1,4 @@
-from typing import ClassVar
+from typing import Any, ClassVar
 
 from fastapi import APIRouter, Depends, FastAPI
 from starlette.testclient import TestClient
@@ -60,3 +60,25 @@ def test_method_order_preserved() -> None:
 
     assert TestClient(app).get("/test").json() == 1
     assert TestClient(app).get("/other").json() == 2
+
+
+def test_multiple_decorators() -> None:
+    router = APIRouter()
+
+    @cbv(router)
+    class RootHandler:
+        @router.get("/items/?")
+        @router.get("/items/{item_path:path}")
+        @router.get("/database/{item_path:path}")
+        def root(self, item_path: str = None, item_query: str = None) -> Any:
+            if item_path:
+                return {"item_path": item_path}
+            if item_query:
+                return {"item_query": item_query}
+            return []
+
+    client = TestClient(router)
+
+    assert client.get("/items").json() == []
+    assert client.get("/items/1").json() == {"item_path": "1"}
+    assert client.get("/database/abc").json() == {"item_path": "abc"}
