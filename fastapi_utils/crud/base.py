@@ -6,13 +6,11 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
-from sqlalchemy_filters import apply_filters, apply_sort
 
 from fastapi_utils.camelcase import snake2camel
+from sqlalchemy_filters import apply_filters, apply_sort
 
-Base = declarative_base()
-
-ModelType = TypeVar("ModelType", bound=Base)
+ModelType = TypeVar("ModelType")
 MultiSchemaType = TypeVar("MultiSchemaType", bound=BaseModel)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
@@ -86,7 +84,7 @@ def get_sort_field(field: str) -> SortField:
     return sort_field
 
 
-def get_sort_fields(sort_string: str, split_character: str = ",") -> List[SortField]:
+def get_sort_fields(sort_string: Optional[str], split_character: str = ",") -> List[SortField]:
     sort_fields = []
     # There could be many sort fields
     if sort_string:
@@ -109,14 +107,14 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def get(self, db_session: Session, id: IDType) -> Optional[ModelType]:
         return db_session.query(self.model).filter(self.model.id == id).first()  # type: ignore
 
-    def get_multi(
+    def get_many(
         self,
         db_session: Session,
         *,
         skip: int = 0,
         limit: int = 100,
-        sort_by: Optional[str] = None,
         filter_by: Optional[Dict[str, str]] = None,
+        sort_by: Optional[str] = None,
     ) -> List[ModelType]:
 
         sort_spec_pydantic = get_sort_fields(sort_by)
@@ -129,7 +127,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         query = apply_filters(query, filter_spec)
         query = apply_sort(query, sort_spec)
 
-        count = query.count()
+        # count = query.count()
         query = query.offset(skip).limit(limit)
 
         return query.all()
