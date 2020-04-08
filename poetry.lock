@@ -349,13 +349,13 @@ description = "A Material Design theme for MkDocs"
 name = "mkdocs-material"
 optional = false
 python-versions = "*"
-version = "4.6.3"
+version = "5.0.1"
 
 [package.dependencies]
 Pygments = ">=2.4"
 markdown = ">=3.2"
-mkdocs = ">=1.0"
-pymdown-extensions = ">=6.3"
+mkdocs = ">=1.1"
+pymdown-extensions = ">=7.0"
 
 [[package]]
 category = "dev"
@@ -500,7 +500,7 @@ description = "Extension pack for Python Markdown."
 name = "pymdown-extensions"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
-version = "6.3"
+version = "7.0"
 
 [package.dependencies]
 Markdown = ">=3.2"
@@ -902,8 +902,8 @@ mkdocs = [
     {file = "mkdocs-1.1.tar.gz", hash = "sha256:9243291392f59e20b655e4e46210233453faf97787c2cf72176510e868143174"},
 ]
 mkdocs-material = [
-    {file = "mkdocs-material-4.6.3.tar.gz", hash = "sha256:1d486635b03f5a2ec87325842f7b10c7ae7daa0eef76b185572eece6a6ea212c"},
-    {file = "mkdocs_material-4.6.3-py2.py3-none-any.whl", hash = "sha256:7f3afa0a09c07d0b89a6a9755fdb00513aee8f0cec3538bb903325c80f66f444"},
+    {file = "mkdocs-material-5.0.1.tar.gz", hash = "sha256:0a3ef09776d8160a1de322065d68cc05672ac47052733665fa405e8c8f263115"},
+    {file = "mkdocs_material-5.0.1-py2.py3-none-any.whl", hash = "sha256:a16b7dbb2704fc911d9705881a66dba15136e1b8c2b818ba08faabfd60192155"},
 ]
 more-itertools = [
     {file = "more-itertools-8.2.0.tar.gz", hash = "sha256:b1ddb932186d8a6ac451e1d95844b382f55e12686d51ca0c68b6f61f2ab7a507"},
@@ -978,8 +978,8 @@ pygments = [
     {file = "Pygments-2.5.2.tar.gz", hash = "sha256:98c8aa5a9f778fcd1026a17361ddaf7330d1b7c62ae97c3bb0ae73e0b9b6b0fe"},
 ]
 pymdown-extensions = [
-    {file = "pymdown-extensions-6.3.tar.gz", hash = "sha256:cb879686a586b22292899771f5e5bc3382808e92aa938f71b550ecdea709419f"},
-    {file = "pymdown_extensions-6.3-py2.py3-none-any.whl", hash = "sha256:66fae2683c7a1dac53184f7de57f51f8dad73f9ead2f453e94e85096cb811335"},
+    {file = "pymdown-extensions-7.0.tar.gz", hash = "sha256:d27a8bc8bb7ecac589e832465dbefe24d7fedd9792636c6d0ac521e5045bedc0"},
+    {file = "pymdown_extensions-7.0-py2.py3-none-any.whl", hash = "sha256:71cbc748789959d4b964fe8dc038f5436779d244399fd5ba3a0bbfe9a0e43b1f"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.6-py2.py3-none-any.whl", hash = "sha256:c342dccb5250c08d45fd6f8b4a559613ca603b57498511740e65cd11a2e7dcec"},
