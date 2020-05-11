@@ -349,13 +349,25 @@ description = "A Material Design theme for MkDocs"
 name = "mkdocs-material"
 optional = false
 python-versions = "*"
-version = "4.6.3"
+version = "5.1.6"
 
 [package.dependencies]
 Pygments = ">=2.4"
 markdown = ">=3.2"
-mkdocs = ">=1.0"
-pymdown-extensions = ">=6.3"
+mkdocs = ">=1.1"
+mkdocs-material-extensions = ">=1.0b1"
+pymdown-extensions = ">=7.0"
+
+[[package]]
+category = "dev"
+description = "Extension pack for Python Markdown."
+name = "mkdocs-material-extensions"
+optional = false
+python-versions = ">=3.5"
+version = "1.0b2"
+
+[package.dependencies]
+mkdocs-material = ">=5.0.0"
 
 [[package]]
 category = "dev"
@@ -500,7 +512,7 @@ description = "Extension pack for Python Markdown."
 name = "pymdown-extensions"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
-version = "6.3"
+version = "7.1"
 
 [package.dependencies]
 Markdown = ">=3.2"
@@ -902,8 +914,12 @@ mkdocs = [
     {file = "mkdocs-1.1.tar.gz", hash = "sha256:9243291392f59e20b655e4e46210233453faf97787c2cf72176510e868143174"},
 ]
 mkdocs-material = [
-    {file = "mkdocs-material-4.6.3.tar.gz", hash = "sha256:1d486635b03f5a2ec87325842f7b10c7ae7daa0eef76b185572eece6a6ea212c"},
-    {file = "mkdocs_material-4.6.3-py2.py3-none-any.whl", hash = "sha256:7f3afa0a09c07d0b89a6a9755fdb00513aee8f0cec3538bb903325c80f66f444"},
+    {file = "mkdocs-material-5.1.6.tar.gz", hash = "sha256:a50180157d0fb539022f8476e3220e45934610fc1d61f54efa6fe266681cb202"},
+    {file = "mkdocs_material-5.1.6-py2.py3-none-any.whl", hash = "sha256:e6678eac0aec6f50ed44042d00a985c4256a3148e1a560914a934de956210e6c"},
+]
+mkdocs-material-extensions = [
+    {file = "mkdocs-material-extensions-1.0b2.tar.gz", hash = "sha256:838580195f3f4d6c937238b1ce81365744348bca8bb2c694028aacf21bfac518"},
+    {file = "mkdocs_material_extensions-1.0b2-py3-none-any.whl", hash = "sha256:f2557ab830c2ecc0306a0741d7d943f7036b5fb167a5a92850ee6a1c9ce51d5a"},
 ]
 more-itertools = [
     {file = "more-itertools-8.2.0.tar.gz", hash = "sha256:b1ddb932186d8a6ac451e1d95844b382f55e12686d51ca0c68b6f61f2ab7a507"},
@@ -978,8 +994,8 @@ pygments = [
     {file = "Pygments-2.5.2.tar.gz", hash = "sha256:98c8aa5a9f778fcd1026a17361ddaf7330d1b7c62ae97c3bb0ae73e0b9b6b0fe"},
 ]
 pymdown-extensions = [
-    {file = "pymdown-extensions-6.3.tar.gz", hash = "sha256:cb879686a586b22292899771f5e5bc3382808e92aa938f71b550ecdea709419f"},
-    {file = "pymdown_extensions-6.3-py2.py3-none-any.whl", hash = "sha256:66fae2683c7a1dac53184f7de57f51f8dad73f9ead2f453e94e85096cb811335"},
+    {file = "pymdown-extensions-7.1.tar.gz", hash = "sha256:5bf93d1ccd8281948cd7c559eb363e59b179b5373478e8a7195cf4b78e3c11b6"},
+    {file = "pymdown_extensions-7.1-py2.py3-none-any.whl", hash = "sha256:8f415b21ee86d80bb2c3676f4478b274d0a8ccb13af672a4c86b9ffd22bd005c"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.6-py2.py3-none-any.whl", hash = "sha256:c342dccb5250c08d45fd6f8b4a559613ca603b57498511740e65cd11a2e7dcec"},
