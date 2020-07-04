@@ -10,7 +10,7 @@ T = TypeVar("T")
 CBV_CLASS_KEY = "__cbv_class__"
 
 
-def cbv(router: APIRouter) -> Callable[[Type[T]], Type[T]]:
+def cbv(router: APIRouter, base_path: str) -> Callable[[Type[T]], Type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
 
@@ -21,14 +21,13 @@ def cbv(router: APIRouter) -> Callable[[Type[T]], Type[T]]:
     For more detail, review the documentation at
     https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/#the-cbv-decorator
     """
-
     def decorator(cls: Type[T]) -> Type[T]:
-        return _cbv(router, cls)
+        return _cbv(router, cls, base_path)
 
     return decorator
 
 
-def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
+def _cbv(router: APIRouter, cls: Type[T], base_path: str) -> Type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.
@@ -36,6 +35,11 @@ def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
     _init_cbv(cls)
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
+    for name, func in function_members:
+        if hasattr(router, name) and not name.startswith('__'):
+            response_model = func.__annotations__['return']
+            api_resource = router.api_route(base_path, methods=[name.capitalize()], response_model=response_model)
+            api_resource(func)
     functions_set = set(func for _, func in function_members)
     cbv_routes = [
         route
