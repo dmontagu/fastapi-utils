@@ -10,7 +10,7 @@ T = TypeVar("T")
 CBV_CLASS_KEY = "__cbv_class__"
 
 
-def cbv(router: APIRouter, base_path: str) -> Callable[[Type[T]], Type[T]]:
+def cbv(router: APIRouter, base_path: str = '') -> Callable[[Type[T]], Type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
 
@@ -35,11 +35,8 @@ def _cbv(router: APIRouter, cls: Type[T], base_path: str) -> Type[T]:
     _init_cbv(cls)
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
-    for name, func in function_members:
-        if hasattr(router, name) and not name.startswith('__'):
-            response_model = func.__annotations__['return']
-            api_resource = router.api_route(base_path, methods=[name.capitalize()], response_model=response_model)
-            api_resource(func)
+    _allocate_routes_by_name(router, base_path, function_members)
+
     functions_set = set(func for _, func in function_members)
     cbv_routes = [
         route
@@ -88,6 +85,18 @@ def _init_cbv(cls: Type[Any]) -> None:
     setattr(cls, "__signature__", new_signature)
     setattr(cls, "__init__", new_init)
     setattr(cls, CBV_CLASS_KEY, True)
+
+
+def _allocate_routes_by_name(router, base_path, function_members):
+    existing_routes_endpoints = [route.endpoint for route in router.routes]
+    for name, func in function_members:
+        if hasattr(router, name) and not name.startswith('__') and not name.endswith('__'):
+            if func not in existing_routes_endpoints:
+                response_model = None
+                if 'return' in func.__annotations__:
+                    response_model = func.__annotations__['return']
+                api_resource = router.api_route(base_path, methods=[name.capitalize()], response_model=response_model)
+                api_resource(func)
 
 
 def _update_cbv_route_endpoint_signature(cls: Type[Any], route: Union[Route, WebSocketRoute]) -> None:
