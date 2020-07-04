@@ -36,6 +36,9 @@ def _cbv(router: APIRouter, cls: Type[T], base_path: str) -> Type[T]:
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
     _allocate_routes_by_name(router, base_path, function_members)
+    router_roles = [(route.path, tuple(route.methods)) for route in router.routes]
+    if len(set(router_roles)) != len(router_roles):
+        raise Exception("An identical route role has been implemented more then once")
 
     functions_set = set(func for _, func in function_members)
     cbv_routes = [
