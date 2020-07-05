@@ -10,7 +10,7 @@ T = TypeVar("T")
 CBV_CLASS_KEY = "__cbv_class__"
 
 
-def cbv(router: APIRouter, base_path: str = '') -> Callable[[Type[T]], Type[T]]:
+def cbv(router: APIRouter, *urls) -> Callable[[Type[T]], Type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
 
@@ -22,12 +22,12 @@ def cbv(router: APIRouter, base_path: str = '') -> Callable[[Type[T]], Type[T]]:
     https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/#the-cbv-decorator
     """
     def decorator(cls: Type[T]) -> Type[T]:
-        return _cbv(router, cls, base_path)
+        return _cbv(router, cls, *urls)
 
     return decorator
 
 
-def _cbv(router: APIRouter, cls: Type[T], base_path: str) -> Type[T]:
+def _cbv(router: APIRouter, cls: Type[T], *urls) -> Type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.
@@ -35,7 +35,8 @@ def _cbv(router: APIRouter, cls: Type[T], base_path: str) -> Type[T]:
     _init_cbv(cls)
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
-    _allocate_routes_by_name(router, base_path, function_members)
+    for url in urls:
+        _allocate_routes_by_name(router, url, function_members)
     router_roles = [(route.path, tuple(route.methods)) for route in router.routes]
     if len(set(router_roles)) != len(router_roles):
         raise Exception("An identical route role has been implemented more then once")
