@@ -1,5 +1,5 @@
 import inspect
-from typing import Any, Callable, List, Type, TypeVar, Union, get_type_hints
+from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, get_type_hints
 
 from fastapi import APIRouter, Depends
 from pydantic.typing import is_classvar
@@ -8,9 +8,11 @@ from starlette.routing import Route, WebSocketRoute
 T = TypeVar("T")
 
 CBV_CLASS_KEY = "__cbv_class__"
+RESOURCE_CLASS_KEY = "__resource__"
+INCLUDE_INIT_PARAMS_KEY = "__include_init_params__"
 
 
-def cbv(router: APIRouter, *urls) -> Callable[[Type[T]], Type[T]]:
+def cbv(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
 
@@ -21,37 +23,22 @@ def cbv(router: APIRouter, *urls) -> Callable[[Type[T]], Type[T]]:
     For more detail, review the documentation at
     https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/#the-cbv-decorator
     """
+
     def decorator(cls: Type[T]) -> Type[T]:
+        # Define cls as cbv class exclusively when using the decorator
+        setattr(cls, CBV_CLASS_KEY, True)
         return _cbv(router, cls, *urls)
 
     return decorator
 
 
-def _cbv(router: APIRouter, cls: Type[T], *urls) -> Type[T]:
+def _cbv(router: APIRouter, cls: Type[T], *urls: str) -> Type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.
     """
     _init_cbv(cls)
-    cbv_router = APIRouter()
-    function_members = inspect.getmembers(cls, inspect.isfunction)
-    for url in urls:
-        _allocate_routes_by_name(router, url, function_members)
-    router_roles = [(route.path, tuple(route.methods)) for route in router.routes]
-    if len(set(router_roles)) != len(router_roles):
-        raise Exception("An identical route role has been implemented more then once")
-
-    functions_set = set(func for _, func in function_members)
-    cbv_routes = [
-        route
-        for route in router.routes
-        if isinstance(route, (Route, WebSocketRoute)) and route.endpoint in functions_set
-    ]
-    for route in cbv_routes:
-        router.routes.remove(route)
-        _update_cbv_route_endpoint_signature(cls, route)
-        cbv_router.routes.append(route)
-    router.include_router(cbv_router)
+    _register_endpoints(router, cls, *urls)
     return cls
 
 
@@ -88,17 +75,40 @@ def _init_cbv(cls: Type[Any]) -> None:
 
     setattr(cls, "__signature__", new_signature)
     setattr(cls, "__init__", new_init)
-    setattr(cls, CBV_CLASS_KEY, True)
 
 
-def _allocate_routes_by_name(router, base_path, function_members):
+def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
+    cbv_router = APIRouter()
+    function_members = inspect.getmembers(cls, inspect.isfunction)
+    for url in urls:
+        _allocate_routes_by_method_name(router, url, function_members)
+    router_roles = [(route.path, tuple(route.methods)) for route in router.routes]
+    if len(set(router_roles)) != len(router_roles):
+        raise Exception("An identical route role has been implemented more then once")
+
+    functions_set = set(func for _, func in function_members)
+    cbv_routes = [
+        route
+        for route in router.routes
+        if isinstance(route, (Route, WebSocketRoute)) and route.endpoint in functions_set
+    ]
+    for route in cbv_routes:
+        router.routes.remove(route)
+        _update_cbv_route_endpoint_signature(cls, route)
+        cbv_router.routes.append(route)
+    router.include_router(cbv_router)
+
+
+def _allocate_routes_by_method_name(
+    router: APIRouter, base_path: str, function_members: List[Tuple[str, Callable[[Type[T]], Any]]]
+) -> None:
     existing_routes_endpoints = [route.endpoint for route in router.routes]
     for name, func in function_members:
-        if hasattr(router, name) and not name.startswith('__') and not name.endswith('__'):
+        if hasattr(router, name) and not name.startswith("__") and not name.endswith("__"):
             if func not in existing_routes_endpoints:
                 response_model = None
-                if 'return' in func.__annotations__:
-                    response_model = func.__annotations__['return']
+                if "return" in func.__annotations__:
+                    response_model = func.__annotations__["return"]
                 api_resource = router.api_route(base_path, methods=[name.capitalize()], response_model=response_model)
                 api_resource(func)
 
@@ -110,10 +120,11 @@ def _update_cbv_route_endpoint_signature(cls: Type[Any], route: Union[Route, Web
     old_endpoint = route.endpoint
     old_signature = inspect.signature(old_endpoint)
     old_parameters: List[inspect.Parameter] = list(old_signature.parameters.values())
-    old_first_parameter = old_parameters[0]
-    new_first_parameter = old_first_parameter.replace(default=Depends(cls))
-    new_parameters = [new_first_parameter] + [
-        parameter.replace(kind=inspect.Parameter.KEYWORD_ONLY) for parameter in old_parameters[1:]
-    ]
+    new_parameters = []
+    if hasattr(cls, CBV_CLASS_KEY) or hasattr(cls, RESOURCE_CLASS_KEY) and getattr(cls, INCLUDE_INIT_PARAMS_KEY):
+        old_first_parameter = old_parameters[0]
+        new_first_parameter = old_first_parameter.replace(default=Depends(cls))
+        new_parameters.append(new_first_parameter)
+    new_parameters += [parameter.replace(kind=inspect.Parameter.KEYWORD_ONLY) for parameter in old_parameters[1:]]
     new_signature = old_signature.replace(parameters=new_parameters)
     setattr(route.endpoint, "__signature__", new_signature)
