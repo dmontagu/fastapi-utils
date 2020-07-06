@@ -8,7 +8,6 @@ from starlette.routing import Route, WebSocketRoute
 T = TypeVar("T")
 
 CBV_CLASS_KEY = "__cbv_class__"
-RESOURCE_CLASS_KEY = "__resource__"
 INCLUDE_INIT_PARAMS_KEY = "__include_init_params__"
 
 
@@ -26,23 +25,22 @@ def cbv(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
 
     def decorator(cls: Type[T]) -> Type[T]:
         # Define cls as cbv class exclusively when using the decorator
-        setattr(cls, CBV_CLASS_KEY, True)
         return _cbv(router, cls, *urls)
 
     return decorator
 
 
-def _cbv(router: APIRouter, cls: Type[T], *urls: str) -> Type[T]:
+def _cbv(router: APIRouter, cls: Type[T], *urls: str, instance: Any = None) -> Type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.
     """
-    _init_cbv(cls)
+    _init_cbv(cls, instance)
     _register_endpoints(router, cls, *urls)
     return cls
 
 
-def _init_cbv(cls: Type[Any]) -> None:
+def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
     """
     Idempotently modifies the provided `cls`, performing the following modifications:
     * The `__init__` function is updated to set any class-annotated dependencies as instance attributes
@@ -56,6 +54,7 @@ def _init_cbv(cls: Type[Any]) -> None:
     new_parameters = [
         x for x in old_parameters if x.kind not in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD)
     ]
+
     dependency_names: List[str] = []
     for name, hint in get_type_hints(cls).items():
         if is_classvar(hint):
@@ -65,16 +64,26 @@ def _init_cbv(cls: Type[Any]) -> None:
         new_parameters.append(
             inspect.Parameter(name=name, kind=inspect.Parameter.KEYWORD_ONLY, annotation=hint, **parameter_kwargs)
         )
-    new_signature = old_signature.replace(parameters=new_parameters)
+    new_signature = inspect.Signature(())
+    recovered_args = []
+    if instance:
+        for item in new_parameters:
+            recovered_args.append(getattr(instance, str(item)))
+    else:
+        new_signature = old_signature.replace(parameters=new_parameters)
 
     def new_init(self: Any, *args: Any, **kwargs: Any) -> None:
         for dep_name in dependency_names:
             dep_value = kwargs.pop(dep_name)
             setattr(self, dep_name, dep_value)
-        old_init(self, *args, **kwargs)
+        if instance:
+            old_init(self, *recovered_args)
+        else:
+            old_init(self, *args, **kwargs)
 
     setattr(cls, "__signature__", new_signature)
     setattr(cls, "__init__", new_init)
+    setattr(cls, CBV_CLASS_KEY, True)
 
 
 def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
@@ -100,7 +109,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
 
 
 def _allocate_routes_by_method_name(
-    router: APIRouter, base_path: str, function_members: List[Tuple[str, Callable[[Type[T]], Any]]]
+    router: APIRouter, base_path: str, function_members: List[Tuple[str, Any]]
 ) -> None:
     existing_routes_endpoints = [route.endpoint for route in router.routes]
     for name, func in function_members:
@@ -120,11 +129,11 @@ def _update_cbv_route_endpoint_signature(cls: Type[Any], route: Union[Route, Web
     old_endpoint = route.endpoint
     old_signature = inspect.signature(old_endpoint)
     old_parameters: List[inspect.Parameter] = list(old_signature.parameters.values())
-    new_parameters = []
-    if hasattr(cls, CBV_CLASS_KEY) or hasattr(cls, RESOURCE_CLASS_KEY) and getattr(cls, INCLUDE_INIT_PARAMS_KEY):
-        old_first_parameter = old_parameters[0]
-        new_first_parameter = old_first_parameter.replace(default=Depends(cls))
-        new_parameters.append(new_first_parameter)
-    new_parameters += [parameter.replace(kind=inspect.Parameter.KEYWORD_ONLY) for parameter in old_parameters[1:]]
+    old_first_parameter = old_parameters[0]
+    new_first_parameter = old_first_parameter.replace(default=Depends(cls))
+    new_parameters = [new_first_parameter] + [
+        parameter.replace(kind=inspect.Parameter.KEYWORD_ONLY) for parameter in old_parameters[1:]
+    ]
+
     new_signature = old_signature.replace(parameters=new_parameters)
     setattr(route.endpoint, "__signature__", new_signature)
