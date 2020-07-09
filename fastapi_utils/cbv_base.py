@@ -17,3 +17,7 @@ class Api:
         _cbv(router, type(resource), *urls, instance=resource)
         self.app.include_router(router)
 
+
+def take_init_parameters(cls):
+    setattr(cls, INCLUDE_INIT_PARAMS_KEY, True)
+    return cls
