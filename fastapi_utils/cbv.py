@@ -65,19 +65,16 @@ def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
             inspect.Parameter(name=name, kind=inspect.Parameter.KEYWORD_ONLY, annotation=hint, **parameter_kwargs)
         )
     new_signature = inspect.Signature(())
-    recovered_args = []
-    if instance:
-        for item in new_parameters:
-            recovered_args.append(getattr(instance, str(item)))
-    else:
+    if not instance or hasattr(cls, INCLUDE_INIT_PARAMS_KEY):
         new_signature = old_signature.replace(parameters=new_parameters)
 
     def new_init(self: Any, *args: Any, **kwargs: Any) -> None:
         for dep_name in dependency_names:
             dep_value = kwargs.pop(dep_name)
             setattr(self, dep_name, dep_value)
-        if instance:
-            old_init(self, *recovered_args)
+        if instance and not hasattr(cls, INCLUDE_INIT_PARAMS_KEY):
+            self.__class__ = instance.__class__
+            self.__dict__ = instance.__dict__
         else:
             old_init(self, *args, **kwargs)
 
