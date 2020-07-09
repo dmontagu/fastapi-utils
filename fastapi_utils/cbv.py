@@ -107,12 +107,12 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
 
 
 def _allocate_routes_by_method_name(
-    router: APIRouter, base_path: str, function_members: List[Tuple[str, Any]]
+    router: APIRouter, url: str, function_members: List[Tuple[str, Any]]
 ) -> None:
-    existing_routes_endpoints = [route.endpoint for route in router.routes]
+    existing_routes_endpoints = [(route.endpoint, route.path) for route in router.routes]
     for name, func in function_members:
         if hasattr(router, name) and not name.startswith("__") and not name.endswith("__"):
-            if func not in existing_routes_endpoints:
+            if (func, url) not in existing_routes_endpoints:
                 response_model = None
                 responses = None
                 status_code = 200
@@ -121,7 +121,7 @@ def _allocate_routes_by_method_name(
                     response_model, status_code, responses = return_types_func()
 
                 api_resource = router.api_route(
-                    base_path,
+                    url,
                     methods=[name.capitalize()],
                     response_model=response_model,
                     status_code=status_code,
