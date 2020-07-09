@@ -9,6 +9,7 @@ T = TypeVar("T")
 
 CBV_CLASS_KEY = "__cbv_class__"
 INCLUDE_INIT_PARAMS_KEY = "__include_init_params__"
+RETURN_TYPES_FUNC_KEY = "__return_types_func__"
 
 
 def cbv(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
@@ -113,9 +114,19 @@ def _allocate_routes_by_method_name(
         if hasattr(router, name) and not name.startswith("__") and not name.endswith("__"):
             if func not in existing_routes_endpoints:
                 response_model = None
-                if "return" in func.__annotations__:
-                    response_model = func.__annotations__["return"]
-                api_resource = router.api_route(base_path, methods=[name.capitalize()], response_model=response_model)
+                responses = None
+                status_code = 200
+                return_types_func = getattr(func, RETURN_TYPES_FUNC_KEY, None)
+                if return_types_func:
+                    response_model, status_code, responses = return_types_func()
+
+                api_resource = router.api_route(
+                    base_path,
+                    methods=[name.capitalize()],
+                    response_model=response_model,
+                    status_code=status_code,
+                    responses=responses
+                )
                 api_resource(func)
 
 
