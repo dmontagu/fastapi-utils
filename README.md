@@ -38,6 +38,7 @@ But if you're here, you probably already knew that!
 
 This package includes a number of utilities to help reduce boilerplate and reuse common functionality across projects:
 
+* **Resource Class**: Create CRUD with ease the OOP way with `Resource` base class that lets you implement methods quick.
 * **Class Based Views**: Stop repeating the same dependencies over and over in the signature of related endpoints.
 * **Response-Model Inferring Router**: Let FastAPI infer the `response_model` to use based on your return type annotation. 
 * **Repeated Tasks**: Easily trigger periodic tasks on server startup
