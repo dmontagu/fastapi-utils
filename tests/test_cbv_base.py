@@ -1,3 +1,5 @@
+from typing import Any, Dict, List, Union
+
 from fastapi import FastAPI
 from starlette.testclient import TestClient
 
@@ -12,12 +14,12 @@ def test_cbv() -> None:
             self.z = z
 
         @set_responses(int)
-        def post(self, x: int):
+        def post(self, x: int) -> int:
             print(x)
             return x + self.y + self.z
 
         @set_responses(bool)
-        def get(self):
+        def get(self) -> bool:
             return hasattr(self, "cy")
 
     app = FastAPI()
@@ -38,7 +40,7 @@ def test_cbv() -> None:
 def test_arg_in_path() -> None:
     class TestCBV(Resource):
         @set_responses(str)
-        def get(self, item_id: str):
+        def get(self, item_id: str) -> str:
             return item_id
 
     app = FastAPI()
@@ -52,7 +54,7 @@ def test_arg_in_path() -> None:
 
 def test_multiple_routes() -> None:
     class RootHandler(Resource):
-        def get(self, item_path: str = None):
+        def get(self, item_path: str = None) -> Union[List[Any], Dict[str, str]]:
             if item_path:
                 return {"item_path": item_path}
             return []

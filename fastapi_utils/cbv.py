@@ -1,7 +1,8 @@
 import inspect
-from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, get_type_hints
+from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, cast, get_type_hints
 
 from fastapi import APIRouter, Depends
+from fastapi.routing import APIRoute
 from pydantic.typing import is_classvar
 from starlette.routing import Route, WebSocketRoute
 
@@ -89,7 +90,13 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     function_members = inspect.getmembers(cls, inspect.isfunction)
     for url in urls:
         _allocate_routes_by_method_name(router, url, function_members)
-    router_roles = [(route.path, tuple(route.methods)) for route in router.routes]
+    router_roles = []
+    for route in router.routes:
+        assert isinstance(route, APIRoute)
+        route_methods: Any = route.methods
+        cast(Tuple[Any], route_methods)
+        router_roles.append((route.path, tuple(route_methods)))
+
     if len(set(router_roles)) != len(router_roles):
         raise Exception("An identical route role has been implemented more then once")
 
@@ -107,7 +114,9 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
 
 
 def _allocate_routes_by_method_name(router: APIRouter, url: str, function_members: List[Tuple[str, Any]]) -> None:
-    existing_routes_endpoints = [(route.endpoint, route.path) for route in router.routes]
+    existing_routes_endpoints: List[Tuple[Any, str]] = [
+        (route.endpoint, route.path) for route in router.routes if isinstance(route, APIRoute)
+    ]
     for name, func in function_members:
         if hasattr(router, name) and not name.startswith("__") and not name.endswith("__"):
             if (func, url) not in existing_routes_endpoints:
