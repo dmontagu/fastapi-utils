@@ -62,7 +62,7 @@ This package is intended for use with any recent version of FastAPI (depending o
 ## Installation
 
 ```bash
-pip install fastapi-utils
+pip install fastapi-restful
 ```
 
 ## License

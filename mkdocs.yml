@@ -1,6 +1,6 @@
-site_name: FastAPI Utilities
-site_description: FastAPI utilities
-site_url: https://fastapi-utils.davidmontague.xyz/
+site_name: FastAPI RESTful
+site_description: FastAPI RESTful
+site_url: https://fastapi-restful.netlify.app/
 
 theme:
   name: 'material'
@@ -10,8 +10,8 @@ theme:
   logo: 'img/icon-white.svg'
   favicon: 'img/favicon.png'
 
-repo_name: dmontagu/fastapi-utils
-repo_url: https://github.com/dmontagu/fastapi-utils
+repo_name: yuval9313/fastapi-utils
+repo_url: https://github.com/yuval9313/fastapi-utils
 
 #google_analytics:
 #    - 'UA-133183413-1'
@@ -20,6 +20,7 @@ repo_url: https://github.com/dmontagu/fastapi-utils
 nav:
   - FastAPI Utilities: 'index.md'
   - User Guide:
+      - Class Resource: 'user-guide/class-resource.md'
       - Class Based Views: 'user-guide/class-based-views.md'
       - Inferring Router: 'user-guide/inferring-router.md'
       - Repeated Tasks: 'user-guide/repeated-tasks.md'
@@ -52,11 +53,7 @@ markdown_extensions:
 extra:
   social:
     - type: 'github'
-      link: 'https://github.com/dmontagu/fastapi-utils'
-    - type: 'linkedin'
-      link: 'https://www.linkedin.com/in/david-montague/'
-    - type: 'globe'
-      link: 'https://davidmontague.xyz'
+      link: 'https://github.com/yuval9313/fastapi-utils'
 
 extra_css:
   - 'css/custom.css'
