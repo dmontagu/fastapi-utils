@@ -1,10 +1,10 @@
 import inspect
-from typing import Any, Callable, List, Type, TypeVar, Union, get_type_hints, cast, Tuple, Optional, Set, Iterable
+from typing import Any, Callable, Iterable, List, Tuple, Type, TypeVar, Union, cast, get_type_hints
 
 from fastapi import APIRouter, Depends
 from fastapi.routing import APIRoute
 from pydantic.typing import is_classvar
-from starlette.routing import Route, WebSocketRoute, BaseRoute
+from starlette.routing import Route, WebSocketRoute
 
 T = TypeVar("T")
 
