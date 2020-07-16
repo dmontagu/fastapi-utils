@@ -1,17 +1,18 @@
 [tool.poetry]
-name = "fastapi-utils"
-version = "0.2.1"
-description = "Reusable utilities for FastAPI"
+name = "FastApi-RESTful"
+version = "0.2.3"
+description = "Quicker FastApi developing tools"
 license = "MIT"
-authors = ["David Montague <davwmont@gmail.com>"]
+authors = ["Yuval Levi"]
 readme = "README.md"
-homepage = "https://fastapi-utils.davidmontague.xyz"
-repository = "https://github.com/dmontagu/fastapi-utils"
-documentation = "https://fastapi-utils.davidmontague.xyz"
-keywords = ["fastapi", "utilities", "utils"]
+homepage = "https://fastapi-restful.netlify.app"
+repository = "https://github.com/yuval9313/fastapi-utils"
+documentation = "https://fastapi-restful.netlify.app"
+keywords = ["fastapi", "OOP", "RESTful"]
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python",
