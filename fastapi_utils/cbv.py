@@ -106,9 +106,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     router.include_router(cbv_router)
 
 
-def _allocate_routes_by_method_name(
-    router: APIRouter, url: str, function_members: List[Tuple[str, Any]]
-) -> None:
+def _allocate_routes_by_method_name(router: APIRouter, url: str, function_members: List[Tuple[str, Any]]) -> None:
     existing_routes_endpoints = [(route.endpoint, route.path) for route in router.routes]
     for name, func in function_members:
         if hasattr(router, name) and not name.startswith("__") and not name.endswith("__"):
@@ -125,7 +123,7 @@ def _allocate_routes_by_method_name(
                     methods=[name.capitalize()],
                     response_model=response_model,
                     status_code=status_code,
-                    responses=responses
+                    responses=responses,
                 )
                 api_resource(func)
 

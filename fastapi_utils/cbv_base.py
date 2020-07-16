@@ -1,7 +1,6 @@
-from functools import partial, wraps
 from fastapi import APIRouter, FastAPI
 
-from fastapi_utils.cbv import _cbv, INCLUDE_INIT_PARAMS_KEY, RETURN_TYPES_FUNC_KEY
+from fastapi_utils.cbv import INCLUDE_INIT_PARAMS_KEY, RETURN_TYPES_FUNC_KEY, _cbv
 
 
 class Resource:
@@ -26,10 +25,10 @@ def take_init_parameters(cls):
 
 def set_responses(response, status_code=200, responses=None):
     def decorator(func):
-
         def get_responses():
             return response, status_code, responses
 
         setattr(func, RETURN_TYPES_FUNC_KEY, get_responses)
         return func
+
     return decorator
