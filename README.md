@@ -1,25 +1,25 @@
 <p align="center">
-    <em>Reusable utilities for FastAPI</em>
+    <em>Quicker FastApi developing tools</em>
 </p>
 <p align="center">
 <img src="https://img.shields.io/github/last-commit/yuval9313/fastapi-utils.svg">
 <a href="https://github.com/yuval9313/fastapi-utils" target="_blank">
 </a>
-<a href="https://app.netlify.com/sites/trusting-archimedes-72b369/deploys">
+<a href="https://fastapi-restful.netlify.app">
     <img src="https://img.shields.io/netlify/28b2a077-65b1-4d6c-9dba-13aaf6059877" alt="Netlify status">
 </a>
 <br />
-<a href="https://pypi.org/project/fastapi-utils" target="_blank">
-    <img src="https://badge.fury.io/py/fastapi-utils.svg" alt="Package version">
+<a href="https://pypi.org/project/FastApi-RESTful" target="_blank">
+    <img src="https://badge.fury.io/py/fastapi-RESTful.svg" alt="Package version">
 </a>
-    <img src="https://img.shields.io/pypi/pyversions/fastapi-utils.svg">
-    <img src="https://img.shields.io/github/license/dmontagu/fastapi-utils.svg">
+    <img src="https://img.shields.io/pypi/pyversions/FastApi-RESTful.svg">
+    <img src="https://img.shields.io/github/license/yuval9313/fastapi-utils.svg">
 </p>
 
 ---
 
 Based on:
-**Documentation**: <a href="https://fastapi-utils.davidmontague.xyz" target="_blank">https://fastapi-utils.davidmontague.xyz</a>
+**Documentation**: <a href="https://fastapi-restful.netlify.app" target="_blank">https://fastapi-utils.davidmontague.xyz</a>
 
 **Source Code**: <a href="https://github.com/yuval9313/fastapi-utils" target="_blank">https://github.com/yuval9313/fastapi-utils</a>
 
@@ -53,7 +53,7 @@ It also adds a variety of more basic utilities that are useful across a wide var
 * **CamelCase Conversions**: Convenience functions for converting strings from `snake_case` to `camelCase` or `PascalCase` and back
 * **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables
 
-See the [docs](https://fastapi-utils.davidmontague.xyz/) for more details and examples. 
+See the [docs](https://5f10b0e61c052e01e643583d--confident-brahmagupta-e76519.netlify.app/) for more details and examples. 
 
 ## Requirements
 

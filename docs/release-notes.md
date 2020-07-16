@@ -1,5 +1,10 @@
 ## Latest changes
 
+## 0.2.2
+
+* Add `Resorce` classes for more OOP like designing
+* Methods are now can be used as class names
+
 ## 0.2.1
 
 * Fix bug with multiple decorators on same method 
