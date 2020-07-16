@@ -2,12 +2,8 @@
     <em>Reusable utilities for FastAPI</em>
 </p>
 <p align="center">
-<img src="https://img.shields.io/github/last-commit/dmontagu/fastapi-utils.svg">
-<a href="https://github.com/dmontagu/fastapi-utils" target="_blank">
-    <img src="https://github.com/dmontagu/fastapi-utils/workflows/build/badge.svg" alt="Build">
-</a>
-<a href="https://codecov.io/gh/dmontagu/fastapi-utils" target="_blank">
-    <img src="https://codecov.io/gh/dmontagu/fastapi-utils/branch/master/graph/badge.svg" alt="Coverage">
+<img src="https://img.shields.io/github/last-commit/yuval9313/fastapi-utils.svg">
+<a href="https://github.com/yuval9313/fastapi-utils" target="_blank">
 </a>
 <a href="https://app.netlify.com/sites/trusting-archimedes-72b369/deploys">
     <img src="https://img.shields.io/netlify/28b2a077-65b1-4d6c-9dba-13aaf6059877" alt="Netlify status">
@@ -22,9 +18,10 @@
 
 ---
 
+Based on:
 **Documentation**: <a href="https://fastapi-utils.davidmontague.xyz" target="_blank">https://fastapi-utils.davidmontague.xyz</a>
 
-**Source Code**: <a href="https://github.com/dmontagu/fastapi-utils" target="_blank">https://github.com/dmontagu/fastapi-utils</a>
+**Source Code**: <a href="https://github.com/yuval9313/fastapi-utils" target="_blank">https://github.com/yuval9313/fastapi-utils</a>
 
 ---
 
