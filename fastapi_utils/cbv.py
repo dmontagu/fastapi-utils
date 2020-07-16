@@ -95,10 +95,7 @@ def _allocate_routes_by_name(router, base_path, function_members):
     for name, func in function_members:
         if hasattr(router, name) and not name.startswith('__') and not name.endswith('__'):
             if func not in existing_routes_endpoints:
-                response_model = None
-                if 'return' in func.__annotations__:
-                    response_model = func.__annotations__['return']
-                api_resource = router.api_route(base_path, methods=[name.capitalize()], response_model=response_model)
+                api_resource = router.api_route(base_path, methods=[name.capitalize()])
                 api_resource(func)
 
 
