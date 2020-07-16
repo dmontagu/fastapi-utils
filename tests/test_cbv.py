@@ -12,7 +12,7 @@ def test_cbv() -> None:
     def dependency() -> int:
         return 1
 
-    @cbv(router)
+    @cbv(router, base_path="/test")
     class CBV:
         x: int = Depends(dependency)
         cx: ClassVar[int] = 1
@@ -30,6 +30,9 @@ def test_cbv() -> None:
         def g(self) -> bool:
             return hasattr(self, "cy")
 
+        def get(self) -> int:
+            return self.y
+
     app = FastAPI()
     app.include_router(router)
     client = TestClient(app)
@@ -41,11 +44,15 @@ def test_cbv() -> None:
     assert response_2.status_code == 200
     assert response_2.content == b"false"
 
+    response_3 = client.get("/test")
+    assert response_3.status_code == 200
+    assert response_3.content == b"1"
+
 
 def test_method_order_preserved() -> None:
     router = APIRouter()
 
-    @cbv(router)
+    @cbv(router, base_path="/{item}")
     class TestCBV:
         @router.get("/test")
         def get_test(self) -> int:
