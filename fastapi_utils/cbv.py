@@ -1,16 +1,17 @@
 import inspect
-from typing import Any, Callable, List, Type, TypeVar, Union, get_type_hints
+from typing import Any, Callable, List, Type, TypeVar, Union, get_type_hints, cast, Tuple, Optional, Set, Iterable
 
 from fastapi import APIRouter, Depends
+from fastapi.routing import APIRoute
 from pydantic.typing import is_classvar
-from starlette.routing import Route, WebSocketRoute
+from starlette.routing import Route, WebSocketRoute, BaseRoute
 
 T = TypeVar("T")
 
 CBV_CLASS_KEY = "__cbv_class__"
 
 
-def cbv(router: APIRouter, base_path: str = '') -> Callable[[Type[T]], Type[T]]:
+def cbv(router: APIRouter, base_path: str = "") -> Callable[[Type[T]], Type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
 
@@ -21,6 +22,7 @@ def cbv(router: APIRouter, base_path: str = '') -> Callable[[Type[T]], Type[T]]:
     For more detail, review the documentation at
     https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/#the-cbv-decorator
     """
+
     def decorator(cls: Type[T]) -> Type[T]:
         return _cbv(router, cls, base_path)
 
@@ -36,7 +38,14 @@ def _cbv(router: APIRouter, cls: Type[T], base_path: str) -> Type[T]:
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
     _allocate_routes_by_name(router, base_path, function_members)
-    router_roles = [(route.path, tuple(route.methods)) for route in router.routes]
+    router_roles: List[Tuple[str, Tuple[str, ...]]] = []
+    # Can be '[(route.path, tuple(route.methods)) for route in router.routes]' but blocked by mypy
+    for route in router.routes:
+        assert isinstance(route, APIRoute)  # This is required! to make mypy happy
+        route_methods: Any = route.methods  # also this! to make mypy happy
+        cast(Iterable[str], route_methods)  # and this! to make mypy happy
+        router_roles.append((route.path, tuple(route_methods)))
+
     if len(set(router_roles)) != len(router_roles):
         raise Exception("An identical route role has been implemented more then once")
 
@@ -90,10 +99,13 @@ def _init_cbv(cls: Type[Any]) -> None:
     setattr(cls, CBV_CLASS_KEY, True)
 
 
-def _allocate_routes_by_name(router, base_path, function_members):
-    existing_routes_endpoints = [route.endpoint for route in router.routes]
+def _allocate_routes_by_name(router: APIRouter, base_path: str, function_members: List[Tuple[str, Any]]) -> None:
+    existing_routes_endpoints = []
+    for route in router.routes:
+        assert isinstance(route, APIRoute)
+        existing_routes_endpoints.append(route.endpoint)
     for name, func in function_members:
-        if hasattr(router, name) and not name.startswith('__') and not name.endswith('__'):
+        if hasattr(router, name) and not name.startswith("__") and not name.endswith("__"):
             if func not in existing_routes_endpoints:
                 api_resource = router.api_route(base_path, methods=[name.capitalize()])
                 api_resource(func)
