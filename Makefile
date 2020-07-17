@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
-pkg_src = FastApi_RESTful
+pkg_src = fastapi_restful
 tests_src = tests
 docs_src = docs/src
 all_src = $(pkg_src) $(tests_src)
@@ -12,7 +12,7 @@ black = black $(all_src)
 flake8 = flake8 $(all_src)
 mypy_base = mypy --show-error-codes
 mypy = $(mypy_base) $(all_src)
-test = pytest --cov=fastapi_utils
+test = pytest --cov=$(pkg_src)
 
 .PHONY: all  ## Run the most common rules used during development
 all: static test
