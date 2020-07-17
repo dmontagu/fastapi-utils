@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
-pkg_src = fastapi_utils
+pkg_src = FastApi_RESTful
 tests_src = tests
 docs_src = docs/src
 all_src = $(pkg_src) $(tests_src)
