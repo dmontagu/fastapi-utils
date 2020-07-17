@@ -2,11 +2,10 @@ import asyncio
 import logging
 
 from fastapi import FastAPI
+from fastapi_restful.timing import add_timing_middleware, record_timing
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.testclient import TestClient
-
-from fastapi_utils.timing import add_timing_middleware, record_timing
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

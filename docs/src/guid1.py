@@ -1,7 +1,6 @@
 import sqlalchemy as sa
+from fastapi_restful.guid_type import GUID
 from sqlalchemy.ext.declarative import declarative_base
-
-from fastapi_utils.guid_type import GUID
 
 Base = declarative_base()
 

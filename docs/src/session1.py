@@ -4,12 +4,11 @@ from uuid import UUID
 
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
+from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
+from fastapi_restful.session import FastAPISessionMaker
 from pydantic import BaseSettings
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
-
-from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
-from fastapi_utils.session import FastAPISessionMaker
 
 Base = declarative_base()
 

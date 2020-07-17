@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-
-from fastapi_utils.inferring_router import InferringRouter
+from fastapi_restful.inferring_router import InferringRouter
 
 app = FastAPI()
 

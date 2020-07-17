@@ -1,6 +1,5 @@
+from fastapi_restful import Resource, set_responses
 from pydantic import BaseModel
-
-from fastapi_utils import Resource, set_responses
 
 
 # Setup
@@ -11,6 +10,7 @@ class ResponseModel(BaseModel):
 class NotFoundModel(BaseModel):
     IsFound: bool
 
+
 # Setup end
 
 
@@ -20,8 +20,8 @@ class MyApi(Resource):
 
     @set_responses(ResponseModel)
     def get(self):
-        return 'done'
+        return "done"
 
     @set_responses(ResponseModel, 201, {404: NotFoundModel})
     def post(self):
-        return 'Done again'
+        return "Done again"

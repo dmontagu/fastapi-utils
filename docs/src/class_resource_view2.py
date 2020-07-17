@@ -1,7 +1,7 @@
 from fastapi import FastAPI
+from fastapi_restful import Api
 
 from docs.src.class_resource_view1 import MyApi
-from fastapi_utils import Api
 
 
 def main():
@@ -9,8 +9,8 @@ def main():
     api = Api(app)
 
     myapi = MyApi()
-    api.add_resource(myapi, '/uri')
+    api.add_resource(myapi, "/uri")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
