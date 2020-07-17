@@ -1,5 +1,14 @@
 ## Latest changes
 
+## 0.2.4.1
+
+* Another docs fixes
+* Rename package folder to small casing to ease imports
+
+## 0.2.4
+
+* Mostly docs fixes
+
 ## 0.2.2
 
 * Add `Resorce` classes for more OOP like designing
