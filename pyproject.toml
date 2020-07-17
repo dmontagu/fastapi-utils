@@ -44,6 +44,7 @@ sqlalchemy = "^1.3.12"
 
 [tool.poetry.dev-dependencies]
 # Starlette features
+wheel = "*"
 aiofiles = "*"  # Serving static files
 requests = "*"  # TestClient
 
