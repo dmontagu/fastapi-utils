@@ -1,6 +1,6 @@
 from enum import Enum
 
-from fastapi_utils.camelcase import snake2camel
+from .camelcase import snake2camel
 
 
 class StrEnum(str, Enum):
