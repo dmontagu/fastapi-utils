@@ -1,6 +1,6 @@
 from enum import auto
 
-from fastapi_utils.enums import CamelStrEnum, StrEnum
+from fastapi_restful.enums import CamelStrEnum, StrEnum
 
 
 def test_str_enum() -> None:

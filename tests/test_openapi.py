@@ -1,7 +1,6 @@
 import pytest
 from fastapi import FastAPI
-
-from fastapi_utils.openapi import simplify_operation_ids
+from fastapi_restful.openapi import simplify_operation_ids
 
 
 @pytest.fixture

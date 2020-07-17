@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from fastapi_utils.api_model import APIModel
+from fastapi_restful.api_model import APIModel
 
 
 def test_orm_mode() -> None:
