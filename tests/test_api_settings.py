@@ -1,9 +1,10 @@
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
 from fastapi import FastAPI
-from fastapi_restful.api_settings import get_api_settings
 from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from starlette.testclient import TestClient
+
+from fastapi_restful.api_settings import get_api_settings
 
 
 def get_app() -> FastAPI:

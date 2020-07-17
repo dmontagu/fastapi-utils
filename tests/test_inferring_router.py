@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from fastapi_restful.inferring_router import InferringRouter
 
 openapi_spec = {

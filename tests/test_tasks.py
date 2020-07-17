@@ -7,6 +7,7 @@ from typing import Any, Dict, List, NoReturn, Tuple
 import pytest
 from _pytest.capture import CaptureFixture
 from _pytest.logging import LogCaptureFixture
+
 from fastapi_restful.tasks import repeat_every
 
 logging.basicConfig(level=logging.INFO)

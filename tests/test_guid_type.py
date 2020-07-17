@@ -1,9 +1,9 @@
 import uuid
 
 from fastapi import FastAPI
-from fastapi_restful.session import context_session
 from starlette.testclient import TestClient
 
+from fastapi_restful.session import context_session
 from tests.conftest import User, session_maker
 
 

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from fastapi_restful.api_settings import get_api_settings
 
 

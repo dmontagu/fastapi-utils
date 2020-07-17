@@ -1,8 +1,9 @@
 from typing import Any, Dict, List, Union
 
 from fastapi import FastAPI
-from fastapi_restful.cbv_base import Api, Resource, set_responses
 from starlette.testclient import TestClient
+
+from fastapi_restful.cbv_base import Api, Resource, set_responses
 
 
 def test_cbv() -> None:

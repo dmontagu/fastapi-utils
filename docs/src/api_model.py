@@ -3,6 +3,7 @@ from typing import NewType
 from uuid import UUID
 
 from fastapi import FastAPI
+
 from fastapi_restful.api_model import APIModel
 
 UserID = NewType("UserID", UUID)

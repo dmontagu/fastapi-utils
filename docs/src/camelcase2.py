@@ -1,5 +1,6 @@
-from fastapi_restful.camelcase import camel2snake
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
+
+from fastapi_restful.camelcase import camel2snake
 
 
 class CustomBase:

@@ -1,8 +1,9 @@
 from typing import Any, ClassVar
 
 from fastapi import APIRouter, Depends, FastAPI
-from fastapi_restful.cbv import cbv
 from starlette.testclient import TestClient
+
+from fastapi_restful.cbv import cbv
 
 
 def test_cbv() -> None:

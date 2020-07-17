@@ -5,10 +5,11 @@ from uuid import UUID
 import pytest
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
-from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
-from fastapi_restful.session import FastAPISessionMaker, get_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
+
+from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
+from fastapi_restful.session import FastAPISessionMaker, get_engine
 
 Base = declarative_base()
 
