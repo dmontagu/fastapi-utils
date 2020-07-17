@@ -1,7 +1,6 @@
 from typing import Any, Dict, Optional, Tuple
 
 from fastapi import APIRouter, FastAPI
-
 from fastapi_utils.cbv import INCLUDE_INIT_PARAMS_KEY, RETURN_TYPES_FUNC_KEY, _cbv
 
 

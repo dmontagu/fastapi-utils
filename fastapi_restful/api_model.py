@@ -1,8 +1,7 @@
 from functools import partial
 
-from pydantic import BaseConfig, BaseModel
-
 from fastapi_utils.camelcase import snake2camel
+from pydantic import BaseConfig, BaseModel
 
 
 class APIModel(BaseModel):
