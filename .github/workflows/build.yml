@@ -48,6 +48,3 @@ jobs:
       - name: Check that formatting, linting, and tests pass
         run: |
           make ci
-      - name: Submit coverage report
-        run: |
-          codecov --token=${{ secrets.CODECOV_TOKEN }}
