@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_utils.guid_type`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/guid_type.py){.internal-link target=_blank}
+#### Source module: [`fastapi_restful.guid_type`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/guid_type.py){.internal-link target=_blank}
 
 ---
 
@@ -50,13 +50,13 @@ You can create a sqlalchemy table with a GUID as a primary key using the declara
 
 ## Server Default
 If you want to add a server default, it will no longer be backend-agnostic, but
-you can use `fastapi_utils.guid_type.GUID_SERVER_DEFAULT_POSTGRESQL`: 
+you can use `fastapi_restful.guid_type.GUID_SERVER_DEFAULT_POSTGRESQL`: 
 
 ```python
 import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 
-from fastapi_utils.guid_type import GUID, GUID_SERVER_DEFAULT_POSTGRESQL
+from fastapi_restful.guid_type import GUID, GUID_SERVER_DEFAULT_POSTGRESQL
 
 Base = declarative_base()
 
@@ -75,7 +75,7 @@ class User(Base):
 
 Note this will only work if you have installed the `pgcrypto` extension
 in your postgres instance. If the user you connect with has the right privileges, this can be done
-by calling the `fastapi_utils.guid_type.setup_guids_postgresql` function:
+by calling the `fastapi_restful.guid_type.setup_guids_postgresql` function:
 
 ```python
 {!./src/guid2.py!}
@@ -91,7 +91,7 @@ create new records):
 import sqlalchemy as sa
 from sqlalchemy.ext.declarative import declarative_base
 
-from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
+from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
 
 Base = declarative_base()
 

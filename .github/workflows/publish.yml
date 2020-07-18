@@ -10,7 +10,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        python-version: [3.7]
+        python-version: [3.8]
 
     steps:
       - uses: actions/checkout@v1
@@ -38,4 +38,6 @@ jobs:
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
-          password: ${{ secrets.PYPI_PASSWORD }}
+          user: ${{ secrets.PYPI_USERNAME }}
+          password: ${{ secrets.PYPI_PASSWORD }}  
+        # For security porpuses only!

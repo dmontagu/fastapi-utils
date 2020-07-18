@@ -2,9 +2,12 @@
     <em>Quicker FastApi developing tools</em>
 </p>
 <p align="center">
-<img src="https://img.shields.io/github/last-commit/yuval9313/fastapi-restful.svg">
+<a href="https://github.com/yuval9313/fastapi-restful" target="_blank">
+	<img src="https://img.shields.io/github/last-commit/yuval9313/fastapi-restful.svg">
+	<img src="https://github.com/yuval9313/FastApi-RESTful/workflows/build/badge.svg" alt="Build CI">
+</a>
 <a href="https://fastapi-restful.netlify.app">
-    <img src="https://img.shields.io/netlify/28b2a077-65b1-4d6c-9dba-13aaf6059877" alt="Netlify status">
+    <img src="https://api.netlify.com/api/v1/badges/294b88e1-4b81-49c0-8525-9c4a2cb782e0/deploy-status" alt="Netlify status">
 </a>
 <br />
 <a href="https://pypi.org/project/FastApi-RESTful" target="_blank">
@@ -41,7 +44,7 @@ This package includes a number of utilities to help reduce boilerplate and reuse
 * **Response-Model Inferring Router**: Let FastAPI infer the `response_model` to use based on your return type annotation. 
 * **Repeated Tasks**: Easily trigger periodic tasks on server startup
 * **Timing Middleware**: Log basic timing information for every request
-* **SQLAlchemy Sessions**: The `FastAPISessionMaker` class provides an easily-customized SQLAlchemy Session dependency 
+* Will be removed: **SQLAlchemy Sessions**: The `FastAPISessionMaker` class provides an easily-customized SQLAlchemy Session dependency 
 * **OpenAPI Spec Simplification**: Simplify your OpenAPI Operation IDs for cleaner output from OpenAPI Generator
 
 ---

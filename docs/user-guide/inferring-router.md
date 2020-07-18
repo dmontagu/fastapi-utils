@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_utils.inferring_router`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/inferring_router.py){.internal-link target=_blank}
+#### Source module: [`fastapi_restful.inferring_router`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/inferring_router.py){.internal-link target=_blank}
 
 ---
 
@@ -24,7 +24,7 @@ response as an undesired type.
 ## Inferring `response_model`
 
 If you know that you want to use the annotated return type as the `response_model` (for serialization
-purposes *or* for OpenAPI spec generation), you can use a `fastapi_utils.inferring_router.InferringRouter`
+purposes *or* for OpenAPI spec generation), you can use a `fastapi_restful.inferring_router.InferringRouter`
 in place of an `APIRouter`, and the `response_model` will be automatically extracted from the annotated
 return type.
 
