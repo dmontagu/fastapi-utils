@@ -26,7 +26,11 @@ class MyApi(Resource):
 
     @set_responses(ResponseModel)
     def get(self):
-        return "done"
+        return "Done"
+
+    @set_responses(ResponseModel, 200)
+    def put(self):
+        return "Redone"
 
     @set_responses(
         ResponseModel,
