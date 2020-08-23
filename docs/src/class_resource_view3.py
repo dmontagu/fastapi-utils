@@ -5,7 +5,7 @@ from docs.src.class_resource_view1 import MyApi
 from fastapi_restful import Api
 
 
-def main():
+def create_app():
     app = FastAPI()
     api = Api(app)
 
@@ -13,6 +13,7 @@ def main():
     myapi = MyApi(mongo_client)
     api.add_resource(myapi, "/uri")
 
+    return app
 
-if __name__ == "__main__":
-    main()
+
+main = create_app()
