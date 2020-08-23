@@ -8,8 +8,13 @@ class ResponseModel(BaseModel):
     answer: str
 
 
-class NotFoundModel(BaseModel):
-    IsFound: bool
+class ResourceAlreadyExistsModel(BaseModel):
+    is_found: bool
+
+
+class ResourceModel(BaseModel):
+    ID: str
+    name: str
 
 
 # Setup end
@@ -23,6 +28,17 @@ class MyApi(Resource):
     def get(self):
         return "done"
 
-    @set_responses(ResponseModel, 201, {404: NotFoundModel})
-    def post(self):
+    @set_responses(
+        ResponseModel,
+        201,
+        {
+            409: {
+                "description": "The path can't be found",
+                "model": ResourceAlreadyExistsModel,
+            }
+        },
+    )
+    def post(self, res: ResourceModel):
+        if self.mongo.is_resource_exist(res.name):
+            return JSONResponse(409, content={"is_found": true})
         return "Done again"
