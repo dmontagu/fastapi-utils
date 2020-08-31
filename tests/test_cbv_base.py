@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Union
 
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 from starlette.testclient import TestClient
 
 from fastapi_restful.cbv_base import Api, Resource, set_responses
@@ -69,3 +70,19 @@ def test_multiple_routes() -> None:
 
     assert client.get("/items/1").json() == {"item_path": "1"}
     assert client.get("/items").json() == []
+
+
+def test_different_response_model() -> None:
+    class RootHandler(Resource):
+        @set_responses({}, response_class=PlainTextResponse)
+        def get(self) -> str:
+            return "Done!"
+
+    app = FastAPI()
+    api = Api(app)
+
+    api.add_resource(RootHandler(), "/check")
+
+    client = TestClient(app)
+
+    assert client.get("/check").text == "Done!"

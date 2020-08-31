@@ -134,7 +134,7 @@ def _allocate_routes_by_method_name(router: APIRouter, url: str, function_member
                     response_model=response_model,
                     status_code=status_code,
                     responses=responses,
-                    **kwargs
+                    **kwargs,
                 )
                 api_resource(func)
 
