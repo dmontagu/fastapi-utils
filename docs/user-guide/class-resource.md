@@ -40,3 +40,6 @@ Inside the resource class have `@set_responses` before the function
 ``` 
 
 Additional information about [responses can be found here](https://fastapi.tiangolo.com/advanced/additional-responses/)
+
+`@set_responses` also support kwargs of the original function which includes 
+[different response classes](https://fastapi.tiangolo.com/advanced/custom-response/) and more!

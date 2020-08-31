@@ -122,10 +122,11 @@ def _allocate_routes_by_method_name(router: APIRouter, url: str, function_member
             if (func, url) not in existing_routes_endpoints:
                 response_model = None
                 responses = None
+                kwargs = {}
                 status_code = 200
                 return_types_func = getattr(func, RETURN_TYPES_FUNC_KEY, None)
                 if return_types_func:
-                    response_model, status_code, responses = return_types_func()
+                    response_model, status_code, responses, kwargs = return_types_func()
 
                 api_resource = router.api_route(
                     url,
@@ -133,6 +134,7 @@ def _allocate_routes_by_method_name(router: APIRouter, url: str, function_member
                     response_model=response_model,
                     status_code=status_code,
                     responses=responses,
+                    **kwargs,
                 )
                 api_resource(func)
 

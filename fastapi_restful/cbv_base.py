@@ -25,10 +25,10 @@ def take_init_parameters(cls: Any) -> Any:
     return cls
 
 
-def set_responses(response: Any, status_code: int = 200, responses: Dict[str, Any] = None) -> Any:
+def set_responses(response: Any, status_code: int = 200, responses: Dict[str, Any] = None, **kwargs: Any) -> Any:
     def decorator(func: Any) -> Any:
-        def get_responses() -> Tuple[Any, int, Optional[Dict[str, Any]]]:
-            return response, status_code, responses
+        def get_responses() -> Tuple[Any, int, Optional[Dict[str, Any]], Optional[Any]]:
+            return response, status_code, responses, kwargs
 
         setattr(func, RETURN_TYPES_FUNC_KEY, get_responses)
         return func
