@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -7,7 +8,7 @@ from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.testclient import TestClient
 
-from fastapi_utils.timing import add_timing_middleware, record_timing
+from fastapi_utils.timing import TimingInfo, add_timing_middleware, json_formatter, record_timing
 
 app = FastAPI()
 add_timing_middleware(app, exclude="untimed")
@@ -100,3 +101,53 @@ def test_recording_fails_without_middleware() -> None:
     with pytest.raises(ValueError) as exc_info:
         client3.get("/")
     assert str(exc_info.value) == "No timer present on request"
+
+
+app4 = FastAPI()
+add_timing_middleware(app4, format_message=json_formatter)
+
+
+@app4.get("/json-timed")
+def get_json_timed() -> None:
+    pass
+
+
+client4 = TestClient(app4)
+
+
+def test_timing_json_formatter(capsys: CaptureFixture) -> None:
+    client4.get("/json-timed")
+    out, err = capsys.readouterr()
+    assert err == ""
+    assert out.startswith("{")
+    json_out = json.loads(out)
+    assert json_out["name"]
+    assert json_out["cpu_ms"] > 0.0
+    assert json_out["wall_ms"] > 0.0
+    assert json_out["note"] is None
+
+
+app5 = FastAPI()
+
+
+def custom_formatter(info: TimingInfo) -> str:
+    return f"CPU({info.cpu_ms}), WALL({info.wall_ms})"
+
+
+add_timing_middleware(app5, format_message=custom_formatter)
+
+
+@app5.get("/custom-timed")
+def get_alt_timed() -> None:
+    pass
+
+
+client5 = TestClient(app5)
+
+
+def test_timing_custom_formatter(capsys: CaptureFixture) -> None:
+    client5.get("/custom-timed")
+    out, err = capsys.readouterr()
+    assert err == ""
+    assert out.startswith("CPU(")
+    assert "WALL(" in out

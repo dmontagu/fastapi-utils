@@ -100,7 +100,7 @@ This helps making sure that:
 During local development, there is a script that builds the site and checks for any changes, live-reloading:
 
 ```console
-$ bash scripts/docs-live.sh
+$ make docs-live
 ```
 
 It will serve the documentation on `http://0.0.0.0:8008`.
