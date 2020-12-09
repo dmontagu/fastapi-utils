@@ -7,8 +7,10 @@ but only reports timing data at the granularity of individual endpoint calls.
 For more detailed performance investigations (during development only, due to added overhead),
 consider using the coroutine-aware profiling library `yappi`.
 """
+import json
 import resource
 import time
+from dataclasses import asdict, dataclass
 from typing import Any, Callable, Optional
 
 from fastapi import FastAPI
@@ -21,8 +23,20 @@ from starlette.types import Scope
 TIMER_ATTRIBUTE = "__fastapi_utils_timer__"
 
 
+@dataclass
+class TimingInfo:
+    cpu_ms: float
+    wall_ms: float
+    name: Optional[str] = None
+    note: Optional[str] = None
+
+
 def add_timing_middleware(
-    app: FastAPI, record: Optional[Callable[[str], None]] = None, prefix: str = "", exclude: Optional[str] = None
+    app: FastAPI,
+    record: Optional[Callable[[str], None]] = None,
+    prefix: str = "",
+    exclude: Optional[str] = None,
+    format_message: Optional[Callable[[TimingInfo], Any]] = None,
 ) -> None:
     """
     Adds a middleware to the provided `app` that records timing metrics using the provided `record` callable.
@@ -42,7 +56,7 @@ def add_timing_middleware(
     @app.middleware("http")
     async def timing_middleware(request: Request, call_next: RequestResponseEndpoint) -> Response:
         metric_name = metric_namer(request.scope)
-        with _TimingStats(metric_name, record=record, exclude=exclude) as timer:
+        with _TimingStats(metric_name, record=record, exclude=exclude, format_message=format_message) as timer:
             setattr(request.state, TIMER_ATTRIBUTE, timer)
             response = await call_next(request)
         return response
@@ -65,6 +79,23 @@ def record_timing(request: Request, note: Optional[str] = None) -> None:
         raise ValueError("No timer present on request")
 
 
+def default_formatter(info: TimingInfo) -> str:
+    """
+    Default message formatter
+    """
+    message = f"TIMING: Wall: {info.wall_ms:6.1f}ms | CPU: {info.cpu_ms:6.1f}ms | {info.name}"
+    if info.note is not None:
+        message += f" ({info.note})"
+    return message
+
+
+def json_formatter(info: TimingInfo) -> str:
+    """
+    Format logged messages as JSON
+    """
+    return json.dumps(asdict(info))
+
+
 class _TimingStats:
     """
     This class tracks and records endpoint timing data.
@@ -81,9 +112,14 @@ class _TimingStats:
     """
 
     def __init__(
-        self, name: Optional[str] = None, record: Callable[[str], None] = None, exclude: Optional[str] = None
+        self,
+        name: Optional[str] = None,
+        record: Callable[[str], None] = None,
+        exclude: Optional[str] = None,
+        format_message: Optional[Callable[[TimingInfo], Any]] = None,
     ) -> None:
         self.name = name
+        self.format_message = format_message or default_formatter
         self.record = record or print
 
         self.start_time: float = 0
@@ -124,11 +160,8 @@ class _TimingStats:
         """
         if not self.silent:
             self.take_split()
-            cpu_ms = 1000 * self.cpu_time
-            wall_ms = 1000 * self.time
-            message = f"TIMING: Wall: {wall_ms:6.1f}ms | CPU: {cpu_ms:6.1f}ms | {self.name}"
-            if note is not None:
-                message += f" ({note})"
+            info = TimingInfo(name=self.name, wall_ms=1000 * self.time, cpu_ms=1000 * self.cpu_time, note=note)
+            message = self.format_message(info)
             self.record(message)
 
 
