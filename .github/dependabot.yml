@@ -1,8 +1,8 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pypi"
+  - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
       
