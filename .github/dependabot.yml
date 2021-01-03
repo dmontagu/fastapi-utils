@@ -1,0 +1,8 @@
+
+version: 2
+updates:
+  - package-ecosystem: "pypi"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      
