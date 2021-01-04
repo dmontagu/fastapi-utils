@@ -4,7 +4,7 @@ First, you might want to see the basic ways to [help and get help](help-fastapi-
 
 Once you've cloned the repository, here are some guidelines to set up your environment:
 
-### Set up the development evironment
+### Set up the development environment
 
 After cloning the repository, you can use `poetry` to create a virtual environment: 
 
