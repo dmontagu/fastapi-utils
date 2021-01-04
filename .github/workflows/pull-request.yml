@@ -44,6 +44,5 @@ jobs:
         run: |
           make docs-build-ci
       - name: Check that formatting, linting, and tests pass
-        run: |
-          make ci
+        run: poetry run make ci
 
