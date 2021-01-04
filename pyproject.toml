@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "FastApi-RESTful"
-version = "0.2.4.4"
+version = "0.2.5"
 description = "Quicker FastApi developing tools"
 license = "MIT"
 authors = ["Yuval Levi"]
@@ -49,7 +49,7 @@ aiofiles = "*"  # Serving static files
 requests = "*"  # TestClient
 
 # Testing
-pytest = "*"
+pytest = "~=5.4.3"
 pytest-cov = "*"
 pytest-asyncio = "*"
 coverage = "*"
