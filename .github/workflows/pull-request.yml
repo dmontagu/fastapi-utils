@@ -30,8 +30,6 @@ jobs:
             ${{ runner.os }}-pip-
       - name: Install dependencies
         run: poetry install
-      - name: Enter poetry shell
-        run: poetry shell
       - uses: actions/cache@v1
         with:
           path: .mypy_cache
