@@ -34,6 +34,15 @@ openapi_spec = {
                 "summary": "Endpoint 2",
             }
         },
+        "/3": {
+            "get": {
+                "operationId": "endpoint_3_3_get",
+                "responses": {
+                    "200": {"content": {"application/json": {"schema": {}}}, "description": "Successful " "Response"}
+                },
+                "summary": "Endpoint 3",
+            }
+        },
     },
 }
 
@@ -47,6 +56,10 @@ def test_inferring_router() -> None:
 
     @inferring_router.get("/2", response_model=int)
     def endpoint_2() -> str:  # pragma: no cover
+        return ""
+
+    @inferring_router.get("/3")
+    def endpoint_3() -> None:  # pragma: no cover
         return ""
 
     app = FastAPI()
