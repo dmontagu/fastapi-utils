@@ -50,7 +50,7 @@ async def test_repeat_print_delay(capsys: CaptureFixture) -> None:
 
 @pytest.mark.asyncio
 async def test_repeat_print_wait(capsys: CaptureFixture) -> None:
-    @repeat_every(seconds=0.07, max_repetitions=3, wait_first=True)
+    @repeat_every(seconds=0.07, max_repetitions=3, wait_first=True, wait_first_for_secs=0.07)
     def repeatedly_print_hello() -> None:
         print("hello")
 
