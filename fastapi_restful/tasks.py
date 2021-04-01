@@ -15,7 +15,7 @@ NoArgsNoReturnDecorator = Callable[[Union[NoArgsNoReturnFuncT, NoArgsNoReturnAsy
 def repeat_every(
     *,
     seconds: float,
-    wait_first: bool = False,
+    wait_first: float = None,
     logger: Optional[logging.Logger] = None,
     raise_exceptions: bool = False,
     max_repetitions: Optional[int] = None,
@@ -30,8 +30,8 @@ def repeat_every(
     ----------
     seconds: float
         The number of seconds to wait between repeated calls
-    wait_first: bool (default False)
-        If True, the function will wait for a single period before the first call
+    wait_first: float (default None)
+        If not None, the function will wait for the given duration before the first call
     logger: Optional[logging.Logger] (default None)
         The logger to use to log any exceptions raised by calls to the decorated function.
         If not provided, exceptions will not be logged by this function (though they may be handled by the event loop).
@@ -56,8 +56,8 @@ def repeat_every(
 
             async def loop() -> None:
                 nonlocal repetitions
-                if wait_first:
-                    await asyncio.sleep(seconds)
+                if wait_first is not None:
+                    await asyncio.sleep(wait_first)
                 while max_repetitions is None or repetitions < max_repetitions:
                     try:
                         if is_coroutine:
