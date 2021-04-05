@@ -68,7 +68,7 @@ async def test_repeat_print_wait_first_seconds(capsys: CaptureFixture) -> None:
         print("hello")
 
     await repeatedly_print_hello()
-    await asyncio.sleep(0.18)  # wait for 0.07 + 0.1 secs
+    await asyncio.sleep(0.18)  #  wait for 0.07 + 0.1 secs
     out, err = capsys.readouterr()
     assert out == "hello\n" * 2, "Printed 'hello' twice"
     assert err == ""
