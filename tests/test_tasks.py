@@ -62,6 +62,19 @@ async def test_repeat_print_wait(capsys: CaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
+async def test_repeat_print_wait_first_seconds(capsys: CaptureFixture) -> None:
+    @repeat_every(seconds=0.07, max_repetitions=3, wait_first=True, wait_first_seconds=0.1)
+    def repeatedly_print_hello() -> None:
+        print("hello")
+
+    await repeatedly_print_hello()
+    await asyncio.sleep(0.18)  #  wait for 0.07 + 0.1 secs
+    out, err = capsys.readouterr()
+    assert out == "hello\n" * 2, "Printed 'hello' twice"
+    assert err == ""
+
+
+@pytest.mark.asyncio
 async def test_repeat_unlogged_error(caplog: LogCaptureFixture) -> None:
     @repeat_every(seconds=0.07, max_repetitions=None)
     def log_exc() -> NoReturn:

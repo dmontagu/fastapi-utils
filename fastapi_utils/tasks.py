@@ -16,6 +16,7 @@ def repeat_every(
     *,
     seconds: float,
     wait_first: bool = False,
+    wait_first_seconds: float = 0.0,
     logger: Optional[logging.Logger] = None,
     raise_exceptions: bool = False,
     max_repetitions: Optional[int] = None,
@@ -32,6 +33,8 @@ def repeat_every(
         The number of seconds to wait between repeated calls
     wait_first: bool (default False)
         If True, the function will wait for a single period before the first call
+    wait_first_seconds: float (default 0.0)
+        If > 0 and wait_first = True, specifies a duration in seconds before the first call, other than `seconds`.
     logger: Optional[logging.Logger] (default None)
         The logger to use to log any exceptions raised by calls to the decorated function.
         If not provided, exceptions will not be logged by this function (though they may be handled by the event loop).
@@ -57,7 +60,10 @@ def repeat_every(
             async def loop() -> None:
                 nonlocal repetitions
                 if wait_first:
-                    await asyncio.sleep(seconds)
+                    if wait_first_seconds:
+                        await asyncio.sleep(wait_first_seconds)
+                    else:
+                        await asyncio.sleep(seconds)
                 while max_repetitions is None or repetitions < max_repetitions:
                     try:
                         if is_coroutine:
