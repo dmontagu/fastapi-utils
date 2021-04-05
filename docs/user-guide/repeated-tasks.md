@@ -51,6 +51,7 @@ Here is a more detailed description of the various keyword arguments for `repeat
 * `seconds: float` : The number of seconds to wait between successive calls
 * `wait_first: bool = False` : If `False` (the default), the wrapped function is called immediately when the decorated
 function is first called. If `True`, the decorated function will wait one period before making the first call to the wrapped function
+* `wait_first_seconds: float = 0` : If `wait_first` is `True`, `wait_first_seconds` specifies the duration of the first wait period for the wrapped function to be called. If left as default, it will use `seconds` as the duration.
 * `logger: Optional[logging.Logger] = None` : If you pass a logger, any exceptions raised in the repeating execution loop will be logged (with a traceback)
     to the provided logger.
 * `raise_exceptions: bool = False`
