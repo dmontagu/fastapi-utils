@@ -19,22 +19,21 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       # Avoid caching to be 100% confident things are working properly
+      - name: Init python poetry action
+        uses: abatilo/actions-poetry@v2.1.0
+        
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: poetry install
+        
       - name: Check that formatting, linting, and tests pass
-        run: |
-          make ci
+        run: poetry run make ci
+        
       - name: Check docs are up to date
-        run: |
-          make docs-build-ci
-      - name: Install poetry
-        run: |
-          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+        run: poetry run make docs-build-ci
+        
       - name: Build distribution
-        run: |
-          source $HOME/.poetry/env && poetry build
+        run: poetry build
+        
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
