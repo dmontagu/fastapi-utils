@@ -51,11 +51,11 @@ async def test_repeat_print_delay(capsys: CaptureFixture) -> None:
 @pytest.mark.asyncio
 async def test_repeat_print_wait(capsys: CaptureFixture) -> None:
     @repeat_every(seconds=0.07, max_repetitions=3, wait_first=0.1)
-    def repeatedly_print_hello() -> None:
+    async def repeatedly_print_hello() -> None:
         print("hello")
 
     await repeatedly_print_hello()
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(0.15)
     out, err = capsys.readouterr()
     assert out == "hello\n" * 1
     assert err == ""
