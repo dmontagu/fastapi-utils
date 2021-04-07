@@ -6,7 +6,7 @@ tests_src = tests
 docs_src = docs/src
 all_src = $(pkg_src) $(tests_src)
 
-isort = isort -rc $(all_src)
+isort = isort $(all_src)
 autoflake = autoflake -r --remove-all-unused-imports --ignore-init-module-imports $(all_src)
 black = black $(all_src)
 flake8 = flake8 $(all_src)
