@@ -106,8 +106,10 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
         for route in router.routes
         if isinstance(route, (Route, WebSocketRoute)) and route.endpoint in functions_set
     ]
+    prefix_length = len(router.prefix)  # Until 'black' would fix an issue which causes PEP8: E203
     for route in cbv_routes:
         router.routes.remove(route)
+        route.path = route.path[prefix_length:]
         _update_cbv_route_endpoint_signature(cls, route)
         cbv_router.routes.append(route)
     router.include_router(cbv_router)

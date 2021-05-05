@@ -82,3 +82,18 @@ def test_multiple_decorators() -> None:
     assert client.get("/items").json() == []
     assert client.get("/items/1").json() == {"item_path": "1"}
     assert client.get("/database/abc").json() == {"item_path": "abc"}
+
+
+def test_prefix() -> None:
+    router = APIRouter(prefix="/api")
+
+    @cbv(router)
+    class RootHandler:
+        @router.get("/item")
+        def root(self) -> str:
+            return "hello"
+
+    client = TestClient(router)
+    response = client.get("/api/item")
+    assert response.status_code == 200
+    assert response.json() == "hello"
