@@ -36,8 +36,10 @@ app = FastAPI()
 @app.get("/{user_id}")
 def get_user_name(db: Session = Depends(get_db), *, user_id: UUID) -> str:
     user = db.query(User).get(user_id)
-    username = user.name
-    return username
+    if isinstance(user, User):
+        username = user.name
+        return username
+    return ""
 
 
 @pytest.fixture(scope="module")
