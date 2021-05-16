@@ -21,6 +21,9 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Init python poetry action
+        uses: abatilo/actions-poetry@v2.1.0
       - uses: actions/cache@v1
         id: cache-deps
         with:
@@ -28,10 +31,10 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: poetry install -E session
+
       - uses: actions/cache@v1
         with:
           path: .mypy_cache

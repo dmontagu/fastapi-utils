@@ -23,7 +23,7 @@ jobs:
         uses: abatilo/actions-poetry@v2.1.0
         
       - name: Install dependencies
-        run: poetry install
+        run: poetry install -E session
         
       - name: Check that formatting, linting, and tests pass
         run: poetry run make ci
