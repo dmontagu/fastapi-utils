@@ -46,8 +46,6 @@ jobs:
       - name: Check docs build
         # only run this for the python version used by netlify:
         if: matrix.python-version == 3.8
-        run: |
-          make docs-build-ci
+        run: poetry run make docs-build-ci
       - name: Check that formatting, linting, and tests pass
-        run: |
-          make ci
+        run: poetry run make ci
