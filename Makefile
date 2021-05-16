@@ -92,9 +92,10 @@ version: poetryversion
 
 .PHONY: docs-build  ## Generate the docs and update README.md
 docs-build:
+	cp ./README.md ./docs/index.md
+	cp ./CONTRIBUTING.md ./docs/contributing.md
+	cp ./CHANGELOG.md ./docs/release-notes.md
 	python -m mkdocs build
-	cp ./docs/index.md ./README.md
-	cp ./docs/contributing.md ./CONTRIBUTING.md
 
 .PHONY: docs-build-ci  ## Generate the docs and check README.md is up-to-date
 docs-build-ci:
