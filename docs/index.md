@@ -44,8 +44,8 @@ This package includes a number of utilities to help reduce boilerplate and reuse
 * **Response-Model Inferring Router**: Let FastAPI infer the `response_model` to use based on your return type annotation. 
 * **Repeated Tasks**: Easily trigger periodic tasks on server startup
 * **Timing Middleware**: Log basic timing information for every request
-* Will be removed: **SQLAlchemy Sessions**: The `FastAPISessionMaker` class provides an easily-customized SQLAlchemy Session dependency 
 * **OpenAPI Spec Simplification**: Simplify your OpenAPI Operation IDs for cleaner output from OpenAPI Generator
+* **SQLAlchemy Sessions**: The `FastAPISessionMaker` class provides an easily-customized SQLAlchemy Session dependency
 
 ---
 
@@ -66,7 +66,11 @@ This package is intended for use with any recent version of FastAPI (depending o
 ## Installation
 
 ```bash
-pip install fastapi-restful
+pip install fastapi-restful  # For basic slim package :)
+
+pip install fastapi-restful[session]  # To add sqlalchemy session maker
+
+pip install fastapi-restful[all]  # For all the packages
 ```
 
 ## License

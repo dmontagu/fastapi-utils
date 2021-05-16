@@ -1,7 +1,7 @@
 #### Source module: [`fastapi_restful.sessions`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/session.py){.internal-link target=_blank}
 
-!!! danger
-    #### This feature will be removed to slim dependencies in this package
+!!! Note
+    #### To use please install with: `pip install fastapi-restful[session]` or `pip install fastapi-restful[all]`
 ---
 
 
