@@ -85,10 +85,10 @@ lock:
 develop:
 	./scripts/develop.sh
 
-.PHONY: version  ## Bump the version in both pyproject.toml and __init__.py (usage: `make version version=minor`)
-version: poetryversion
-	$(eval NEW_VERS := $(shell cat pyproject.toml | grep "^version = \"*\"" | cut -d'"' -f2))
-	@sed -i "s/__version__ = .*/__version__ = \"$(NEW_VERS)\"/g" $(pkg_src)/__init__.py
+#.PHONY: version  ## Bump the version in both pyproject.toml and __init__.py (usage: `make version version=minor`)
+#version: poetryversion
+#	$(eval NEW_VERS := $(shell cat pyproject.toml | grep "^version = \"*\"" | cut -d'"' -f2))
+#	@sed -i "s/__version__ = .*/__version__ = \"$(NEW_VERS)\"/g" $(pkg_src)/__init__.py
 
 .PHONY: docs-build  ## Generate the docs and update README.md
 docs-build:
