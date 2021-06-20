@@ -7,10 +7,11 @@ but only reports timing data at the granularity of individual endpoint calls.
 For more detailed performance investigations (during development only, due to added overhead),
 consider using the coroutine-aware profiling library `yappi`.
 """
-import resource
+import os
 import time
 from typing import Any, Callable, Optional
 
+import psutil
 from fastapi import FastAPI
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.requests import Request
@@ -86,6 +87,7 @@ class _TimingStats:
         self.name = name
         self.record = record or print
 
+        self.process: psutil.Process = psutil.Process(os.getpid())
         self.start_time: float = 0
         self.start_cpu_time: float = 0
         self.end_cpu_time: float = 0
@@ -97,11 +99,11 @@ class _TimingStats:
 
     def start(self) -> None:
         self.start_time = time.time()
-        self.start_cpu_time = _get_cpu_time()
+        self.start_cpu_time = self._get_cpu_time()
 
     def take_split(self) -> None:
         self.end_time = time.time()
-        self.end_cpu_time = _get_cpu_time()
+        self.end_cpu_time = self._get_cpu_time()
 
     @property
     def time(self) -> float:
@@ -130,6 +132,14 @@ class _TimingStats:
             if note is not None:
                 message += f" ({note})"
             self.record(message)
+
+    def _get_cpu_time(self) -> float:
+        """
+        Generates the cpu time to report. Adds the user and system time, following the implementation from timing-asgi
+        """
+        resources = self.process.cpu_times()
+        # add up user time and system time
+        return resources[0] + resources[1]
 
 
 class _MetricNamer:
@@ -173,12 +183,3 @@ class _MetricNamer:
         else:
             name = str(f"<Path: {scope['path']}>")
         return name
-
-
-def _get_cpu_time() -> float:
-    """
-    Generates the cpu time to report. Adds the user and system time, following the implementation from timing-asgi
-    """
-    resources = resource.getrusage(resource.RUSAGE_SELF)
-    # add up user time (ru_utime) and system time (ru_stime)
-    return resources[0] + resources[1]

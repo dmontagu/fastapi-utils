@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "FastApi-RESTful"
-version = "0"
+version = "0.3.2"
 description = "Quicker FastApi developing tools"
 license = "MIT"
 authors = ["Yuval Levi"]
@@ -42,6 +42,7 @@ python = "^3.6"
 fastapi = "*"
 pydantic = "^1.0"
 sqlalchemy =  { version = "^1.3.12", optional = true }
+psutil = "^5.8.0"
 
 [tool.poetry.dev-dependencies]
 # Starlette features
@@ -53,11 +54,12 @@ requests = "*"  # TestClient
 pytest = "~=5.4.3"
 pytest-cov = "*"
 pytest-asyncio = "*"
-coverage = "*"
 
 # Python 3.6 Testing
 async-exit-stack = { version = "*", python = "~3.6" }
 async-generator = { version = "*", python = "~3.6" }
+types-dataclasses = { version = "*", python = "~3.6" }
+
 
 # CI
 codecov = "*"
@@ -76,6 +78,7 @@ mkdocs-material = "*"
 markdown-include = "*"
 
 [tool.poetry.extras]
+all = ["sqlalchemy"]
 session = ["sqlalchemy"]
 
 [tool.black]
@@ -102,8 +105,23 @@ include_trailing_comma = true
 force_grid_wrap = 0
 combine_as_imports = true
 
+[tool.coverage.run]
+source = ["fastapi_restful"]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "raise NotImplemented",
+    "@overload",
+    "if TYPE_CHECKING:",
+    'if __name__ == "__main__":'
+]
+
 [tool.poetry-version-plugin]
-source = "git-tag"
+source = "init"
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]
