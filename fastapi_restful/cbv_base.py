@@ -17,7 +17,7 @@ class Api:
     def add_resource(self, resource: Resource, *urls: str, **kwargs: Any) -> None:
         router = APIRouter()
         _cbv(router, type(resource), *urls, instance=resource)
-        self.app.include_router(router)
+        self.app.include_router(router, **kwargs)
 
 
 def take_init_parameters(cls: Any) -> Any:
