@@ -4,8 +4,8 @@ from fastapi_restful.enums import CamelStrEnum
 
 
 class MyEnum(CamelStrEnum):
-    choice_one = auto()
-    choice_two = auto()
+    choice_a = auto()
+    choice_b = auto()
 
 
 assert MyEnum.choice_a.name == MyEnum.choice_a.value == "choiceOne"
