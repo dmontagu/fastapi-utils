@@ -35,11 +35,11 @@ class ItemInDB(ItemCreate):
 
 
 def get_jwt_user(authorization: str = Header(...)) -> UserID:
-    """ Pretend this function gets a UserID from a JWT in the auth header """
+    """Pretend this function gets a UserID from a JWT in the auth header"""
 
 
 def get_db() -> Session:
-    """ Pretend this function returns a SQLAlchemy ORM session"""
+    """Pretend this function returns a SQLAlchemy ORM session"""
 
 
 def get_owned_item(session: Session, owner: UserID, item_id: ItemID) -> ItemORM:

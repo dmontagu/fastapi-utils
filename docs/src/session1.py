@@ -21,19 +21,19 @@ class User(Base):
 
 
 class DBSettings(BaseSettings):
-    """ Parses variables from environment on instantiation """
+    """Parses variables from environment on instantiation"""
 
     database_uri: str  # could break up into scheme, username, password, host, db
 
 
 def get_db() -> Iterator[Session]:
-    """ FastAPI dependency that provides a sqlalchemy session """
+    """FastAPI dependency that provides a sqlalchemy session"""
     yield from _get_fastapi_sessionmaker().get_db()
 
 
 @lru_cache()
 def _get_fastapi_sessionmaker() -> FastAPISessionMaker:
-    """ This function could be replaced with a global variable if preferred """
+    """This function could be replaced with a global variable if preferred"""
     database_uri = DBSettings().database_uri
     return FastAPISessionMaker(database_uri)
 
