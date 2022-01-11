@@ -834,7 +834,7 @@ session = ["sqlalchemy"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "42ce46ea2ba600938f2eb3ce2f0010956f8c1ea1ddf23c9be0a47683c8f28441"
+content-hash = "8c73461f9ddc77bceb43ecf7d5aede9ab3ac7b619fc6203c283d951c4c3dcbb9"
 
 [metadata.files]
 aiofiles = [
