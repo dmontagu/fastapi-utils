@@ -423,7 +423,7 @@ python-versions = ">=3.6"
 name = "mypy"
 version = "0.931"
 description = "Optional static typing for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -833,7 +833,7 @@ session = ["sqlalchemy"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "f59dec0828ec7304be9f5144ef372ac284edcd452767da0c343e3f604b1910b7"
+content-hash = "9a4f7c35437a41d47c2c1a17e05ef2d3a07429e9fdbdc76689ace62693dcacc1"
 
 [metadata.files]
 aiofiles = [

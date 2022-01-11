@@ -1,13 +1,18 @@
 from pathlib import Path
+from typing import TYPE_CHECKING, Any
 
 import pytest
-from _pytest.capture import CaptureFixture
 from fastapi import FastAPI
 from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.testclient import TestClient
 
 from fastapi_restful.timing import add_timing_middleware, record_timing
+
+if TYPE_CHECKING:
+    from pytest.capture import CaptureFixture
+else:
+    CaptureFixture = Any
 
 app = FastAPI()
 add_timing_middleware(app, exclude="untimed")

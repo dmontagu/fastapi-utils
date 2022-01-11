@@ -2,11 +2,15 @@ import asyncio
 import logging
 import time
 from asyncio import AbstractEventLoop
-from typing import Any, Dict, List, NoReturn, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, NoReturn, Tuple
 
 import pytest
-from _pytest.capture import CaptureFixture
-from _pytest.logging import LogCaptureFixture
+from pytest import LogCaptureFixture
+
+if TYPE_CHECKING:
+    from pytest.capture import CaptureFixture
+else:
+    CaptureFixture = Any
 
 from fastapi_restful.tasks import repeat_every
 
