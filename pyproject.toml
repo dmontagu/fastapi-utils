@@ -42,10 +42,10 @@ classifiers = [
 python = "^3.6.2"
 
 dataclasses = {version = "^0.8", python = "~3.6.2"}
-fastapi = "*"
-pydantic = "^1.0"
-sqlalchemy =  { version = "^1.3.12", optional = true }
-psutil = "^5.8.0"
+fastapi = "^0"
+pydantic = "^1"
+sqlalchemy =  { version = "^1", optional = true }
+psutil = "^5"
 
 [tool.poetry.dev-dependencies]
 # Starlette features
@@ -54,7 +54,7 @@ aiofiles = "*"  # Serving static files
 requests = "*"  # TestClient
 
 # Testing
-pytest = "^6.2.5"
+pytest = "^6.2"
 pytest-cov = "*"
 pytest-asyncio = "*"
 
@@ -86,7 +86,7 @@ session = ["sqlalchemy"]
 
 [tool.black]
 line-length = 120
-target_version = ['py38']
+target_version = ['py39']
 include = '\.pyi?$'
 exclude = '''
 (
