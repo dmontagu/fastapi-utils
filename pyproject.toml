@@ -54,7 +54,7 @@ aiofiles = "*"  # Serving static files
 requests = "*"  # TestClient
 
 # Testing
-pytest = "^6.2"
+pytest = "^7.0"
 pytest-cov = "*"
 pytest-asyncio = "*"
 
