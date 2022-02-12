@@ -1,5 +1,27 @@
 ## Latest changes
 
+## 0.4.3
+
+* Fix bug where inferred router raises exception when no content is needed but type hint is provided (e.g. `None` as return type with status code 204) (As mentiond in [#134](https://github.com/yuval9313/FastApi-RESTful/pull/134))
+* Improve tests and add more test cases
+
+## 0.4.2
+
+* Remove version pinning to allow diversity in python environments
+
+## 0.4.1
+
+* Add more pypi classifiers
+
+## 0.4.0
+
+** Breaking change **
+* Remove support to python < 3.6.2
+
+Additionals:
+* Multiple version bumps
+* Add usage of **kwargs for to allow more options when including new router
+
 ## 0.3.1
 
 * [CVE-2021-29510](https://github.com/samuelcolvin/pydantic/security/advisories/GHSA-5jqp-qgf6-3pvh) fix of pydantic - update is required
