@@ -4,6 +4,7 @@
 
 * Fix bug where inferred router raises exception when no content is needed but type hint is provided (e.g. `None` as return type with status code 204) (As mentiond in [#134](https://github.com/yuval9313/FastApi-RESTful/pull/134))
 * Improve tests and add more test cases
+* Bump dependencies versions
 
 ## 0.4.2
 
