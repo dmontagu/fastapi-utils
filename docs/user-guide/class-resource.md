@@ -1,4 +1,4 @@
-ource module: [`fastapi_restful.cbv_base`](https://github.com/yuval9313/FastApi-RESTful/blob/master/fastapi_restful/cbv_base.py){.internal-link target=_blank}
+Source module: [`fastapi_restful.cbv_base`](https://github.com/yuval9313/FastApi-RESTful/blob/master/fastapi_restful/cbv_base.py){.internal-link target=_blank}
 
 ---
 
