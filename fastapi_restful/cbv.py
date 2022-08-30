@@ -100,7 +100,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     if len(set(router_roles)) != len(router_roles):
         raise Exception("An identical route role has been implemented more then once")
 
-    functions_set = set(func for _, func in function_members)
+    functions_set = {func for _, func in function_members}
     cbv_routes = [
         route
         for route in router.routes
