@@ -92,7 +92,8 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
         _allocate_routes_by_method_name(router, url, function_members)
     router_roles = []
     for route in router.routes:
-        assert isinstance(route, APIRoute)
+        if not isinstance(route, APIRoute):
+            raise AssertionError
         route_methods: Any = route.methods
         cast(Tuple[Any], route_methods)
         router_roles.append((route.path, tuple(route_methods)))
