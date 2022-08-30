@@ -61,7 +61,7 @@ def record_timing(request: Request, note: Optional[str] = None) -> None:
     timer = getattr(request.state, TIMER_ATTRIBUTE, None)
     if timer is not None:
         if not isinstance(timer, _TimingStats):
-            raise AssertionError
+            raise ValueError("Timer should be of an instance of TimingStats")
         timer.emit(note)
     else:
         raise ValueError("No timer present on request")
