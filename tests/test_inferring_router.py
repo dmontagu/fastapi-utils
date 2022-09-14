@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 
 from fastapi_utils.inferring_router import InferringRouter
 
@@ -34,6 +34,24 @@ openapi_spec = {
                 "summary": "Endpoint 2",
             }
         },
+        "/3": {
+            "get": {
+                "operationId": "endpoint_3_3_get",
+                "responses": {
+                    "200": {"content": {"application/json": {"schema": {}}}, "description": "Successful " "Response"}
+                },
+                "summary": "Endpoint 3",
+            }
+        },
+        "/4": {
+            "get": {
+                "operationId": "endpoint_4_4_get",
+                "responses": {
+                    "200": {"content": {"application/json": {"schema": {}}}, "description": "Successful " "Response"}
+                },
+                "summary": "Endpoint 4",
+            }
+        },
     },
 }
 
@@ -47,6 +65,14 @@ def test_inferring_router() -> None:
 
     @inferring_router.get("/2", response_model=int)
     def endpoint_2() -> str:  # pragma: no cover
+        return ""
+
+    @inferring_router.get("/3")
+    def endpoint_3() -> Response:  # pragma: no cover
+        return Response(b"")
+
+    @inferring_router.get("/4")
+    def endpoint_4():  # pragma: no cover
         return ""
 
     app = FastAPI()
