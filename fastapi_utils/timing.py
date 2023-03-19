@@ -7,6 +7,8 @@ but only reports timing data at the granularity of individual endpoint calls.
 For more detailed performance investigations (during development only, due to added overhead),
 consider using the coroutine-aware profiling library `yappi`.
 """
+from __future__ import annotations
+
 import resource
 import time
 from collections.abc import Callable
@@ -112,7 +114,7 @@ class _TimingStats:
     def cpu_time(self) -> float:
         return self.end_cpu_time - self.start_cpu_time
 
-    def __enter__(self) -> "_TimingStats":
+    def __enter__(self) -> _TimingStats:
         self.start()
         return self
 

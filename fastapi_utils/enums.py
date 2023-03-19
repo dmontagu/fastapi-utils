@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 
 from fastapi_utils.camelcase import snake2camel
