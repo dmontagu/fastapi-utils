@@ -39,11 +39,11 @@ def _cbv(router: APIRouter, cls: type[T]) -> type[T]:
     _init_cbv(cls)
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
-    functions_set = set(func for _, func in function_members)
+    functions_set = {func for _, func in function_members}
     cbv_routes = [
         route
         for route in router.routes
-        if isinstance(route, Route | WebSocketRoute) and route.endpoint in functions_set
+        if isinstance(route, (Route, WebSocketRoute)) and route.endpoint in functions_set
     ]
     for route in cbv_routes:
         router.routes.remove(route)

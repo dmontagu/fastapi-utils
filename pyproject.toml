@@ -61,9 +61,7 @@ codecov = "*"
 ruff = "*"
 black = { version = "*", allow-prereleases = true }
 mypy = "*"
-#sqlalchemy-stubs = "*"
-# isort
-# pyupgrade
+sqlalchemy-stubs = "*"
 
 # Documentation
 mkdocs = "*"
@@ -88,7 +86,7 @@ exclude = '''
 
 [tool.ruff]
 line-length = 120
-extend-select = ['RUF100', 'C90', 'UP', 'I']
+extend-select = ['RUF100', 'C90', 'I']
 isort = { known-first-party = ['fastapi-utils', 'tests'] }
 
 #flake8-quotes = {inline-quotes = 'single', multiline-quotes = 'double'}

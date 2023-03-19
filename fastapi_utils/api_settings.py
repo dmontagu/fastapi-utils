@@ -58,7 +58,7 @@ class APISettings(BaseSettings):
         validate_assignment = True
 
 
-@lru_cache
+@lru_cache()
 def get_api_settings() -> APISettings:
     """
     This function returns a cached instance of the APISettings object.
