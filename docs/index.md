@@ -28,7 +28,7 @@
 
 ---
 
-<a href="https://fastapi.tiangolo.com">FastAPI</a> is a modern, fast web framework for building APIs with Python 3.6+.
+<a href="https://fastapi.tiangolo.com">FastAPI</a> is a modern, fast web framework for building APIs with Python 3.7+.
 
 But if you're here, you probably already knew that!
 
@@ -59,7 +59,7 @@ See the [docs](https://fastapi-utils.davidmontague.xyz/) for more details and ex
 
 ## Requirements
 
-This package is intended for use with any recent version of FastAPI (depending on `pydantic>=1.0`), and Python 3.6+.
+This package is intended for use with any recent version of FastAPI (depending on `pydantic>=1.0`), and Python 3.7+.
 
 ## Installation
 
