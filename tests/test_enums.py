@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import auto
 
 from fastapi_utils.enums import CamelStrEnum, StrEnum

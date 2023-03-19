@@ -3,8 +3,7 @@ from uuid import UUID
 
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI, Header, HTTPException
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base
 from starlette.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 
 from fastapi_utils.api_model import APIMessage, APIModel
@@ -37,15 +36,15 @@ class ItemInDB(ItemCreate):
 
 
 def get_jwt_user(authorization: str = Header(...)) -> UserID:
-    """ Pretend this function gets a UserID from a JWT in the auth header """
+    """Pretend this function gets a UserID from a JWT in the auth header"""
 
 
 def get_db() -> Session:
-    """ Pretend this function returns a SQLAlchemy ORM session"""
+    """Pretend this function returns a SQLAlchemy ORM session"""
 
 
 def get_owned_item(session: Session, owner: UserID, item_id: ItemID) -> ItemORM:
-    item: Optional[ItemORM] = session.query(ItemORM).get(item_id)
+    item: Optional[ItemORM] = session.get(ItemORM, item_id)
     if item is not None and item.owner != owner:
         raise HTTPException(status_code=HTTP_403_FORBIDDEN)
     if item is None:

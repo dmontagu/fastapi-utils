@@ -1,4 +1,5 @@
-# TODO: Add tests for postgres
+from __future__ import annotations
+
 import uuid
 from typing import TYPE_CHECKING, no_type_check
 
@@ -27,6 +28,7 @@ class GUID(UUIDTypeDecorator):
     """
 
     impl = CHAR
+    cache_ok = True
 
     @no_type_check
     def __init__(self, *args, **kwargs):

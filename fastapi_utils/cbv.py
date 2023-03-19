@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import inspect
-from typing import Any, Callable, List, Type, TypeVar, Union, get_type_hints
+from collections.abc import Callable
+from typing import Any, TypeVar, get_type_hints
 
 from fastapi import APIRouter, Depends
 from pydantic.typing import is_classvar
@@ -10,7 +13,7 @@ T = TypeVar("T")
 CBV_CLASS_KEY = "__cbv_class__"
 
 
-def cbv(router: APIRouter) -> Callable[[Type[T]], Type[T]]:
+def cbv(router: APIRouter) -> Callable[[type[T]], type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
 
@@ -22,13 +25,13 @@ def cbv(router: APIRouter) -> Callable[[Type[T]], Type[T]]:
     https://fastapi-utils.davidmontague.xyz/user-guide/class-based-views/#the-cbv-decorator
     """
 
-    def decorator(cls: Type[T]) -> Type[T]:
+    def decorator(cls: type[T]) -> type[T]:
         return _cbv(router, cls)
 
     return decorator
 
 
-def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
+def _cbv(router: APIRouter, cls: type[T]) -> type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.
@@ -36,7 +39,7 @@ def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
     _init_cbv(cls)
     cbv_router = APIRouter()
     function_members = inspect.getmembers(cls, inspect.isfunction)
-    functions_set = set(func for _, func in function_members)
+    functions_set = {func for _, func in function_members}
     cbv_routes = [
         route
         for route in router.routes
@@ -50,7 +53,7 @@ def _cbv(router: APIRouter, cls: Type[T]) -> Type[T]:
     return cls
 
 
-def _init_cbv(cls: Type[Any]) -> None:
+def _init_cbv(cls: type[Any]) -> None:
     """
     Idempotently modifies the provided `cls`, performing the following modifications:
     * The `__init__` function is updated to set any class-annotated dependencies as instance attributes
@@ -64,7 +67,7 @@ def _init_cbv(cls: Type[Any]) -> None:
     new_parameters = [
         x for x in old_parameters if x.kind not in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD)
     ]
-    dependency_names: List[str] = []
+    dependency_names: list[str] = []
     for name, hint in get_type_hints(cls).items():
         if is_classvar(hint):
             continue
@@ -86,13 +89,13 @@ def _init_cbv(cls: Type[Any]) -> None:
     setattr(cls, CBV_CLASS_KEY, True)
 
 
-def _update_cbv_route_endpoint_signature(cls: Type[Any], route: Union[Route, WebSocketRoute]) -> None:
+def _update_cbv_route_endpoint_signature(cls: type[Any], route: Route | WebSocketRoute) -> None:
     """
     Fixes the endpoint signature for a cbv route to ensure FastAPI performs dependency injection properly.
     """
     old_endpoint = route.endpoint
     old_signature = inspect.signature(old_endpoint)
-    old_parameters: List[inspect.Parameter] = list(old_signature.parameters.values())
+    old_parameters: list[inspect.Parameter] = list(old_signature.parameters.values())
     old_first_parameter = old_parameters[0]
     new_first_parameter = old_first_parameter.replace(default=Depends(cls))
     new_parameters = [new_first_parameter] + [

@@ -51,12 +51,8 @@ markdown_extensions:
 
 extra:
   social:
-    - type: 'github'
+    - icon: 'fontawesome/brands/github-alt'
       link: 'https://github.com/dmontagu/fastapi-utils'
-    - type: 'linkedin'
-      link: 'https://www.linkedin.com/in/david-montague/'
-    - type: 'globe'
-      link: 'https://davidmontague.xyz'
 
 extra_css:
   - 'css/custom.css'

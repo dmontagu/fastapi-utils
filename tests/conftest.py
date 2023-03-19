@@ -1,12 +1,13 @@
+from __future__ import annotations
+
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator
 from uuid import UUID
 
 import pytest
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base  # type: ignore[attr-defined]
 
 from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
 from fastapi_utils.session import FastAPISessionMaker, get_engine
@@ -14,7 +15,7 @@ from fastapi_utils.session import FastAPISessionMaker, get_engine
 Base = declarative_base()
 
 
-class User(Base):
+class User(Base):  # type: ignore[valid-type,misc]
     __tablename__ = "user"
     id = sa.Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
     name = sa.Column(sa.String, nullable=False)
@@ -35,7 +36,7 @@ app = FastAPI()
 
 @app.get("/{user_id}")
 def get_user_name(db: Session = Depends(get_db), *, user_id: UUID) -> str:
-    user = db.query(User).get(user_id)
+    user = db.get(User, user_id)  # type: ignore[attr-defined]
     username = user.name
     return username
 

@@ -11,7 +11,7 @@ app = FastAPI()
 
 
 def remove_expired_tokens(db: Session) -> None:
-    """ Pretend this function deletes expired tokens from the database """
+    """Pretend this function deletes expired tokens from the database"""
 
 
 @app.on_event("startup")

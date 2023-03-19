@@ -1,6 +1,10 @@
-from fastapi import FastAPI
+from __future__ import annotations
 
-from fastapi_utils.inferring_router import InferringRouter
+import pytest
+from fastapi import APIRouter, FastAPI
+
+with pytest.warns(DeprecationWarning):
+    from fastapi_utils.inferring_router import InferringRouter
 
 openapi_spec = {
     "info": {"title": "FastAPI", "version": "0.1.0"},
@@ -38,8 +42,9 @@ openapi_spec = {
 }
 
 
-def test_inferring_router() -> None:
-    inferring_router = InferringRouter()
+@pytest.mark.parametrize("Router", [InferringRouter, APIRouter])
+def test_inferring_router(Router: type[InferringRouter] | type[APIRouter]) -> None:
+    inferring_router = Router()
 
     @inferring_router.get("/1")
     def endpoint_1() -> str:  # pragma: no cover

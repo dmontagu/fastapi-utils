@@ -5,8 +5,7 @@ from uuid import UUID
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
 from pydantic import BaseSettings
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base
 
 from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
 from fastapi_utils.session import FastAPISessionMaker
@@ -21,19 +20,19 @@ class User(Base):
 
 
 class DBSettings(BaseSettings):
-    """ Parses variables from environment on instantiation """
+    """Parses variables from environment on instantiation"""
 
     database_uri: str  # could break up into scheme, username, password, host, db
 
 
 def get_db() -> Iterator[Session]:
-    """ FastAPI dependency that provides a sqlalchemy session """
+    """FastAPI dependency that provides a sqlalchemy session"""
     yield from _get_fastapi_sessionmaker().get_db()
 
 
 @lru_cache()
 def _get_fastapi_sessionmaker() -> FastAPISessionMaker:
-    """ This function could be replaced with a global variable if preferred """
+    """This function could be replaced with a global variable if preferred"""
     database_uri = DBSettings().database_uri
     return FastAPISessionMaker(database_uri)
 
@@ -43,6 +42,6 @@ app = FastAPI()
 
 @app.get("/{user_id}")
 def get_user_name(db: Session = Depends(get_db), *, user_id: UUID) -> str:
-    user = db.query(User).get(user_id)
+    user = db.get(User, user_id)
     username = user.name
     return username
