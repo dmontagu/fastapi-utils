@@ -27,6 +27,7 @@ class GUID(UUIDTypeDecorator):
     """
 
     impl = CHAR
+    cache_ok = True
 
     @no_type_check
     def __init__(self, *args, **kwargs):

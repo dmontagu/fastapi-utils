@@ -2,7 +2,7 @@ import asyncio
 import logging
 import time
 from asyncio import AbstractEventLoop
-from typing import Any, Dict, List, NoReturn, Tuple
+from typing import Any, NoReturn
 
 import pytest
 from _pytest.capture import CaptureFixture
@@ -13,7 +13,7 @@ from fastapi_utils.tasks import repeat_every
 logging.basicConfig(level=logging.INFO)
 
 
-def ignore_exception(_loop: AbstractEventLoop, _context: Dict[str, Any]) -> None:
+def ignore_exception(_loop: AbstractEventLoop, _context: dict[str, Any]) -> None:
     pass
 
 
@@ -84,7 +84,7 @@ async def test_repeat_log_error(caplog: LogCaptureFixture) -> None:
 
     await log_exc()
     n_record_tuples = 0
-    record_tuples: List[Tuple[Any, ...]] = []
+    record_tuples: list[tuple[Any, ...]] = []
     start_time = time.time()
     while n_record_tuples < 2:  # ensure multiple records are logged
         time_elapsed = time.time() - start_time

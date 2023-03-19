@@ -1,4 +1,4 @@
-from sqlalchemy.ext.declarative import declarative_base, declared_attr
+from sqlalchemy.orm import declarative_base, declared_attr
 
 from fastapi_utils.camelcase import camel2snake
 

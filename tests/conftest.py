@@ -1,12 +1,11 @@
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator
 from uuid import UUID
 
 import pytest
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base
 
 from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
 from fastapi_utils.session import FastAPISessionMaker, get_engine
@@ -35,7 +34,7 @@ app = FastAPI()
 
 @app.get("/{user_id}")
 def get_user_name(db: Session = Depends(get_db), *, user_id: UUID) -> str:
-    user = db.query(User).get(user_id)
+    user = db.get(User, user_id)
     username = user.name
     return username
 
