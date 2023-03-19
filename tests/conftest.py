@@ -13,7 +13,7 @@ from fastapi_utils.session import FastAPISessionMaker, get_engine
 Base = declarative_base()
 
 
-class User(Base):
+class User(Base):  # type: ignore[valid-type,misc]
     __tablename__ = "user"
     id = sa.Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
     name = sa.Column(sa.String, nullable=False)

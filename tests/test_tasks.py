@@ -23,7 +23,7 @@ def setup_event_loop(event_loop: AbstractEventLoop) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_print(capsys: CaptureFixture) -> None:
+async def test_repeat_print(capsys: CaptureFixture[str]) -> None:
     @repeat_every(seconds=0.01, max_repetitions=3)
     async def repeatedly_print_hello() -> None:
         print("hello")
@@ -36,7 +36,7 @@ async def test_repeat_print(capsys: CaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_print_delay(capsys: CaptureFixture) -> None:
+async def test_repeat_print_delay(capsys: CaptureFixture[str]) -> None:
     @repeat_every(seconds=0.07, max_repetitions=3)
     def repeatedly_print_hello() -> None:
         print("hello")
@@ -49,7 +49,7 @@ async def test_repeat_print_delay(capsys: CaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_print_wait(capsys: CaptureFixture) -> None:
+async def test_repeat_print_wait(capsys: CaptureFixture[str]) -> None:
     @repeat_every(seconds=0.07, max_repetitions=3, wait_first=True)
     def repeatedly_print_hello() -> None:
         print("hello")
@@ -97,7 +97,7 @@ async def test_repeat_log_error(caplog: LogCaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_raise_error(caplog: LogCaptureFixture, capsys: CaptureFixture) -> None:
+async def test_repeat_raise_error(caplog: LogCaptureFixture, capsys: CaptureFixture[str]) -> None:
     logger = logging.getLogger(__name__)
 
     @repeat_every(seconds=0.07, max_repetitions=None, raise_exceptions=True, logger=logger)

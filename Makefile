@@ -23,12 +23,14 @@ test:
 .PHONY: format  ## Auto-format the source code (isort, autoflake, black)
 format:
 	black $(all_src)
+	black -l 82 $(docs_src)
 	ruff --fix $(all_src)
 
 .PHONY: lint
 lint:
 	ruff $(all_src)
 	black --check --diff $(all_src)
+	black -l 82 $(docs_src) --check --diff
 
 .PHONY: mypy  ## Run mypy over the application source and tests
 mypy:
@@ -45,15 +47,7 @@ testcov:
 	fi
 
 .PHONY: ci  ## Run all CI validation steps without making any changes to code
-ci: check-format lint mypy test
-
-.PHONY: check-format  ## Check the source code format without changes
-check-format:
-	$(isort) $(docs_src) --check-only
-	@echo $(autoflake) $(docs_src) --check
-	@( set -o pipefail; $(autoflake) $(docs_src) --check | (grep -v "No issues detected!" || true) )
-	$(black) --check
-	black -l 82 $(docs_src) --check
+ci: lint mypy test
 
 .PHONY: clean  ## Remove temporary and cache files/directories
 clean:

@@ -70,7 +70,7 @@ def test_multiple_decorators() -> None:
         @router.get("/items/?")
         @router.get("/items/{item_path:path}")
         @router.get("/database/{item_path:path}")
-        def root(self, item_path: str = None, item_query: str = None) -> Any:
+        def root(self, item_path: str | None = None, item_query: str | None = None) -> Any:
             if item_path:
                 return {"item_path": item_path}
             if item_query:

@@ -82,7 +82,7 @@ class _TimingStats:
     """
 
     def __init__(
-        self, name: str | None = None, record: Callable[[str], None] = None, exclude: str | None = None
+        self, name: str | None = None, record: Callable[[str], None] | None = None, exclude: str | None = None
     ) -> None:
         self.name = name
         self.record = record or print

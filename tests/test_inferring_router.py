@@ -41,7 +41,7 @@ openapi_spec = {
 
 
 @pytest.mark.parametrize("Router", [InferringRouter, APIRouter])
-def test_inferring_router(Router) -> None:
+def test_inferring_router(Router: type[InferringRouter] | type[APIRouter]) -> None:
     inferring_router = Router()
 
     @inferring_router.get("/1")

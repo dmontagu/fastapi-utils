@@ -17,7 +17,7 @@ else:
     UUIDTypeDecorator = TypeDecorator
 
 
-class GUID(UUIDTypeDecorator):
+class GUID(UUIDTypeDecorator):  # type: ignore[valid-type,misc]
     """
     Platform-independent GUID type.
 
