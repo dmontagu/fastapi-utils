@@ -8,5 +8,5 @@ class MyEnum(CamelStrEnum):
     choice_two = auto()
 
 
-assert MyEnum.choice_a.name == MyEnum.choice_a.value == "choiceOne"
-assert MyEnum.choice_b.name == MyEnum.choice_b.value == "choiceTwo"
+assert MyEnum.choice_one.name == MyEnum.choice_one.value == "choiceOne"
+assert MyEnum.choice_one.name == MyEnum.choice_one.value == "choiceTwo"
