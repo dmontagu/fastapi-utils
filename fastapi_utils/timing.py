@@ -9,7 +9,11 @@ consider using the coroutine-aware profiling library `yappi`.
 """
 from __future__ import annotations
 
-import resource
+import sys
+
+if sys.platform != "win32":
+    import resource
+
 import time
 from collections.abc import Callable
 from typing import Any
@@ -182,6 +186,9 @@ def _get_cpu_time() -> float:
     """
     Generates the cpu time to report. Adds the user and system time, following the implementation from timing-asgi
     """
+    if sys.platform == "win32":
+        return time.process_time()
+
     resources = resource.getrusage(resource.RUSAGE_SELF)
     # add up user time (ru_utime) and system time (ru_stime)
     return resources[0] + resources[1]
