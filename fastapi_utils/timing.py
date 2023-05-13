@@ -9,7 +9,11 @@ consider using the coroutine-aware profiling library `yappi`.
 """
 from __future__ import annotations
 
-import resource
+import sys
+
+if sys.platform != "win32":
+    import resource
+
 import time
 from collections.abc import Callable
 from typing import Any
