@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 
 from fastapi_restful.camelcase import camel2snake, snake2camel

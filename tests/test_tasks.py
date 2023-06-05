@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import asyncio
 import logging
 import time
 from asyncio import AbstractEventLoop
 from typing import TYPE_CHECKING, Any, Dict, List, NoReturn, Tuple
+from typing import Any, NoReturn
 
 import pytest
 from pytest import LogCaptureFixture
@@ -17,7 +20,7 @@ from fastapi_restful.tasks import repeat_every
 logging.basicConfig(level=logging.INFO)
 
 
-def ignore_exception(_loop: AbstractEventLoop, _context: Dict[str, Any]) -> None:
+def ignore_exception(_loop: AbstractEventLoop, _context: dict[str, Any]) -> None:
     pass
 
 
@@ -27,7 +30,7 @@ def setup_event_loop(event_loop: AbstractEventLoop) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_print(capsys: CaptureFixture) -> None:
+async def test_repeat_print(capsys: CaptureFixture[str]) -> None:
     @repeat_every(seconds=0.01, max_repetitions=3)
     async def repeatedly_print_hello() -> None:
         print("hello")
@@ -40,7 +43,7 @@ async def test_repeat_print(capsys: CaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_print_delay(capsys: CaptureFixture) -> None:
+async def test_repeat_print_delay(capsys: CaptureFixture[str]) -> None:
     @repeat_every(seconds=0.07, max_repetitions=3)
     def repeatedly_print_hello() -> None:
         print("hello")
@@ -53,7 +56,7 @@ async def test_repeat_print_delay(capsys: CaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_print_wait(capsys: CaptureFixture) -> None:
+async def test_repeat_print_wait(capsys: CaptureFixture[str]) -> None:
     @repeat_every(seconds=0.07, max_repetitions=3, wait_first=0.1)
     async def repeatedly_print_hello() -> None:
         print("hello")
@@ -88,7 +91,7 @@ async def test_repeat_log_error(caplog: LogCaptureFixture) -> None:
 
     await log_exc()
     n_record_tuples = 0
-    record_tuples: List[Tuple[Any, ...]] = []
+    record_tuples: list[tuple[Any, ...]] = []
     start_time = time.time()
     while n_record_tuples < 2:  # ensure multiple records are logged
         time_elapsed = time.time() - start_time
@@ -101,7 +104,7 @@ async def test_repeat_log_error(caplog: LogCaptureFixture) -> None:
 
 
 @pytest.mark.asyncio
-async def test_repeat_raise_error(caplog: LogCaptureFixture, capsys: CaptureFixture) -> None:
+async def test_repeat_raise_error(caplog: LogCaptureFixture, capsys: CaptureFixture[str]) -> None:
     logger = logging.getLogger(__name__)
 
     @repeat_every(seconds=0.07, max_repetitions=None, raise_exceptions=True, logger=logger)

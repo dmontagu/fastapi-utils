@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import uuid
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator
 
 import pytest
 from fastapi import FastAPI

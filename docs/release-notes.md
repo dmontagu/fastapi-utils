@@ -1,5 +1,13 @@
 ## Latest changes
 
+## 0.5.0
+
+* Move to ruff for linting, etc.
+* Update various dependencies
+* Stop supporting Python 3.6
+* Deprecate InferringRouter (as its functionality is now built into `fastapi.APIRouter`)
+* Resolve various deprecationwarnings introduced by sqlalchemy 1.4.
+
 ## 0.3.1
 
 * [CVE-2021-29510](https://github.com/samuelcolvin/pydantic/security/advisories/GHSA-5jqp-qgf6-3pvh) fix of pydantic - update is required

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from functools import lru_cache
-from typing import Any, Dict
+from typing import Any
 
 from pydantic import BaseSettings
 
@@ -31,14 +33,14 @@ class APISettings(BaseSettings):
     disable_docs: bool = False
 
     @property
-    def fastapi_kwargs(self) -> Dict[str, Any]:
+    def fastapi_kwargs(self) -> dict[str, Any]:
         """
         This returns a dictionary of the most commonly used keyword arguments when initializing a FastAPI instance
 
         If `self.disable_docs` is True, the various docs-related arguments are disabled, preventing your spec from being
         published.
         """
-        fastapi_kwargs: Dict[str, Any] = {
+        fastapi_kwargs: dict[str, Any] = {
             "debug": self.debug,
             "docs_url": self.docs_url,
             "openapi_prefix": self.openapi_prefix,

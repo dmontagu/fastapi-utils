@@ -5,6 +5,13 @@ from fastapi import FastAPI
 from starlette import status
 
 from fastapi_restful.inferring_router import InferringRouter
+from __future__ import annotations
+
+import pytest
+from fastapi import APIRouter, FastAPI
+
+with pytest.warns(DeprecationWarning):
+    from fastapi_utils.inferring_router import InferringRouter
 
 OpenapiSchemaType = Dict[str, Any]
 

@@ -5,8 +5,7 @@ from uuid import UUID
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI
 from pydantic import BaseSettings
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base
 
 from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
 from fastapi_restful.session import FastAPISessionMaker
@@ -43,6 +42,6 @@ app = FastAPI()
 
 @app.get("/{user_id}")
 def get_user_name(db: Session = Depends(get_db), *, user_id: UUID) -> str:
-    user = db.query(User).get(user_id)
+    user = db.get(User, user_id)
     username = user.name
     return username

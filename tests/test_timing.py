@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -33,7 +35,7 @@ def get_untimed() -> None:
 client = TestClient(app)
 
 
-def test_timing(capsys: CaptureFixture) -> None:
+def test_timing(capsys: CaptureFixture[str]) -> None:
     client.get("/timed")
     out, err = capsys.readouterr()
     assert err == ""
@@ -42,14 +44,14 @@ def test_timing(capsys: CaptureFixture) -> None:
     assert out.endswith("test_timing.get_timed\n")
 
 
-def test_silent_timing(capsys: CaptureFixture) -> None:
+def test_silent_timing(capsys: CaptureFixture[str]) -> None:
     client.get("/untimed")
     out, err = capsys.readouterr()
     assert err == ""
     assert out == ""
 
 
-def test_mount(capsys: CaptureFixture) -> None:
+def test_mount(capsys: CaptureFixture[str]) -> None:
     basename = Path(__file__).name
     client.get(f"/static/{basename}")
     out, err = capsys.readouterr()
@@ -58,7 +60,7 @@ def test_mount(capsys: CaptureFixture) -> None:
     assert out.endswith("StaticFiles<'static'>\n")
 
 
-def test_missing(capsys: CaptureFixture) -> None:
+def test_missing(capsys: CaptureFixture[str]) -> None:
     client.get("/will-404")
     out, err = capsys.readouterr()
     assert err == ""
@@ -78,16 +80,16 @@ def get_with_intermediate_timing(request: Request) -> None:
 client2 = TestClient(app2)
 
 
-def test_intermediate(capsys: CaptureFixture) -> None:
+def test_intermediate(capsys: CaptureFixture[str]) -> None:
     client2.get("/")
     out, err = capsys.readouterr()
     assert err == ""
-    out = out.strip().split("\n")
-    assert len(out) == 2
-    assert out[0].startswith("TIMING:")
-    assert out[0].endswith("test_timing.get_with_intermediate_timing (hello)")
-    assert out[1].startswith("TIMING:")
-    assert out[1].endswith("test_timing.get_with_intermediate_timing")
+    outs = out.strip().split("\n")
+    assert len(outs) == 2
+    assert outs[0].startswith("TIMING:")
+    assert outs[0].endswith("test_timing.get_with_intermediate_timing (hello)")
+    assert outs[1].startswith("TIMING:")
+    assert outs[1].endswith("test_timing.get_with_intermediate_timing")
 
 
 app3 = FastAPI()

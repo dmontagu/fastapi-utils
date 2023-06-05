@@ -2,6 +2,11 @@
 *.hdf5
 .idea/
 
+env/
+venv/
+.venv/
+env3*/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -86,5 +91,4 @@ venv.bak/
 
 site
 
-.bento/
-
+.tool-versions
