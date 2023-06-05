@@ -1,5 +1,7 @@
+from __future__ import annotations
+
+from collections.abc import Iterator
 from contextlib import contextmanager
-from typing import Iterator, Optional
 
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
@@ -26,8 +28,8 @@ class FastAPISessionMaker:
         """
         self.database_uri = database_uri
 
-        self._cached_engine: Optional[sa.engine.Engine] = None
-        self._cached_sessionmaker: Optional[sa.orm.sessionmaker] = None
+        self._cached_engine: sa.engine.Engine | None = None
+        self._cached_sessionmaker: sa.orm.sessionmaker | None = None
 
     @property
     def cached_engine(self) -> sa.engine.Engine:
@@ -57,7 +59,7 @@ class FastAPISessionMaker:
         """
         return get_engine(self.database_uri)
 
-    def get_new_sessionmaker(self, engine: Optional[sa.engine.Engine]) -> sa.orm.sessionmaker:
+    def get_new_sessionmaker(self, engine: sa.engine.Engine | None) -> sa.orm.sessionmaker:
         """
         Returns a new sessionmaker for the provided sqlalchemy engine. If no engine is provided, the
         instance's (lazily-cached) engine is used.

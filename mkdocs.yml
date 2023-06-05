@@ -13,10 +13,6 @@ theme:
 repo_name: yuval9313/FastApi-RESTful
 repo_url: https://github.com/yuval9313/fastapi-restful
 
-#google_analytics:
-#    - 'UA-133183413-1'
-#    - 'auto'
-
 nav:
   - FastAPI RESTful: 'index.md'
   - User Guide:
@@ -52,7 +48,7 @@ markdown_extensions:
 
 extra:
   social:
-    - icon: fontawesome/brands/github-alt
+    - icon: 'fontawesome/brands/github-alt'
       link: 'https://github.com/yuval9313/fastapi-restful'
 
 extra_css:

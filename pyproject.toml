@@ -3,7 +3,7 @@ name = "FastApi-RESTful"
 version = "0.4.3"
 description = "Quicker FastApi developing tools"
 license = "MIT"
-authors = ["Yuval Levi"]
+authors = ["Yuval Levi <yuvall9313@gmail.com>"]
 readme = "README.md"
 homepage = "https://fastapi-restful.netlify.app"
 repository = "https://github.com/yuval9313/fastapi-utils"
@@ -28,28 +28,27 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Utilities"
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.7"
 
 dataclasses = {version = "^0.8", python = "~3.6.2"}
 fastapi = "^0"
-pydantic = "^1"
-sqlalchemy =  { version = "^1", optional = true }
+pydantic = "^1.0,<2.0"
+sqlalchemy =  { version = "^1.0,<2.0", optional = true }
 psutil = "^5"
 
 [tool.poetry.dev-dependencies]
 # Starlette features
-wheel = "*"
 aiofiles = "*"  # Serving static files
 requests = "*"  # TestClient
 
@@ -57,17 +56,12 @@ requests = "*"  # TestClient
 pytest = "^7.0"
 pytest-cov = "*"
 pytest-asyncio = "*"
+coverage = "*"
 
-# Python 3.6 Testing
-async-exit-stack = { version = "*", python = "~3.6" }
-async-generator = { version = "*", python = "~3.6" }
-types-dataclasses = { version = "*", python = "~3.6" }
 
 # Static
-isort = "*"
-autoflake = "*"
+ruff = "*"
 black = { version = "*", allow-prereleases = true }
-flake8 = "*"
 mypy = "*"
 sqlalchemy-stubs = "*"
 
@@ -96,13 +90,11 @@ exclude = '''
 )
 '''
 
-[tool.isort]
-line_length = 120
-known_first_party = ["fastapi-utils", "tests"]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-combine_as_imports = true
+[tool.ruff]
+line-length = 120
+extend-select = ['RUF100', 'C90', 'I']
+isort = { known-first-party = ['FastApi-RESTful', 'tests'] }
+
 
 [tool.coverage.run]
 source = ["fastapi_restful"]

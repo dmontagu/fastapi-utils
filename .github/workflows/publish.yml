@@ -10,7 +10,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        python-version: [3.8]
+        python-version: ['3.8']
 
     steps:
       - uses: actions/checkout@v1
@@ -22,23 +22,23 @@ jobs:
       - name: Init python poetry action
         uses: abatilo/actions-poetry@v2.1.3
         with:
-          poetry-version: 1.1.12
-        
+          poetry-version: 1.5.1
+
       - name: Install dependencies
         run: poetry install -E session
-        
+
       - name: Check that formatting, linting, and tests pass
         run: poetry run make ci
-        
+
       - name: Check docs are up to date
         run: poetry run make docs-build-ci
-        
+
       - name: Build distribution
         run: poetry build
-        
+
       - name: Publish distribution to PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: ${{ secrets.PYPI_USERNAME }}
-          password: ${{ secrets.PYPI_PASSWORD }}  
+          password: ${{ secrets.PYPI_PASSWORD }}
         # For security porpuses only!

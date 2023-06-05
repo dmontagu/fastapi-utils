@@ -1,4 +1,5 @@
-# TODO: Add tests for postgres
+from __future__ import annotations
+
 import uuid
 from typing import TYPE_CHECKING, no_type_check
 

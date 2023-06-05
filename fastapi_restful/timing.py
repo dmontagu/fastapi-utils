@@ -7,23 +7,26 @@ but only reports timing data at the granularity of individual endpoint calls.
 For more detailed performance investigations (during development only, due to added overhead),
 consider using the coroutine-aware profiling library `yappi`.
 """
-import os
-import time
-from typing import Any, Callable, Optional
+from __future__ import annotations
 
+import os
 import psutil
+import resource
+import time
+from collections.abc import Callable
 from fastapi import FastAPI
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import Response
 from starlette.routing import Match, Mount
 from starlette.types import Scope
+from typing import Any
 
 TIMER_ATTRIBUTE = "__fastapi_utils_timer__"
 
 
 def add_timing_middleware(
-    app: FastAPI, record: Optional[Callable[[str], None]] = None, prefix: str = "", exclude: Optional[str] = None
+    app: FastAPI, record: Callable[[str], None] | None = None, prefix: str = "", exclude: str | None = None
 ) -> None:
     """
     Adds a middleware to the provided `app` that records timing metrics using the provided `record` callable.
@@ -49,7 +52,7 @@ def add_timing_middleware(
         return response
 
 
-def record_timing(request: Request, note: Optional[str] = None) -> None:
+def record_timing(request: Request, note: str | None = None) -> None:
     """
     Call this function at any point that you want to display elapsed time during the handling of a single request
 
@@ -83,7 +86,7 @@ class _TimingStats:
     """
 
     def __init__(
-        self, name: Optional[str] = None, record: Callable[[str], None] = None, exclude: Optional[str] = None
+        self, name: str | None = None, record: Callable[[str], None] | None = None, exclude: str | None = None
     ) -> None:
         self.name = name
         self.record = record or print
@@ -114,14 +117,14 @@ class _TimingStats:
     def cpu_time(self) -> float:
         return self.end_cpu_time - self.start_cpu_time
 
-    def __enter__(self) -> "_TimingStats":
+    def __enter__(self) -> _TimingStats:
         self.start()
         return self
 
     def __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None:
         self.emit()
 
-    def emit(self, note: Optional[str] = None) -> None:
+    def emit(self, note: str | None = None) -> None:
         """
         Emit timing information, optionally including a specified note
         """
