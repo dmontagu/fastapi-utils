@@ -4,8 +4,8 @@ import asyncio
 import logging
 import time
 from asyncio import AbstractEventLoop
-from typing import TYPE_CHECKING, Any, Dict, List, NoReturn, Tuple
 from typing import Any, NoReturn
+from typing import TYPE_CHECKING
 
 import pytest
 from pytest import LogCaptureFixture

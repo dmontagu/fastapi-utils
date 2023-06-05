@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import os
 import psutil
-import resource
 import time
 from collections.abc import Callable
 from fastapi import FastAPI
