@@ -14,7 +14,7 @@ from fastapi_restful.session import FastAPISessionMaker, get_engine
 Base = declarative_base()
 
 
-class User(Base):  # type: ignore
+class User(Base):
     __tablename__ = "user"
     id = sa.Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
     name = sa.Column(sa.String, nullable=False)

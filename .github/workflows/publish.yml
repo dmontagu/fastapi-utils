@@ -31,7 +31,7 @@ jobs:
         run: poetry run make ci
 
       - name: Check docs are up to date
-        run: poetry run make docs-build-ci
+        run: poetry run make docs-build
 
       - name: Build distribution
         run: poetry build

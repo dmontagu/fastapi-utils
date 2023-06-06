@@ -68,6 +68,7 @@ sqlalchemy-stubs = "*"
 mkdocs = "*"
 mkdocs-material = "*"
 markdown-include = "*"
+autoflake = "^1.4"
 
 [tool.poetry.extras]
 all = ["sqlalchemy"]
@@ -109,6 +110,23 @@ exclude_lines = [
     "if TYPE_CHECKING:",
     'if __name__ == "__main__":'
 ]
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+filterwarnings = "ignore:.*The explicit passing of coroutine objects to asyncio.wait()*:DeprecationWarning"
+
+
+[tool.mypy]
+plugins = "pydantic.mypy,sqlmypy"
+
+follow_imports = "silent"
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+disallow_any_generics = true
+check_untyped_defs = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
 
 [tool.poetry-version-plugin]
 source = "init"

@@ -1,5 +1,15 @@
 ## Latest changes
 
+## 0.4.4
+
+* Move to ruff for linting, etc.
+* Update various dependencies
+* Stop supporting Python 3.6
+* Deprecate InferringRouter (as its functionality is now built into `fastapi.APIRouter`)
+* Resolve various deprecationwarnings introduced by sqlalchemy 1.4.
+* Add support to Python 3.11
+* Change package description to avoid errors with pypi as [mentioned here](https://github.com/yuval9313/FastApi-RESTful/issues/175)
+
 ## 0.4.3
 
 * Fix bug where inferred router raises exception when no content is needed but type hint is provided (e.g. `None` as return type with status code 204) (As mentiond in [#134](https://github.com/yuval9313/FastApi-RESTful/pull/134))
@@ -36,7 +46,7 @@ Additionals:
 
 ## 0.2.4.1
 
-* Another docs fixes
+* Another docs fix
 * Rename package folder to small casing to ease imports
 
 ## 0.2.4
