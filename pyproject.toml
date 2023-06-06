@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "FastApi-RESTful"
-version = "0.4.3"
+name = "fastapi-restful"
+version = "0.4.4"
 description = "Quicker FastApi developing tools"
 license = "MIT"
 authors = ["Yuval Levi <yuvall9313@gmail.com>"]
@@ -41,7 +41,6 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.7"
 
-dataclasses = {version = "^0.8", python = "~3.6.2"}
 fastapi = "^0.89"
 pydantic = "^1.0,<2.0"
 sqlalchemy =  { version = "^1.4,<2.0", optional = true }
