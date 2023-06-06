@@ -10,16 +10,17 @@ consider using the coroutine-aware profiling library `yappi`.
 from __future__ import annotations
 
 import os
-import psutil
 import time
 from collections.abc import Callable
+from typing import Any
+
+import psutil
 from fastapi import FastAPI
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.requests import Request
 from starlette.responses import Response
 from starlette.routing import Match, Mount
 from starlette.types import Scope
-from typing import Any
 
 TIMER_ATTRIBUTE = "__fastapi_utils_timer__"
 

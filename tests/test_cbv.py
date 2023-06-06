@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from typing import Any, ClassVar
+
 import pytest
 from fastapi import APIRouter, Depends
 from starlette.testclient import TestClient
-from typing import Any, ClassVar
 
 from fastapi_restful.cbv import cbv
 
