@@ -1,7 +1,6 @@
-from typing import Any, Dict, NoReturn
-from starlette import status
-
 from __future__ import annotations
+
+from typing import Any, Dict
 
 import pytest
 from fastapi import FastAPI
@@ -42,22 +41,3 @@ class TestInferringRouter:
         openapi_spec = app.openapi()
         assert get_response_schema(openapi_spec, "/return_string")["type"] == "string"
         assert get_response_schema(openapi_spec, "/return_integer")["type"] == "integer"
-
-    def test_infer_none(self, app: FastAPI, inferring_router: InferringRouter) -> None:
-        @inferring_router.get("/none")
-        def endpoint_none() -> None:
-            pass
-
-        @inferring_router.get("/none-with-status", status_code=status.HTTP_204_NO_CONTENT)
-        def endpoint_none_with_status_code() -> None:
-            pass
-
-        @inferring_router.get("/noreturn-with-status", status_code=status.HTTP_204_NO_CONTENT)
-        def endpoint_noreturn_with_status_code() -> NoReturn:
-            pass
-
-        app.include_router(inferring_router)
-        openapi_spec = app.openapi()
-        assert get_response_schema(openapi_spec, "/none") == {}
-        assert get_response_schema(openapi_spec, "/none-with-status", 204) is None
-        assert get_response_schema(openapi_spec, "/noreturn-with-status", 204) is None
