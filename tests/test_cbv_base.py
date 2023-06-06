@@ -55,7 +55,7 @@ def test_arg_in_path() -> None:
 
 def test_multiple_routes() -> None:
     class RootHandler(Resource):
-        def get(self, item_path: str = None) -> Union[List[Any], Dict[str, str]]:
+        def get(self, item_path: str | None = None) -> Union[List[Any], Dict[str, str]]:
             if item_path:
                 return {"item_path": item_path}
             return []

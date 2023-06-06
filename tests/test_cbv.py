@@ -98,7 +98,7 @@ class TestCBV:
             @router.get("/items")
             @router.get("/items/{custom_path:path}")
             @router.get("/database/{custom_path:path}")
-            def root(self, custom_path: str = None) -> Any:
+            def root(self, custom_path: str | None = None) -> Any:
                 return {"custom_path": custom_path} if custom_path else []
 
         client = TestClient(router)
@@ -110,7 +110,7 @@ class TestCBV:
         @cbv(router)
         class CBV:
             @router.get("/route")
-            def root(self, param: int = None) -> int:
+            def root(self, param: int | None = None) -> int:
                 return param if param else 0
 
         client = TestClient(router)

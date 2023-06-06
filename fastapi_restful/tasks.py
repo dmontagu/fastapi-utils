@@ -17,7 +17,7 @@ NoArgsNoReturnDecorator = Callable[[Union[NoArgsNoReturnFuncT, NoArgsNoReturnAsy
 def repeat_every(
     *,
     seconds: float,
-    wait_first: float = None,
+    wait_first: float | None = None,
     logger: logging.Logger | None = None,
     raise_exceptions: bool = False,
     max_repetitions: int | None = None,
