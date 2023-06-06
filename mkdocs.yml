@@ -29,7 +29,7 @@ nav:
           - String-Valued Enums: 'user-guide/basics/enums.md'
           - CamelCase Conversion: 'user-guide/basics/camelcase.md'
           - GUID Type: 'user-guide/basics/guid-type.md'
-  - Get Help: 'help-fastapi-utils.md'
+  - Get Help: 'help-fastapi-restful.md'
   - Development - Contributing: 'contributing.md'
   - Release Notes: 'release-notes.md'
 

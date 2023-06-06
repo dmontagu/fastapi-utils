@@ -1,4 +1,4 @@
-First, you might want to see the basic ways to [help and get help](help-fastapi-utils.md){.internal-link target=_blank}.
+First, you might want to see the basic ways to [help and get help](help-fastapi-restful.md){.internal-link target=_blank}.
 
 ## Developing
 
