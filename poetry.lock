@@ -1252,4 +1252,4 @@ session = ["sqlalchemy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "7a8a8adec00cf417d938c67bedcd89fb9625130289d1b6de96467a1867908149"
+content-hash = "f4e46e180e3ee78f393de6171577468ef7bcf851d5996b7693956eea4ddd16de"
