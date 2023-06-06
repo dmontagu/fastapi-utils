@@ -42,7 +42,7 @@ classifiers = [
 python = "^3.7"
 
 dataclasses = {version = "^0.8", python = "~3.6.2"}
-fastapi = "^0"
+fastapi = "^0.89"
 pydantic = "^1.0,<2.0"
 sqlalchemy =  { version = "^1.0,<2.0", optional = true }
 psutil = "^5"
@@ -50,7 +50,7 @@ psutil = "^5"
 [tool.poetry.dev-dependencies]
 # Starlette features
 aiofiles = "*"  # Serving static files
-requests = "*"  # TestClient
+httpx = "*"  # TestClient
 
 # Testing
 pytest = "^7.0"
