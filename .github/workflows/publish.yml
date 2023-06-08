@@ -37,7 +37,18 @@ jobs:
         run: poetry build
 
       - name: Publish distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@master
+        run: poetry publish
+        env:
+          POETRY_PYPI_TOKEN_PYPI=${{ secrets.PYPI_TOKEN }}
+
+      # Publish docs to github pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          user: ${{ secrets.PYPI_USERNAME }}
-          password: ${{ secrets.PYPI_PASSWORD }}
+          # Upload entire repository
+          path: './docs'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
