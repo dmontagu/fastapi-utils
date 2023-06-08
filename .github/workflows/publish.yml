@@ -39,7 +39,7 @@ jobs:
       - name: Publish distribution to PyPI
         run: poetry publish
         env:
-          POETRY_PYPI_TOKEN_PYPI=${{ secrets.PYPI_TOKEN }}
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
 
       # Publish docs to github pages
       - name: Setup Pages
