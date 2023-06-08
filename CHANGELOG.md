@@ -1,5 +1,9 @@
 ## Latest changes
 
+## 0.4.5
+
+* Change the lock of fastapi to enable more versions of it to be installed
+
 ## 0.4.4
 
 * Move to ruff for linting, etc.
