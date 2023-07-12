@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import inspect
 from collections.abc import Callable
-from typing import Any, TypeVar, get_type_hints
+from typing import Any, ClassVar, TypeVar, get_origin, get_type_hints
 
 from fastapi import APIRouter, Depends
-from pydantic.typing import is_classvar
 from starlette.routing import Route, WebSocketRoute
 
 T = TypeVar("T")
@@ -69,7 +68,7 @@ def _init_cbv(cls: type[Any]) -> None:
     ]
     dependency_names: list[str] = []
     for name, hint in get_type_hints(cls).items():
-        if is_classvar(hint):
+        if get_origin(hint) is ClassVar:
             continue
         parameter_kwargs = {"default": getattr(cls, name, Ellipsis)}
         dependency_names.append(name)

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from functools import partial
 
-from pydantic import BaseConfig, BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from fastapi_utils.camelcase import snake2camel
 
@@ -14,14 +14,15 @@ class APIModel(BaseModel):
     Any models that inherit from this class will:
     * accept fields using snake_case or camelCase keys
     * use camelCase keys in the generated OpenAPI spec
-    * have orm_mode on by default
+    * have from_attributes on by default
         * Because of this, FastAPI will automatically attempt to parse returned orm instances into the model
     """
 
-    class Config(BaseConfig):
-        orm_mode = True
-        allow_population_by_field_name = True
-        alias_generator = partial(snake2camel, start_lower=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        populate_by_name=True,
+        alias_generator=partial(snake2camel, start_lower=True),
+    )
 
 
 class APIMessage(APIModel):

@@ -37,10 +37,11 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 
 fastapi = "*"
-pydantic = "^1.10,<2.0"
+pydantic = "^2.0.0"
+pydantic-settings = "^2.0"
 sqlalchemy = "^1.4,<2.0"
 
 [tool.poetry.dev-dependencies]
