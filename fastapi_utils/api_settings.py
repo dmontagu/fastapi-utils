@@ -3,10 +3,21 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Any
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import __version__ as pydantic_version
+
+if pydantic_version < "2.0":
+    from pydantic import BaseSettings
+else:
+    try:
+        from pydantic_settings import BaseSettings, SettingsConfigDict
+    except ImportError:
+        raise ImportError(
+            "You are using pydantic >= 2.0, but you do not have pydantic-settings installed. "
+            "Please install pydantic-settings to use the APISettings class."
+        )
 
 
-class APISettings(BaseSettings):
+class APISettings(BaseSettings):  # type: ignore[misc,valid-type]
     """
     This class enables the configuration of your FastAPI instance through the use of environment variables.
 
@@ -53,7 +64,14 @@ class APISettings(BaseSettings):
             fastapi_kwargs.update({"docs_url": None, "openapi_url": None, "redoc_url": None})
         return fastapi_kwargs
 
-    model_config = SettingsConfigDict(env_prefix="api_", validate_assignment=True)
+    if pydantic_version < "2.0":
+
+        class Config:
+            env_prefix = "api_"
+            validate_assignment = True
+
+    else:
+        model_config = SettingsConfigDict(env_prefix="api_", validate_assignment=True)
 
 
 @lru_cache()

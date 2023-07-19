@@ -13,7 +13,12 @@ def test_orm_mode() -> None:
     class Model(APIModel):
         x: int
 
-    assert Model.model_validate(Data(x=1)).x == 1
+    from pydantic import __version__ as pydantic_version
+
+    if pydantic_version < "2.0":
+        assert Model.from_orm(Data(x=1)).x == 1  # type: ignore[pydantic-orm]
+    else:
+        assert Model.model_validate(Data(x=1)).x == 1
 
 
 def test_aliases() -> None:

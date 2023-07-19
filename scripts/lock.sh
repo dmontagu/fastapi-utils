@@ -6,5 +6,5 @@ cd "${PROJECT_ROOT}"
 
 set -x
 poetry lock
-poetry export --with dev -f requirements.txt >requirements_tmp.txt
+poetry export --with dev --extras pydantic2 -f requirements.txt > requirements_tmp.txt
 mv requirements_tmp.txt requirements.txt
