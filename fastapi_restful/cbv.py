@@ -1,10 +1,16 @@
 import inspect
 from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, cast, get_type_hints
 
+import pydantic
 from fastapi import APIRouter, Depends
 from fastapi.routing import APIRoute
-from pydantic.typing import is_classvar
 from starlette.routing import Route, WebSocketRoute
+
+PYDANTIC_VERSION = pydantic.VERSION
+if PYDANTIC_VERSION[0] == "2":
+    from typing_inspect import is_classvar
+else:
+    from pydantic.typing import is_classvar  # type: ignore[no-redef]
 
 T = TypeVar("T")
 

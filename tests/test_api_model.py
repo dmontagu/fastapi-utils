@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+import pydantic
+
 from fastapi_restful.api_model import APIModel
+
+PYDANTIC_VERSION = pydantic.VERSION
 
 
 def test_orm_mode() -> None:
@@ -13,7 +17,12 @@ def test_orm_mode() -> None:
     class Model(APIModel):
         x: int
 
-    assert Model.from_orm(Data(x=1)).x == 1
+        model_config = {"from_attributes": True}
+
+    if PYDANTIC_VERSION[0] == "2":
+        assert Model.model_validate(Data(x=1)).x == 1
+    else:
+        assert Model.from_orm(Data(x=1)).x == 1
 
 
 def test_aliases() -> None:
