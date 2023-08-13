@@ -65,6 +65,7 @@ ruff = "*"
 black = { version = "*", allow-prereleases = true }
 mypy = "*"
 sqlalchemy-stubs = "*"
+types-setuptools = "*"  # for pkg_resources import
 
 # Documentation
 mkdocs = "*"
