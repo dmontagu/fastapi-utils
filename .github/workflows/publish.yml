@@ -1,5 +1,8 @@
 name: publish
 
+permissions:
+  id-token: write
+
 on:
   push
 
