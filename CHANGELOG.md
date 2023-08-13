@@ -1,5 +1,11 @@
 ## Latest changes
 
+## 0.5.0
+
+* Bump sqlalchemy from 1.4.48 to 2.0.19 by @dependabot in #202
+* Pydantic v2 by @ollz272 in #199
+* fix ci not run by @ollz272 in #208
+
 ## 0.4.5
 
 * Change the lock of fastapi to enable more versions of it to be installed

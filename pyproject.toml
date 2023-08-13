@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-restful"
-version = "0.4.5"
+version = "0.5.0"
 description = "Quicker FastApi developing tools"
 license = "MIT"
 authors = ["Yuval Levi <yuvall9313@gmail.com>"]
