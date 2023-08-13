@@ -1,11 +1,17 @@
-name: publish
+name: publish-docs
+
+permissions:
+  id-token: write
 
 on:
-  push
+  workflow_run:
+    workflows:
+      - publish
+    types:
+      - completed
 
 jobs:
-  publish-tag:
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+  publish-docs:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -27,16 +33,17 @@ jobs:
       - name: Install dependencies
         run: poetry install -E session
 
-      - name: Check that formatting, linting, and tests pass for pydantic v1
-        run: poetry run make ci-v1
-      - name: Check that formatting, linting, and tests pass for pydantic v2
-        run: poetry run make ci-v2
+      - name: Check docs are up to date
+        run: poetry run make docs-build
 
-      - name: Build distribution
-        run: poetry build
-
-      - name: Publish distribution to PyPI
-        run: poetry publish
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
-
+      # Publish docs to github pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Upload entire repository
+          path: './docs'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
