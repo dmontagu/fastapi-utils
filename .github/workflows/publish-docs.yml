@@ -2,6 +2,7 @@ name: publish-docs
 
 permissions:
   id-token: write
+  pages: write
 
 on:
   workflow_run:
