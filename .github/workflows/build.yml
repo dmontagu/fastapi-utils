@@ -26,7 +26,7 @@ jobs:
         uses: abatilo/actions-poetry@v2.3.0
         with:
           poetry-version: 1.5.1
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: cache-deps
         with:
           path: ~/.cache/pip
@@ -37,11 +37,11 @@ jobs:
       - name: Install dependencies
         run: poetry install -E session
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: .mypy_cache
           key: mypy-${{ matrix.python-version }}
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         with:
           path: .pytest_cache
           key: pytest-${{ matrix.python-version }}
