@@ -13,7 +13,7 @@ def test_orm_mode() -> None:
     class Model(APIModel):
         x: int
 
-    assert Model.from_orm(Data(x=1)).x == 1
+    assert Model.model_validate(Data(x=1)).x == 1
 
 
 def test_aliases() -> None:
