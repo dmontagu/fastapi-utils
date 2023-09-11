@@ -8,7 +8,7 @@ with pytest.warns(DeprecationWarning):
 
 openapi_spec = {
     "info": {"title": "FastAPI", "version": "0.1.0"},
-    "openapi": "3.0.2",
+    "openapi": "3.1.0",
     "paths": {
         "/1": {
             "get": {
