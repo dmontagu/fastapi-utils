@@ -27,13 +27,13 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment:**
  - OS: [e.g. Linux / Windows / macOS]
- - FastAPI Utils, FastAPI, and Pydantic versions [e.g. `0.3.0`], get them with:
+ - FastAPI RESTful, FastAPI, and Pydantic versions [e.g. `0.3.0`], get them with:
 
 ```Python
-import fastapi_utils
+import fastapi_restful
 import fastapi
 import pydantic.utils
-print(fastapi_utils.__version__)
+print(fastapi_restful.__version__)
 print(fastapi.__version__)
 print(pydantic.utils.version_info())
 ```

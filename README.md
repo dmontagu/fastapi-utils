@@ -15,7 +15,7 @@
 </a>
 <a href="https://github.com/yuval9313/fastapi-restful" target="_blank">
     <img src="https://img.shields.io/pypi/pyversions/FastApi-RESTful.svg" alt="Python versions">
-    <img src="https://img.shields.io/github/license/yuval9313/fastapi-utils.svg" alt="License">
+    <img src="https://img.shields.io/github/license/yuval9313/FastApi-RESTful.svg" alt="License">
 </a>
 </p>
 
@@ -41,7 +41,7 @@ This package includes a number of utilities to help reduce boilerplate and reuse
 
 * **Resource Class**: Create CRUD with ease the OOP way with `Resource` base class that lets you implement methods quick.
 * **Class Based Views**: Stop repeating the same dependencies over and over in the signature of related endpoints.
-* **Response-Model Inferring Router**: Let FastAPI infer the `response_model` to use based on your return type annotation. 
+* **Response-Model Inferring Router**: Let FastAPI infer the `response_model` to use based on your return type annotation.
 * **Repeated Tasks**: Easily trigger periodic tasks on server startup
 * **Timing Middleware**: Log basic timing information for every request
 * **OpenAPI Spec Simplification**: Simplify your OpenAPI Operation IDs for cleaner output from OpenAPI Generator
@@ -52,12 +52,12 @@ This package includes a number of utilities to help reduce boilerplate and reuse
 It also adds a variety of more basic utilities that are useful across a wide variety of projects:
 
 * **APIModel**: A reusable `pydantic.BaseModel`-derived base class with useful defaults
-* **APISettings**: A subclass of `pydantic.BaseSettings` that makes it easy to configure FastAPI through environment variables 
+* **APISettings**: A subclass of `pydantic.BaseSettings` that makes it easy to configure FastAPI through environment variables
 * **String-Valued Enums**: The `StrEnum` and `CamelStrEnum` classes make string-valued enums easier to maintain
 * **CamelCase Conversions**: Convenience functions for converting strings from `snake_case` to `camelCase` or `PascalCase` and back
 * **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables
 
-See the [docs](https://fastapi-restful.netlify.app/) for more details and examples. 
+See the [docs](https://fastapi-restful.netlify.app/) for more details and examples.
 
 ## Requirements
 
