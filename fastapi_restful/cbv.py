@@ -1,5 +1,15 @@
 import inspect
-from typing import Any, Callable, List, Tuple, Type, TypeVar, Union, cast, get_type_hints
+from typing import (
+    Any,
+    Callable,
+    List,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    cast,
+    get_type_hints,
+)
 
 import pydantic
 from fastapi import APIRouter, Depends
