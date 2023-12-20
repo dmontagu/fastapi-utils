@@ -1,10 +1,12 @@
 ## Latest changes
 
+* Fix `repeat_every` is only running once [#142](https://github.com/yuval9313/FastApi-RESTful/pull/142)
+
 ## 0.5.0
 
 * Bump sqlalchemy from 1.4.48 to 2.0.19 by @dependabot in #202
-* Pydantic v2 by @ollz272 in #199
-* fix ci not run by @ollz272 in #208
+* Pydantic v2 by @ollz272 in [#199](https://github.com/yuval9313/FastApi-RESTful/pull/199)
+* fix ci not run by @ollz272 in [#208](https://github.com/yuval9313/FastApi-RESTful/pull/208)
 
 ## 0.4.5
 

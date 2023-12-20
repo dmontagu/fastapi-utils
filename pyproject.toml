@@ -58,6 +58,8 @@ pytest = "^7.0"
 pytest-cov = "*"
 pytest-asyncio = "*"
 coverage = "*"
+mock = { version = "*", python = "<3.8" }
+types-mock = { version = "*", python = "<3.8" }
 
 
 # Static
