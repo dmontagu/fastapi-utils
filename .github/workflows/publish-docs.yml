@@ -20,9 +20,9 @@ jobs:
         python-version: ['3.10']
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       # Avoid caching to be 100% confident things are working properly
@@ -39,7 +39,7 @@ jobs:
 
       # Publish docs to github pages
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
@@ -47,4 +47,4 @@ jobs:
           path: './docs'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v3

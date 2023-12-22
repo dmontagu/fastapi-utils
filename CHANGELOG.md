@@ -1,5 +1,6 @@
 ## Latest changes
 
+* Update multiple dependencies using @dependebot
 * Fix `repeat_every` is only running once [#142](https://github.com/yuval9313/FastApi-RESTful/pull/142)
 
 ## 0.5.0
