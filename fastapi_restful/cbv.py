@@ -129,6 +129,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
         router.routes.remove(route)
         route.path = route.path[prefix_length:]
         _update_cbv_route_endpoint_signature(cls, route)
+        route.name = cls.__name__ + "." + route.name
         cbv_router.routes.append(route)
     router.include_router(cbv_router)
 

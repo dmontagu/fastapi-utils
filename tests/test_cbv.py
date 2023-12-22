@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, ClassVar, Optional
 
 import pytest
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from starlette.testclient import TestClient
 
 from fastapi_restful.cbv import cbv
@@ -130,3 +130,20 @@ class TestCBV:
         response = client.get("/api/item")
         assert response.status_code == 200
         assert response.json() == "hello"
+
+    def test_url_for(self, router: APIRouter) -> None:
+        @cbv(router)
+        class Foo:
+            @router.get("/foo")
+            def example(self, request: Request) -> str:
+                return str(request.url_for("Bar.example"))
+
+        @cbv(router)
+        class Bar:
+            @router.get("/bar")
+            def example(self, request: Request) -> str:
+                return str(request.url_for("Foo.example"))
+
+        client = TestClient(router)
+        response = client.get("/foo")
+        assert response.json() == "http://testserver/bar"
