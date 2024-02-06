@@ -2,15 +2,33 @@ from __future__ import annotations
 
 import inspect
 from collections.abc import Callable
-from typing import Any, TypeVar, get_type_hints
+from typing import Any, TypeVar, get_type_hints, ForwardRef, Type, get_origin, ClassVar, Optional
 
 from fastapi import APIRouter, Depends
-from pydantic.typing import is_classvar
 from starlette.routing import Route, WebSocketRoute
 
 T = TypeVar("T")
 
 CBV_CLASS_KEY = "__cbv_class__"
+
+
+def _check_classvar(v: Optional[Type[Any]]) -> bool:
+    if v is None:
+        return False
+
+    return v.__class__ == ClassVar.__class__ and getattr(v, '_name', None) == 'ClassVar'
+
+
+def is_classvar(ann_type: Type[Any]) -> bool:
+    if _check_classvar(ann_type) or _check_classvar(get_origin(ann_type)):
+        return True
+
+    # this is an ugly workaround for class vars that contain forward references and are therefore themselves
+    # forward references, see #3679
+    if ann_type.__class__ == ForwardRef and ann_type.__forward_arg__.startswith('ClassVar['):
+        return True
+
+    return False
 
 
 def cbv(router: APIRouter) -> Callable[[type[T]], type[T]]:
