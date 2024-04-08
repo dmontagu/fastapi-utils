@@ -5,7 +5,11 @@ from collections.abc import Callable
 from typing import Any, TypeVar, get_type_hints
 
 from fastapi import APIRouter, Depends
-from pydantic.typing import is_classvar
+
+try:
+    from pydantic.v1.typing import is_classvar  # noqa:F401,RUF100
+except ImportError:
+    from pydantic.typing import is_classvar  # noqa:F401,RUF100
 from starlette.routing import Route, WebSocketRoute
 
 T = TypeVar("T")

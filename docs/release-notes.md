@@ -7,6 +7,9 @@
 * Stop supporting Python 3.6
 * Deprecate InferringRouter (as its functionality is now built into `fastapi.APIRouter`)
 * Resolve various deprecationwarnings introduced by sqlalchemy 1.4.
+* Added support for Pydantic 2, you have to select the dependency in your project:
+  - for v1 use `fastapi-utils = "^0.3"`, or `pydantic = "^1.10"`, or both,
+  - for v2 use `fastapi-utils = { version = "^0.3", extras = ["pydantic_settings"] }`, or `pydantic = "^2.0"`, or both.
 
 ## 0.2.1
 
