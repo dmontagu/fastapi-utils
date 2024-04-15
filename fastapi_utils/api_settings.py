@@ -3,23 +3,13 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Any
 
-from pydantic import BaseSettings
+try:
+    from pydantic_settings import BaseSettings
+except ImportError:
+    from pydantic import BaseSettings
 
 
-class APISettings(BaseSettings):
-    """
-    This class enables the configuration of your FastAPI instance through the use of environment variables.
-
-    Any of the instance attributes can be overridden upon instantiation by either passing the desired value to the
-    initializer, or by setting the corresponding environment variable.
-
-    Attribute `xxx_yyy` corresponds to environment variable `API_XXX_YYY`. So, for example, to override
-    `openapi_prefix`, you would set the environment variable `API_OPENAPI_PREFIX`.
-
-    Note that assignments to variables are also validated, ensuring that even if you make runtime-modifications
-    to the config, they should have the correct types.
-    """
-
+class APISettingsBase(BaseSettings):
     # fastapi.applications.FastAPI initializer kwargs
     debug: bool = False
     docs_url: str = "/docs"
@@ -53,9 +43,43 @@ class APISettings(BaseSettings):
             fastapi_kwargs.update({"docs_url": None, "openapi_url": None, "redoc_url": None})
         return fastapi_kwargs
 
-    class Config:
-        env_prefix = "api_"
-        validate_assignment = True
+
+try:
+    from pydantic_settings import SettingsConfigDict
+
+    class APISettings(APISettingsBase):
+        """
+        This class enables the configuration of your FastAPI instance through the use of environment variables.
+
+        Any of the instance attributes can be overridden upon instantiation by either passing the desired value to the
+        initializer, or by setting the corresponding environment variable.
+
+        Attribute `xxx_yyy` corresponds to environment variable `API_XXX_YYY`. So, for example, to override
+        `openapi_prefix`, you would set the environment variable `API_OPENAPI_PREFIX`.
+
+        Note that assignments to variables are also validated, ensuring that even if you make runtime-modifications
+        to the config, they should have the correct types.
+        """
+
+        model_config = SettingsConfigDict(env_prefix="api_", validate_assignment=True)
+except ImportError:
+    class APISettings(APISettingsBase):
+        """
+        This class enables the configuration of your FastAPI instance through the use of environment variables.
+
+        Any of the instance attributes can be overridden upon instantiation by either passing the desired value to the
+        initializer, or by setting the corresponding environment variable.
+
+        Attribute `xxx_yyy` corresponds to environment variable `API_XXX_YYY`. So, for example, to override
+        `openapi_prefix`, you would set the environment variable `API_OPENAPI_PREFIX`.
+
+        Note that assignments to variables are also validated, ensuring that even if you make runtime-modifications
+        to the config, they should have the correct types.
+        """
+
+        class Config:
+            env_prefix = "api_"
+            validate_assignment = True
 
 
 @lru_cache()
