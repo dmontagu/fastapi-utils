@@ -103,6 +103,7 @@ docs-build:
 	cp ./README.md ./docs/index.md
 	cp ./CONTRIBUTING.md ./docs/contributing.md
 	cp ./CHANGELOG.md ./docs/release-notes.md
+	pip install mkdocs mkdocs-material markdown-include
 	python -m mkdocs build
 
 .PHONY: docs-format  ## Format the python code that is part of the docs
