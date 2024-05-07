@@ -1,3 +1,6 @@
+> # Deprecation notice!
+> I've joined to the fastapi-utils repo and now I can contribute to it. since it has such larger user base I would prefer to maintain it and streamline updates for thousand of users!
+
 <p align="center">
     <em>Quicker FastApi developing tools</em>
 </p>
