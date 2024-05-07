@@ -14,7 +14,7 @@ else:
 
 import pytest
 
-from fastapi_restful.tasks import NoArgsNoReturnAsyncFuncT, repeat_every
+from fastapi_utils.tasks import NoArgsNoReturnAsyncFuncT, repeat_every
 
 
 # Fixtures:

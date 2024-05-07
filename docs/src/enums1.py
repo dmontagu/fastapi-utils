@@ -1,6 +1,6 @@
 from enum import auto
 
-from fastapi_restful.enums import StrEnum
+from fastapi_utils.enums import StrEnum
 
 
 class MyEnum(StrEnum):

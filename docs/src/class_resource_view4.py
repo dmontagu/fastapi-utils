@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from fastapi_restful import Resource, set_responses
+from fastapi_utils import Resource, set_responses
 
 
 # Setup

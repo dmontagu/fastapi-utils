@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from starlette.status import HTTP_200_OK, HTTP_404_NOT_FOUND
 from starlette.testclient import TestClient
 
-from fastapi_restful.api_settings import get_api_settings
+from fastapi_utils.api_settings import get_api_settings
 
 
 def get_app() -> FastAPI:

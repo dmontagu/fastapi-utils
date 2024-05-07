@@ -6,7 +6,7 @@ import pytest
 from fastapi import APIRouter, Depends, Request
 from starlette.testclient import TestClient
 
-from fastapi_restful.cbv import cbv
+from fastapi_utils.cbv import cbv
 
 
 class TestCBV:

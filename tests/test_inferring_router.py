@@ -6,7 +6,7 @@ import pytest
 from fastapi import FastAPI
 
 with pytest.warns(DeprecationWarning):
-    from fastapi_restful.inferring_router import InferringRouter
+    from fastapi_utils.inferring_router import InferringRouter
 
 OpenapiSchemaType = Dict[str, Any]
 

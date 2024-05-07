@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from fastapi_restful.openapi import simplify_operation_ids
+from fastapi_utils.openapi import simplify_operation_ids
 
 app = FastAPI()
 

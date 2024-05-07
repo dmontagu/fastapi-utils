@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 
 from docs.src.class_resource_view1 import MyApi
-from fastapi_restful import Api
+from fastapi_utils import Api
 
 
 def create_app():

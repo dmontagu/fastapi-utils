@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import pydantic
 
-from fastapi_restful.api_model import APIModel
+from fastapi_utils.api_model import APIModel
 
 PYDANTIC_VERSION = pydantic.VERSION
 

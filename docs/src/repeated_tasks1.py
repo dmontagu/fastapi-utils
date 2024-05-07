@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from sqlalchemy.orm import Session
 
-from fastapi_restful.session import FastAPISessionMaker
-from fastapi_restful.tasks import repeat_every
+from fastapi_utils.session import FastAPISessionMaker
+from fastapi_utils.tasks import repeat_every
 
 database_uri = f"sqlite:///./test.db?check_same_thread=False"
 sessionmaker = FastAPISessionMaker(database_uri)

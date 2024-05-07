@@ -1,4 +1,4 @@
-from fastapi_restful.camelcase import camel2snake, snake2camel
+from fastapi_utils.camelcase import camel2snake, snake2camel
 
 assert snake2camel("some_field_name", start_lower=False) == "SomeFieldName"
 assert snake2camel("some_field_name", start_lower=True) == "someFieldName"

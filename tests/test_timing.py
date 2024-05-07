@@ -9,7 +9,7 @@ from starlette.requests import Request
 from starlette.staticfiles import StaticFiles
 from starlette.testclient import TestClient
 
-from fastapi_restful.timing import add_timing_middleware, record_timing
+from fastapi_utils.timing import add_timing_middleware, record_timing
 
 if TYPE_CHECKING:
     from pytest.capture import CaptureFixture

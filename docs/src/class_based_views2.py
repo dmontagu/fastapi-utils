@@ -6,9 +6,9 @@ from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException
 from sqlalchemy.orm import Session, declarative_base
 from starlette.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 
-from fastapi_restful.api_model import APIMessage, APIModel
-from fastapi_restful.cbv import cbv
-from fastapi_restful.guid_type import GUID
+from fastapi_utils.api_model import APIMessage, APIModel
+from fastapi_utils.cbv import cbv
+from fastapi_utils.guid_type import GUID
 
 # Begin Setup
 UserID = NewType("UserID", UUID)

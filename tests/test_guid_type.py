@@ -5,7 +5,7 @@ import uuid
 from fastapi import FastAPI
 from starlette.testclient import TestClient
 
-from fastapi_restful.session import context_session
+from fastapi_utils.session import context_session
 from tests.conftest import User, session_maker
 
 

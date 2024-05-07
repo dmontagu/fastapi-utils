@@ -1,34 +1,28 @@
-> # Deprecation notice!
-> I've joined to the fastapi-utils repo and now I can contribute to it. since it has such larger user base I would prefer to maintain it and streamline updates for thousand of users!
-
 <p align="center">
     <em>Quicker FastApi developing tools</em>
 </p>
 <p align="center">
-<a href="https://github.com/yuval9313/fastapi-restful" target="_blank">
-	<img src="https://img.shields.io/github/last-commit/yuval9313/fastapi-restful.svg">
-	<img src="https://github.com/yuval9313/FastApi-RESTful/workflows/build/badge.svg" alt="Build CI">
+<a href="https://github.com/dmontagu/fastapi-utils" target="_blank">
+	<img src="https://img.shields.io/github/last-commit/dmontagu/fastapi-utils.svg">
+	<img src="https://github.com/dmontagu/fastapi-utils/workflows/build/badge.svg" alt="Build CI">
 </a>
-<a href="https://fastapi-restful.netlify.app">
-    <img src="https://api.netlify.com/api/v1/badges/294b88e1-4b81-49c0-8525-9c4a2cb782e0/deploy-status" alt="Netlify status">
+<a href="https://codecov.io/gh/dmontagu/fastapi-utils" target="_blank">
+    <img src="https://codecov.io/gh/dmontagu/fastapi-utils/branch/master/graph/badge.svg" alt="Coverage">
 </a>
 <br />
-<a href="https://pypi.org/project/FastApi-RESTful" target="_blank">
-    <img src="https://badge.fury.io/py/fastapi-restful.svg" alt="Package version">
+<a href="https://pypi.org/project/fastapi-utils" target="_blank">
+    <img src="https://badge.fury.io/py/fastapi-utils.svg" alt="Package version">
 </a>
-<a href="https://github.com/yuval9313/fastapi-restful" target="_blank">
-    <img src="https://img.shields.io/pypi/pyversions/FastApi-RESTful.svg" alt="Python versions">
-    <img src="https://img.shields.io/github/license/yuval9313/FastApi-RESTful.svg" alt="License">
+<a href="https://github.com/dmontagu/fastapi-utils" target="_blank">
+    <img src="https://img.shields.io/pypi/pyversions/fastapi-utils.svg" alt="Python versions">
+    <img src="https://img.shields.io/github/license/dmontagu/fastapi-utils.svg" alt="License">
 </a>
 </p>
 
 ---
+**Documentation**: <a href="https://fastapi-utils.davidmontague.xyz" target="_blank">https://fastapi-utils.davidmontague.xyz</a>
 
-**Documentation**: <a href="https://fastapi-restful.netlify.app" target="_blank">https://fastapi-restful.netlify.app</a>
-
-**Source Code**: <a href="https://github.com/yuval9313/fastapi-restful" target="_blank">https://github.com/yuval9313/fastapi-restful</a>
-
-Base on: <a href="https://github.com/dmontagu/fastapi-utils" target="_blank">https://github.com/dmontagu/fastapi-utils</a>
+**Source Code**: <a href="https://github.com/dmontagu/fastapi-utils" target="_blank">https://github.com/dmontagu/fastapi-utils</a>
 
 ---
 
@@ -59,7 +53,7 @@ It also adds a variety of more basic utilities that are useful across a wide var
 * **CamelCase Conversions**: Convenience functions for converting strings from `snake_case` to `camelCase` or `PascalCase` and back
 * **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables
 
-See the [docs](https://fastapi-restful.netlify.app/) for more details and examples.
+See the [docs](https://https://fastapi-utils.davidmontague.xyz/) for more details and examples.
 
 ## Requirements
 

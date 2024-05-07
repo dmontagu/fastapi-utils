@@ -9,16 +9,16 @@ See more details about how to help FastAPI at
 <a href="https://fastapi.tiangolo.com/help-fastapi/" target="blank">https://fastapi.tiangolo.com/help-fastapi/</a>
 
 
-## Star `fastapi-restful` on GitHub
+## Star `fastapi-utils` on GitHub
 
-You can "star" `fastapi-restful` in [GitHub](https://github.com/yuval9313/FastApi-RESTful) (clicking the star button at the top right)
+You can "star" `fastapi-utils` in [GitHub](https://github.com/dmontagu/fastapi-utils) (clicking the star button at the top right)
 
 Adding a star will help other users find this project more easily, and see that it has been useful for others.
 
 
 ## Connect with the author
 
-You can connect with this fork maintainer on
+You can connect with the maintainer on
 [**GitHub** (`Yuval9313`)](https://github.com/yuval9313).
 
 * Follow me on [**GitHub**](https://github.com/yuval9313).
@@ -31,7 +31,7 @@ You can connect with this fork maintainer on
 
 ## Create issues
 
-You can <a href="https://github.com/yuval9313/fastapis-restful/issues/new/choose" class="external-link" target="_blank">create a new issue</a> in the GitHub repository, for example to:
+You can <a href="https://github.com/dmontagu/fastapis-utils/issues/new/choose" class="external-link" target="_blank">create a new issue</a> in the GitHub repository, for example to:
 
 * Report a bug/issue.
 * Suggest a new feature.
@@ -40,7 +40,7 @@ You can <a href="https://github.com/yuval9313/fastapis-restful/issues/new/choose
 
 ## Create a Pull Request
 
-You can <a href="https://github.com/yuval9313/fastapi-restful" class="external-link" target="_blank">create a Pull Request</a>, for example:
+You can <a href="https://github.com/dmontagu/fastapi-utils" class="external-link" target="_blank">create a Pull Request</a>, for example:
 
 * To fix a typo you found in the documentation.
 * To propose improvements to documentation.

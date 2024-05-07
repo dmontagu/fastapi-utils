@@ -3,8 +3,6 @@ import warnings
 
 from .cbv_base import Api, Resource, set_responses, take_init_parameters
 
-warnings.warn("This package is deprecated and moved into fastapi_utils https://github.com/dmontagu/fastapi-utils", DeprecationWarning)
-
 if sys.version_info.minor < 8:
     import pkg_resources
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from fastapi_restful.camelcase import camel2snake, snake2camel
+from fastapi_utils.camelcase import camel2snake, snake2camel
 
 
 @pytest.mark.parametrize(

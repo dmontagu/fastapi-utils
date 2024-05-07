@@ -56,7 +56,7 @@ you can use `fastapi_restful.guid_type.GUID_SERVER_DEFAULT_POSTGRESQL`:
 import sqlalchemy as sa
 from sqlalchemy.orm import declarative_base
 
-from fastapi_restful.guid_type import GUID, GUID_SERVER_DEFAULT_POSTGRESQL
+from fastapi_utils.guid_type import GUID, GUID_SERVER_DEFAULT_POSTGRESQL
 
 Base = declarative_base()
 
@@ -91,7 +91,7 @@ create new records):
 import sqlalchemy as sa
 from sqlalchemy.orm import declarative_base
 
-from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
+from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
 
 Base = declarative_base()
 

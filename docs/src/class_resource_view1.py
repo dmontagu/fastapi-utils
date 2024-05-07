@@ -1,4 +1,4 @@
-from fastapi_restful import Resource
+from fastapi_utils import Resource
 
 
 class MyApi(Resource):

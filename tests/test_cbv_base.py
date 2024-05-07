@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 from starlette.testclient import TestClient
 
-from fastapi_restful.cbv_base import Api, Resource, set_responses
+from fastapi_utils.cbv_base import Api, Resource, set_responses
 
 
 def test_cbv() -> None:

@@ -8,8 +8,8 @@ from fastapi import Depends, FastAPI
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
-from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
-from fastapi_restful.session import FastAPISessionMaker, get_engine
+from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
+from fastapi_utils.session import FastAPISessionMaker, get_engine
 
 Base = declarative_base()
 

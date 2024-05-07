@@ -1,12 +1,12 @@
-First, you might want to see the basic ways to [help and get help](help-fastapi-restful.md){.internal-link target=_blank}.
+First, you might want to see the basic ways to [help and get help](help-fastapi-utils.md){.internal-link target=_blank}.
 
 ## Developing
 
 Once you've cloned the repository, here are some guidelines to set up your environment:
 
-### Set up the development environment
+### Set up the development evironment
 
-After cloning the repository, you can use `poetry` to create a virtual environment:
+After cloning the repository, you can use `poetry` to create a virtual environment: 
 
 ```console
 $ make develop
@@ -25,15 +25,15 @@ Once the virtual environment is created, you can activate it with:
 $ poetry shell
 ```
 
-To check if this worked, try running:
+To check if this worked, try running: 
 
 ```console
 $ which python
 
-some/directory/fastapi-restful-SOMETHING-py3.X/bin/python
+some/directory/fastapi-utils-SOMETHING-py3.X/bin/python
 ```
 
-If the output of this command shows the `python` binary in a path containing `fastapi-restful` somewhere in the name
+If the output of this command shows the `python` binary in a path containing `fastapi-utils` somewhere in the name
 (as above), then it worked! 🎉
 
 !!! tip

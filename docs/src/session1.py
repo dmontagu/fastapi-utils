@@ -7,8 +7,8 @@ from fastapi import Depends, FastAPI
 from pydantic import BaseSettings
 from sqlalchemy.orm import Session, declarative_base
 
-from fastapi_restful.guid_type import GUID, GUID_DEFAULT_SQLITE
-from fastapi_restful.session import FastAPISessionMaker
+from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
+from fastapi_utils.session import FastAPISessionMaker
 
 Base = declarative_base()
 

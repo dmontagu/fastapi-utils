@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from fastapi_restful.api_settings import get_api_settings
+from fastapi_utils.api_settings import get_api_settings
 
 
 def get_app() -> FastAPI:

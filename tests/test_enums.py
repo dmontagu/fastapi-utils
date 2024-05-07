@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from enum import auto
 
-from fastapi_restful.enums import CamelStrEnum, StrEnum
+from fastapi_utils.enums import CamelStrEnum, StrEnum
 
 
 class TestEnums:
