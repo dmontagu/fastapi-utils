@@ -1,4 +1,5 @@
 ## Latest changes
+## 0.6.0
 
 * Fix bug where `Request.url_for` is not working as intended [[yuval9313/FastApi-RESTful#90](https://github.com/yuval9313/FastApi-RESTful/issues/90)]
 * Update multiple dependencies using @dependebot
