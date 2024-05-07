@@ -1,6 +1,6 @@
-site_name: FastAPI RESTful
-site_description: FastAPI RESTful
-site_url: https://fastapi-restful.netlify.app/
+site_name: FastAPI Utilities
+site_description: FastAPI utilities
+site_url: https://fastapi-utils.davidmontague.xyz/
 
 theme:
   name: 'material'
@@ -14,7 +14,7 @@ repo_name: dmontagu/fastapi-utils
 repo_url: https://github.com/dmontagu/fastapi-utils
 
 nav:
-  - FastAPI RESTful: 'index.md'
+  - FastAPI Utilities: 'index.md'
   - User Guide:
       - Class Resource: 'user-guide/class-resource.md'
       - Class Based Views: 'user-guide/class-based-views.md'
@@ -28,7 +28,7 @@ nav:
           - String-Valued Enums: 'user-guide/basics/enums.md'
           - CamelCase Conversion: 'user-guide/basics/camelcase.md'
           - GUID Type: 'user-guide/basics/guid-type.md'
-  - Get Help: 'help-fastapi-restful.md'
+  - Get Help: 'help-fastapi-utils.md'
   - Development - Contributing: 'contributing.md'
   - Release Notes: 'release-notes.md'
 
