@@ -3,8 +3,7 @@ from uuid import UUID
 
 import sqlalchemy as sa
 from fastapi import Depends, FastAPI, Header, HTTPException
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, declarative_base
 from starlette.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 
 from fastapi_utils.api_model import APIMessage, APIModel
