@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.openapi`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/openapi.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.openapi`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/openapi.py){.internal-link target=_blank}
 
 ---
 
@@ -26,7 +26,7 @@ This is a good default behavior because it ensures that distinct endpoints on yo
 will have distinct `operationId`s. However, it also means that an auto-generated client will have
 extremely verbose function names like `getResourceApiV1ResourceResourceIdGet`.
 
-To simplify your operation IDs, you can use `fastapi_restful.openapi.simplify_operation_ids` to replace
+To simplify your operation IDs, you can use `fastapi_utils.openapi.simplify_operation_ids` to replace
 the generated operation IDs with ones generated using *only* the function name:
 
 ```python hl_lines="3 13 17"

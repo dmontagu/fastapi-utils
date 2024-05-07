@@ -1,8 +1,8 @@
-#### Source module: [`fastapi_restful.camelcase`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/camelcase.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.camelcase`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/camelcase.py){.internal-link target=_blank}
 
 ---
 
-The `fastapi_restful.camelcase` module contains functions for converting `camelCase` or `CamelCase`
+The `fastapi_utils.camelcase` module contains functions for converting `camelCase` or `CamelCase`
 strings to `snake_case`, and vice versa:
 
 ```python hl_lines=""

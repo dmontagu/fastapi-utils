@@ -1,5 +1,4 @@
 ## Latest changes
-## 0.6.0
 
 * Merge with [fastapi-utils](https://github.com/dmontagu/fastapi-utils)
 

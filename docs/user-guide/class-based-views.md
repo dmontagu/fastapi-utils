@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.cbv`](https://github.com/yuval9313/FastApi-RESTful/blob/master/fastapi_restful/cbv.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.cbv`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/cbv.py){.internal-link target=_blank}
 
 ---
 
@@ -9,7 +9,7 @@ A common question people have as they become more comfortable with FastAPI
 is how they can reduce the number of times they have to copy/paste the same dependency
 into related routes.
 
-`fastapi_restful` provides a "class-based view" decorator (`@cbv`) to help reduce the amount of boilerplate
+`fastapi_utils` provides a "class-based view" decorator (`@cbv`) to help reduce the amount of boilerplate
 necessary when developing related routes.
 
 ## A basic CRUD app
@@ -27,7 +27,7 @@ and `get_jwt_user` repeated in each endpoint.
 
 ## The `@cbv` decorator
 
-By using the `fastapi_restful.cbv.cbv` decorator, we can consolidate the
+By using the `fastapi_utils.cbv.cbv` decorator, we can consolidate the
 endpoint signatures and reduce the number of repeated dependencies.
 
 To use the `@cbv` decorator, you need to:

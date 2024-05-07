@@ -10,8 +10,8 @@ theme:
   logo: 'img/icon-white.svg'
   favicon: 'img/favicon.png'
 
-repo_name: yuval9313/FastApi-RESTful
-repo_url: https://github.com/yuval9313/fastapi-restful
+repo_name: dmontagu/fastapi-utils
+repo_url: https://github.com/dmontagu/fastapi-utils
 
 nav:
   - FastAPI RESTful: 'index.md'
@@ -48,7 +48,7 @@ markdown_extensions:
 extra:
   social:
     - icon: 'fontawesome/brands/github-alt'
-      link: 'https://github.com/yuval9313/fastapi-restful'
+      link: 'https://github.com/dmontagu/fastapi-utils'
 
 extra_css:
   - 'css/custom.css'

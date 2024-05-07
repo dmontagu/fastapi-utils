@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.api_model`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/api_model.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.api_model`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/api_model.py){.internal-link target=_blank}
 
 ---
 
@@ -12,7 +12,7 @@ but accept `camelCase` attributes from external requests.
 Another `BaseModel` config setting commonly used with FastAPI is `orm_mode`, which allows your models
 to be read directly from ORM objects (such as those used by SQLAlchemy). 
 
-You can use `fastapi_restful.api_model.APIModel` to easily enable all of these frequently desirable settings.
+You can use `fastapi_utils.api_model.APIModel` to easily enable all of these frequently desirable settings.
 
 ## Create a model
 

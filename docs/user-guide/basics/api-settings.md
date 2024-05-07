@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.api_settings`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/api_settings.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.api_settings`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/api_settings.py){.internal-link target=_blank}
 
 ---
 
@@ -13,7 +13,7 @@ instance to ensure maximum performance if you want to access the settings in end
 functions.
 
 Even if you care about different settings in your own application, you can follow
-the patterns in `fastapi_restful.api_settings` to efficiently access environment-determined
+the patterns in `fastapi_utils.api_settings` to efficiently access environment-determined
 application configuration settings.
 
 ### Settings provided by `APISettings`:

@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.enums`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/enums.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.enums`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/enums.py){.internal-link target=_blank}
 
 ---
 
@@ -44,13 +44,13 @@ and the official python docs include a detailed section about
 [how to do this](https://docs.python.org/3/library/enum.html#using-automatic-values).
 
 Rather than repeating this definition in each new project, to reduce boilerplate
-you can just inherit from `fastapi_restful.enums.StrEnum` directly to get this behavior:
+you can just inherit from `fastapi_utils.enums.StrEnum` directly to get this behavior:
 
 ```python hl_lines="3 6"
 {!./src/enums1.py!}
 ```
 
-You can also use `fastapi_restful.enums.CamelStrEnum` to get camelCase values:
+You can also use `fastapi_utils.enums.CamelStrEnum` to get camelCase values:
 
 ```python hl_lines="3 6"
 {!./src/enums2.py!}

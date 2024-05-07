@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "fastapi-restful"
+name = "fastapi-utils"
 version = "0.6.0"
-description = "Quicker FastApi developing tools"
+description = "Reusable utilities for FastAPI"
 license = "MIT"
-authors = ["Yuval Levi <yuvall9313@gmail.com>"]
+authors = ["Yuval Levi <yuvall9313@gmail.com>", "David Montague <davwmont@gmail.com>"]
 readme = "README.md"
-homepage = "https://fastapi-restful.netlify.app"
-repository = "https://github.com/yuval9313/FastApi-RESTful"
-documentation = "https://fastapi-restful.netlify.app"
+homepage = "https://fastapi-utils.davidmontague.xyz"
+repository = "https://github.com/dmontagu/fastapi-utils"
+documentation = "https://fastapi-utils.davidmontague.xyz"
 keywords = ["fastapi", "OOP", "RESTful"]
 classifiers = [
     "Intended Audience :: Information Technology",
@@ -103,7 +103,7 @@ isort = { known-first-party = ['FastApi-RESTful', 'tests'] }
 
 
 [tool.coverage.run]
-source = ["fastapi_restful"]
+source = ["fastapi_utils"]
 branch = true
 
 [tool.coverage.report]

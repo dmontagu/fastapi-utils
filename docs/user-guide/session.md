@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.sessions`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/session.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.sessions`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/session.py){.internal-link target=_blank}
 
 !!! Note
     #### To use please install with: `pip install fastapi-restful[session]` or `pip install fastapi-restful[all]`
@@ -13,13 +13,13 @@ ORM into your application.
 However, the recommended approach for using SQLAlchemy's ORM with FastAPI has evolved over time to reflect both insights
 from the community and the addition of new features to FastAPI.
 
-The `fastapi_restful.session` module contains an implementation making use of the most up-to-date best practices for
+The `fastapi_utils.session` module contains an implementation making use of the most up-to-date best practices for
 managing SQLAlchemy sessions with FastAPI.
 
 ---
 
 ## `FastAPISessionMaker`
-The `fastapi_restful.session.FastAPISessionMaker` class conveniently wraps session-making functionality for use with
+The `fastapi_utils.session.FastAPISessionMaker` class conveniently wraps session-making functionality for use with
 FastAPI. This section contains an example showing how to use this class. 
 
 Let's begin with some infrastructure. The first thing we'll do is make sure we have an ORM

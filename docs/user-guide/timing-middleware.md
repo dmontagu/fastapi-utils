@@ -1,8 +1,8 @@
-#### Source module: [`fastapi_restful.timing`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/timing.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.timing`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/timing.py){.internal-link target=_blank}
 
 ---
 
-The `fastapi_restful.timing` module provides basic profiling functionality that could be
+The `fastapi_utils.timing` module provides basic profiling functionality that could be
 used to find performance bottlenecks, monitor for regressions, etc.
 
 There are currently two public functions provided by this module:

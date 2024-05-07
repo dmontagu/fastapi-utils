@@ -1,4 +1,4 @@
-Are you looking for help with `fastapi` or `fastapi_restful`?
+Are you looking for help with `fastapi` or `fastapi_utils`?
 
 ## Help or Get Help with *FastAPI*
 

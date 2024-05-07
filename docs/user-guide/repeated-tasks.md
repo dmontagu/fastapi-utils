@@ -1,4 +1,4 @@
-#### Source module: [`fastapi_restful.tasks`](https://github.com/yuval9313/fastapi-restful/blob/master/fastapi_restful/tasks.py){.internal-link target=_blank}
+#### Source module: [`fastapi_utils.tasks`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/tasks.py){.internal-link target=_blank}
 
 ---
 
@@ -15,7 +15,7 @@ challenges to overcome:
 2. If the repeated tasks performs blocking IO, it shouldn't block the event loop
 3. Exceptions raised by the periodic task shouldn't just be silently swallowed
 
-The `fastapi_restful.tasks.repeat_every` decorator handles all of these issues and adds some other conveniences as well.
+The `fastapi_utils.tasks.repeat_every` decorator handles all of these issues and adds some other conveniences as well.
 
 ## The `@repeat_every` decorator
 
