@@ -59,6 +59,7 @@ pytest = "^7.0"
 pytest-cov = "*"
 pytest-asyncio = "*"
 coverage = "*"
+codecov = "^2.1.13"
 mock = { version = "*", python = "<3.8" }
 types-mock = { version = "*", python = "<3.8" }
 
@@ -79,6 +80,9 @@ autoflake = "^1.4"
 [tool.poetry.extras]
 all = ["sqlalchemy", "pydantic-settings", "typing-inspect"]
 session = ["sqlalchemy"]
+
+[tool.poetry.group.dev.dependencies]
+codecov = "^2.1.13"
 
 [tool.black]
 line-length = 120

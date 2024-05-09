@@ -54,4 +54,4 @@ jobs:
       - name: Check that formatting, linting, and tests pass for pydantic v2
         run: poetry run make ci-v2
       - name: Submit coverage report
-        run: codecov --token=${{ secrets.CODECOV_TOKEN }}
+        run: poetry run codecov --token=${{ secrets.CODECOV_TOKEN }}
