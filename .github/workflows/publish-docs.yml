@@ -39,7 +39,7 @@ jobs:
 
       # Publish docs to github pages
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
