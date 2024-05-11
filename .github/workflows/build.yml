@@ -23,7 +23,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Init python poetry action
-        uses: abatilo/actions-poetry@v2.3.0
+        uses: abatilo/actions-poetry@v3.0.0
         with:
           poetry-version: 1.5.1
       - uses: actions/cache@v3
