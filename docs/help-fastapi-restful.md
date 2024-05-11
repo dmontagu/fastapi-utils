@@ -11,19 +11,20 @@ See more details about how to help FastAPI at
 
 ## Star `fastapi-utils` on GitHub
 
-You can "star" `fastapi-utils` in GitHub (clicking the star button at the top right): <a href="https://github.com/dmontagu/fastapi-utils" class="external-link" target="_blank">https://github.com/dmontagu/fastapi-utils</a>.
+You can "star" `fastapi-utils` in [GitHub](https://github.com/dmontagu/fastapi-utils) (clicking the star button at the top right)
 
 Adding a star will help other users find this project more easily, and see that it has been useful for others.
 
 
 ## Connect with the author
 
-You can connect with <a href="https://davidmontague.xyz" class="external-link" target="_blank">me (David Montague / `dmontagu`)</a>, the author of `fastapi_utils`:
+You can connect with the maintainer on
+[**GitHub** (`Yuval9313`)](https://github.com/yuval9313).
 
-* <a href="https://github.com/dmontagu" class="external-link" target="_blank">Follow me on **GitHub**</a>.
+* Follow me on [**GitHub**](https://github.com/yuval9313).
     * See other Open Source projects I have created that could help you.
     * Follow me to see when I create a new Open Source project.
-* <a href="https://www.linkedin.com/in/david-montague/" class="external-link" target="_blank">Connect with me on **Linkedin**</a>.
+* Connect with me on [**Linkedin**](https://www.linkedin.com/in/levi-yuval-b50a73183/).
     * Talk to me.
     * Endorse me or recommend me :)
 

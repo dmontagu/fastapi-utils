@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from enum import Enum
+from typing import List
 
-from fastapi_utils.camelcase import snake2camel
+from .camelcase import snake2camel
 
 
 class StrEnum(str, Enum):
@@ -11,8 +12,8 @@ class StrEnum(str, Enum):
     Enums inheriting from this class that set values using `enum.auto()` will have variant values equal to their names
     """
 
-    # noinspection PyMethodParameters
-    def _generate_next_value_(name, start, count, last_values) -> str:  # type: ignore
+    @staticmethod
+    def _generate_next_value_(name: str, start: int, count: int, last_values: List[str]) -> str:
         """
         Uses the name as the automatic value, rather than an integer
 
@@ -26,8 +27,8 @@ class CamelStrEnum(str, Enum):
     CamelStrEnum subclasses that create variants using `auto()` will have values equal to their camelCase names
     """
 
-    # noinspection PyMethodParameters
-    def _generate_next_value_(name, start, count, last_values) -> str:  # type: ignore
+    @staticmethod
+    def _generate_next_value_(name: str, start: int, count: int, last_values: List[str]) -> str:
         """
         Uses the camelCase name as the automatic value, rather than an integer
 

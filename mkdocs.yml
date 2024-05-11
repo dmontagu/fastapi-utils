@@ -13,15 +13,11 @@ theme:
 repo_name: dmontagu/fastapi-utils
 repo_url: https://github.com/dmontagu/fastapi-utils
 
-#google_analytics:
-#    - 'UA-133183413-1'
-#    - 'auto'
-
 nav:
   - FastAPI Utilities: 'index.md'
   - User Guide:
+      - Class Resource: 'user-guide/class-resource.md'
       - Class Based Views: 'user-guide/class-based-views.md'
-      - Inferring Router: 'user-guide/inferring-router.md'
       - Repeated Tasks: 'user-guide/repeated-tasks.md'
       - Timing Middleware: 'user-guide/timing-middleware.md'
       - SQLAlchemy Sessions: 'user-guide/session.md'

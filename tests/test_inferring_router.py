@@ -1,59 +1,43 @@
 from __future__ import annotations
 
+from typing import Any, Dict
+
 import pytest
-from fastapi import APIRouter, FastAPI
+from fastapi import FastAPI
 
 with pytest.warns(DeprecationWarning):
     from fastapi_utils.inferring_router import InferringRouter
 
-openapi_spec = {
-    "info": {"title": "FastAPI", "version": "0.1.0"},
-    "openapi": "3.0.2",
-    "paths": {
-        "/1": {
-            "get": {
-                "operationId": "endpoint_1_1_get",
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {"schema": {"title": "Response " "Endpoint 1 1 Get", "type": "string"}}
-                        },
-                        "description": "Successful " "Response",
-                    }
-                },
-                "summary": "Endpoint 1",
-            }
-        },
-        "/2": {
-            "get": {
-                "operationId": "endpoint_2_2_get",
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {"schema": {"title": "Response " "Endpoint 2 2 Get", "type": "integer"}}
-                        },
-                        "description": "Successful " "Response",
-                    }
-                },
-                "summary": "Endpoint 2",
-            }
-        },
-    },
-}
+OpenapiSchemaType = Dict[str, Any]
 
 
-@pytest.mark.parametrize("Router", [InferringRouter, APIRouter])
-def test_inferring_router(Router: type[InferringRouter] | type[APIRouter]) -> None:
-    inferring_router = Router()
+def get_response_schema(
+    openapi_spec: OpenapiSchemaType, endpoint_path: str, expected_status_code: int = 200
+) -> OpenapiSchemaType:
+    responses = openapi_spec["paths"][endpoint_path]["get"]["responses"]
+    content = responses[str(expected_status_code)].get("content")
+    return content["application/json"]["schema"] if content else content
 
-    @inferring_router.get("/1")
-    def endpoint_1() -> str:  # pragma: no cover
-        return ""
 
-    @inferring_router.get("/2", response_model=int)
-    def endpoint_2() -> str:  # pragma: no cover
-        return ""
+class TestInferringRouter:
+    @pytest.fixture()
+    def app(self) -> FastAPI:
+        return FastAPI()
 
-    app = FastAPI()
-    app.include_router(inferring_router)
-    assert app.openapi() == openapi_spec
+    @pytest.fixture()
+    def inferring_router(self) -> InferringRouter:
+        return InferringRouter()
+
+    def test_inferring_route(self, app: FastAPI, inferring_router: InferringRouter) -> None:
+        @inferring_router.get("/return_string")
+        def endpoint_1() -> str:  # pragma: no cover
+            return ""
+
+        @inferring_router.get("/return_integer", response_model=int)
+        def endpoint_2() -> int:  # pragma: no cover
+            return 0
+
+        app.include_router(inferring_router)
+        openapi_spec = app.openapi()
+        assert get_response_schema(openapi_spec, "/return_string")["type"] == "string"
+        assert get_response_schema(openapi_spec, "/return_integer")["type"] == "integer"

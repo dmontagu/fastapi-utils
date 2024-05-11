@@ -44,10 +44,9 @@ check_for_python3
 check_for_poetry
 
 set -x
-poetry run pip install -r requirements.txt
 poetry install
 
 { set +x; } 2>/dev/null
 echo ""
-echo "Virtual environment interpreter installed at:"
-poetry run python -c "import sys; print(sys.executable)"
+echo "Virtual environment interpreter details:"
+poetry env info

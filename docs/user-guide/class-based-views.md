@@ -63,4 +63,3 @@ Hopefully this helps you to better reuse dependencies across endpoints!
     You should **not** make use of any arguments to `__init__` with the same name as any annotated instance attributes
     on the class. Those values will be set as attributes on the class instance prior to calling the `__init__` function
     you define, so you can still safely access them inside your custom `__init__` function if desired.
-     

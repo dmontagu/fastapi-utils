@@ -1,6 +1,9 @@
 #### Source module: [`fastapi_utils.sessions`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/session.py){.internal-link target=_blank}
 
+!!! Note
+    #### To use please install with: `pip install fastapi-restful[session]` or `pip install fastapi-restful[all]`
 ---
+
 
 One of the most commonly used ways to power database functionality with FastAPI is SQLAlchemy's ORM.
 

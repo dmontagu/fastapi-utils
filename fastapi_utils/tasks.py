@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from asyncio import ensure_future
 from functools import wraps
 from traceback import format_exception
 from typing import Any, Callable, Coroutine, Union
@@ -17,7 +16,7 @@ NoArgsNoReturnDecorator = Callable[[Union[NoArgsNoReturnFuncT, NoArgsNoReturnAsy
 def repeat_every(
     *,
     seconds: float,
-    wait_first: bool = False,
+    wait_first: float | None = None,
     logger: logging.Logger | None = None,
     raise_exceptions: bool = False,
     max_repetitions: int | None = None,
@@ -32,8 +31,8 @@ def repeat_every(
     ----------
     seconds: float
         The number of seconds to wait between repeated calls
-    wait_first: bool (default False)
-        If True, the function will wait for a single period before the first call
+    wait_first: float (default None)
+        If not None, the function will wait for the given duration before the first call
     logger: Optional[logging.Logger] (default None)
         The logger to use to log any exceptions raised by calls to the decorated function.
         If not provided, exceptions will not be logged by this function (though they may be handled by the event loop).
@@ -58,24 +57,24 @@ def repeat_every(
 
             async def loop() -> None:
                 nonlocal repetitions
-                if wait_first:
-                    await asyncio.sleep(seconds)
+                if wait_first is not None:
+                    await asyncio.sleep(wait_first)
                 while max_repetitions is None or repetitions < max_repetitions:
                     try:
                         if is_coroutine:
                             await func()  # type: ignore
                         else:
                             await run_in_threadpool(func)
-                        repetitions += 1
                     except Exception as exc:
                         if logger is not None:
                             formatted_exception = "".join(format_exception(type(exc), exc, exc.__traceback__))
                             logger.error(formatted_exception)
                         if raise_exceptions:
                             raise exc
+                    repetitions += 1
                     await asyncio.sleep(seconds)
 
-            ensure_future(loop())
+            await loop()
 
         return wrapped
 

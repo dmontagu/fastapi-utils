@@ -2,14 +2,13 @@ from typing import NewType, Optional
 from uuid import UUID
 
 import sqlalchemy as sa
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import APIRouter, Depends, FastAPI, Header, HTTPException
 from sqlalchemy.orm import Session, declarative_base
 from starlette.status import HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 
 from fastapi_utils.api_model import APIMessage, APIModel
 from fastapi_utils.cbv import cbv
 from fastapi_utils.guid_type import GUID
-from fastapi_utils.inferring_router import InferringRouter
 
 # Begin Setup
 UserID = NewType("UserID", UUID)
@@ -54,7 +53,7 @@ def get_owned_item(session: Session, owner: UserID, item_id: ItemID) -> ItemORM:
 
 # End Setup
 app = FastAPI()
-router = InferringRouter()  # Step 1: Create a router
+router = APIRouter()  # Step 1: Create a router
 
 
 @cbv(router)  # Step 2: Create and decorate a class to hold the endpoints

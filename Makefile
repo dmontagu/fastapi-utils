@@ -8,19 +8,19 @@ all_src = $(pkg_src) $(tests_src)
 
 mypy_base = mypy --show-error-codes
 mypy = $(mypy_base) $(all_src)
-test = pytest --cov=fastapi_utils
+test = pytest --cov=$(pkg_src)
 
 .PHONY: all  ## Run the most common rules used during development
 all: static test
 
-.PHONY: static  ## Perform all static checks (format, lint, mypy)
+.PHONY: static  ## Perform all static checks (format, mypy)
 static: format lint mypy
 
 .PHONY: test  ## Run tests
 test:
 	$(test)
 
-.PHONY: format  ## Auto-format the source code (isort, autoflake, black)
+.PHONY: format  ## Auto-format the source code (ruff, black)
 format:
 	black $(all_src)
 	black -l 82 $(docs_src)
@@ -46,8 +46,25 @@ testcov:
 		open htmlcov/index.html; \
 	fi
 
-.PHONY: ci  ## Run all CI validation steps without making any changes to code
-ci: lint mypy test
+.PHONY: ci-v1  ## Run all CI validation steps without making any changes to code in pydantic v1
+
+ci-v1: install-v1 lint test
+
+
+.PHONY: ci-v1  ## Run all CI validation steps without making any changes to code in pydantic v2
+ci-v2: install-v2 lint mypy test
+
+
+install-v1:
+	poetry run python -m pip uninstall "pydantic-settings" -y
+	poetry run python -m pip uninstall "typing-inspect" -y
+	poetry run python -m pip install "pydantic>=1.10,<2.0.0"
+
+install-v2:
+	poetry run python -m pip install "pydantic>=2.0.0,<3.0.0"
+	poetry run python -m pip install "pydantic-settings>=2.0.0,<3.0.0"
+	poetry run python -m pip install "typing-inspect>=0.9.0,<1.0.0"
+
 
 .PHONY: clean  ## Remove temporary and cache files/directories
 clean:
@@ -79,23 +96,19 @@ develop:
 .PHONY: version  ## Bump the version in both pyproject.toml and __init__.py (usage: `make version version=minor`)
 version: poetryversion
 	$(eval NEW_VERS := $(shell cat pyproject.toml | grep "^version = \"*\"" | cut -d'"' -f2))
-	@sed -i "" "s/__version__ = .*/__version__ = \"$(NEW_VERS)\"/g" $(pkg_src)/__init__.py
+	@sed -i "s/__version__ = .*/__version__ = \"$(NEW_VERS)\"/g" $(pkg_src)/__init__.py
 
 .PHONY: docs-build  ## Generate the docs and update README.md
 docs-build:
+	cp ./README.md ./docs/index.md
+	cp ./CONTRIBUTING.md ./docs/contributing.md
+	cp ./CHANGELOG.md ./docs/release-notes.md
+	pip install mkdocs mkdocs-material markdown-include
 	python -m mkdocs build
-	cp ./docs/index.md ./README.md
-	cp ./docs/contributing.md ./CONTRIBUTING.md
-
-.PHONY: docs-build-ci  ## Generate the docs and check README.md is up-to-date
-docs-build-ci:
-	python -m mkdocs build
-	cmp README.md docs/index.md
-	cmp CONTRIBUTING.md docs/contributing.md
 
 .PHONY: docs-format  ## Format the python code that is part of the docs
 docs-format:
-	isort -rc $(docs_src)
+	ruff $(docs_src)
 	autoflake -r --remove-all-unused-imports --ignore-init-module-imports $(docs_src) -i
 	black -l 82 $(docs_src)
 
