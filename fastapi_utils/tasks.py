@@ -74,7 +74,7 @@ def repeat_every(
                     repetitions += 1
                     await asyncio.sleep(seconds)
 
-            asyncio.ensure_future(loop())
+            await asyncio.ensure_future(loop())
 
         return wrapped
 
