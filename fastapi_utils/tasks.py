@@ -10,7 +10,15 @@ from starlette.concurrency import run_in_threadpool
 
 NoArgsNoReturnFuncT = Callable[[], None]
 NoArgsNoReturnAsyncFuncT = Callable[[], Coroutine[Any, Any, None]]
+NoArgsNoReturnAnyFuncT = NoArgsNoReturnAsyncFuncT | NoArgsNoReturnFuncT
 NoArgsNoReturnDecorator = Callable[[Union[NoArgsNoReturnFuncT, NoArgsNoReturnAsyncFuncT]], NoArgsNoReturnAsyncFuncT]
+
+
+async def _handle_func(func: NoArgsNoReturnAnyFuncT) -> None:
+    if asyncio.iscoroutinefunction(func):
+        await func()
+    else:
+        await run_in_threadpool(func)
 
 
 def repeat_every(
@@ -20,7 +28,7 @@ def repeat_every(
     logger: logging.Logger | None = None,
     raise_exceptions: bool = False,
     max_repetitions: int | None = None,
-    on_complete: NoArgsNoReturnFuncT | None = None
+    on_complete: NoArgsNoReturnAnyFuncT | None = None,
 ) -> NoArgsNoReturnDecorator:
     """
     This function returns a decorator that modifies a function so it is periodically re-executed after its first call.
@@ -46,11 +54,10 @@ def repeat_every(
         The maximum number of times to call the repeated function. If `None`, the function is repeated forever.
     """
 
-    def decorator(func: NoArgsNoReturnAsyncFuncT | NoArgsNoReturnFuncT) -> NoArgsNoReturnAsyncFuncT:
+    def decorator(func: NoArgsNoReturnAnyFuncT) -> NoArgsNoReturnAsyncFuncT:
         """
         Converts the decorated function into a repeated, periodically-called version of itself.
         """
-        is_coroutine = asyncio.iscoroutinefunction(func)
 
         @wraps(func)
         async def wrapped() -> None:
@@ -61,10 +68,7 @@ def repeat_every(
                 repetitions = 0
                 while max_repetitions is None or repetitions < max_repetitions:
                     try:
-                        if is_coroutine:
-                            await func()  # type: ignore
-                        else:
-                            await run_in_threadpool(func)
+                        await _handle_func(func)
 
                     except Exception as exc:
                         if logger is not None:
@@ -77,10 +81,7 @@ def repeat_every(
                     await asyncio.sleep(seconds)
 
                 if on_complete:
-                    if asyncio.iscoroutinefunction(on_complete):
-                        await on_complete()
-                    else:
-                        await run_in_threadpool(on_complete)
+                    await _handle_func(on_complete)
 
             asyncio.ensure_future(loop())
 

@@ -1,5 +1,5 @@
-import sys
 import asyncio
+import sys
 from typing import TYPE_CHECKING, NoReturn
 
 if TYPE_CHECKING:
@@ -58,7 +58,9 @@ class TestRepeatEveryBase:
     def wait_first_increase_counter_task(
         self, seconds: float, max_repetitions: int, wait_first: float
     ) -> NoArgsNoReturnAsyncFuncT:
-        decorator = repeat_every(seconds=seconds, max_repetitions=max_repetitions, wait_first=wait_first, on_complete=self.loop_completed)
+        decorator = repeat_every(
+            seconds=seconds, max_repetitions=max_repetitions, wait_first=wait_first, on_complete=self.loop_completed
+        )
         return decorator(self.increase_counter)
 
     @pytest.fixture
@@ -68,7 +70,9 @@ class TestRepeatEveryBase:
 
     @pytest.fixture
     def suppressed_exception_task(self, seconds: float, max_repetitions: int) -> NoArgsNoReturnAsyncFuncT:
-        decorator = repeat_every(seconds=seconds, max_repetitions=max_repetitions, raise_exceptions=True, on_complete=self.loop_completed)
+        decorator = repeat_every(
+            seconds=seconds, max_repetitions=max_repetitions, raise_exceptions=True, on_complete=self.loop_completed
+        )
         return decorator(self.raise_exc)
 
 
