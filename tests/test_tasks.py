@@ -46,7 +46,15 @@ class TestRepeatEveryBase:
     def loop_completed(self) -> None:
         self.completed.set()
 
+    def kill_loop(self, exc: Exception) -> None:
+        self.completed.set()
+        raise exc
+
+    async def continue_loop(self, exc: Exception) -> None:
+        return
+
     def raise_exc(self) -> NoReturn:
+        self.increase_counter()
         raise ValueError("error")
 
     @pytest.fixture
@@ -64,14 +72,22 @@ class TestRepeatEveryBase:
         return decorator(self.increase_counter)
 
     @pytest.fixture
-    def raising_task(self, seconds: float, max_repetitions: int) -> NoArgsNoReturnAsyncFuncT:
-        decorator = repeat_every(seconds=seconds, max_repetitions=max_repetitions, on_complete=self.loop_completed)
+    def stop_on_exception_task(self, seconds: float, max_repetitions: int) -> NoArgsNoReturnAsyncFuncT:
+        decorator = repeat_every(
+            seconds=seconds,
+            max_repetitions=max_repetitions,
+            on_complete=self.loop_completed,
+            on_exception=self.kill_loop,
+        )
         return decorator(self.raise_exc)
 
     @pytest.fixture
     def suppressed_exception_task(self, seconds: float, max_repetitions: int) -> NoArgsNoReturnAsyncFuncT:
         decorator = repeat_every(
-            seconds=seconds, max_repetitions=max_repetitions, raise_exceptions=True, on_complete=self.loop_completed
+            seconds=seconds,
+            max_repetitions=max_repetitions,
+            on_complete=self.loop_completed,
+            on_exception=self.continue_loop,
         )
         return decorator(self.raise_exc)
 
@@ -101,7 +117,6 @@ class TestRepeatEveryWithSynchronousFunction(TestRepeatEveryBase):
         asyncio_sleep_mock: AsyncMock,
         seconds: float,
         max_repetitions: int,
-        wait_first: float,
         wait_first_increase_counter_task: NoArgsNoReturnAsyncFuncT,
     ) -> None:
         await wait_first_increase_counter_task()
@@ -111,20 +126,31 @@ class TestRepeatEveryWithSynchronousFunction(TestRepeatEveryBase):
         asyncio_sleep_mock.assert_has_calls((max_repetitions + 1) * [call(seconds)], any_order=True)
 
     @pytest.mark.asyncio
-    async def test_raise_exceptions_false(
-        self, seconds: float, max_repetitions: int, raising_task: NoArgsNoReturnAsyncFuncT
+    @pytest.mark.timeout(1)
+    async def test_stop_loop_on_exc(
+        self,
+        stop_on_exception_task: NoArgsNoReturnAsyncFuncT,
     ) -> None:
-        try:
-            await raising_task()
-        except ValueError as e:
-            pytest.fail(f"{self.test_raise_exceptions_false.__name__} raised an exception: {e}")
+        await stop_on_exception_task()
+        await self.completed.wait()
+
+        assert self.counter == 1
 
     @pytest.mark.asyncio
-    async def test_raise_exceptions_true(
-        self, seconds: float, suppressed_exception_task: NoArgsNoReturnAsyncFuncT
+    @pytest.mark.timeout(1)
+    @patch("asyncio.sleep")
+    async def test_continue_loop_on_exc(
+        self,
+        asyncio_sleep_mock: AsyncMock,
+        seconds: float,
+        max_repetitions: int,
+        suppressed_exception_task: NoArgsNoReturnAsyncFuncT,
     ) -> None:
-        with pytest.raises(ValueError):
-            await suppressed_exception_task()
+        await suppressed_exception_task()
+        await self.completed.wait()
+
+        assert self.counter == max_repetitions
+        asyncio_sleep_mock.assert_has_calls(max_repetitions * [call(seconds)], any_order=True)
 
 
 class TestRepeatEveryWithAsynchronousFunction(TestRepeatEveryBase):
@@ -161,17 +187,28 @@ class TestRepeatEveryWithAsynchronousFunction(TestRepeatEveryBase):
         asyncio_sleep_mock.assert_has_calls((max_repetitions + 1) * [call(seconds)], any_order=True)
 
     @pytest.mark.asyncio
-    async def test_raise_exceptions_false(
-        self, seconds: float, max_repetitions: int, raising_task: NoArgsNoReturnAsyncFuncT
+    @pytest.mark.timeout(1)
+    async def test_stop_loop_on_exc(
+        self,
+        stop_on_exception_task: NoArgsNoReturnAsyncFuncT,
     ) -> None:
-        try:
-            await raising_task()
-        except ValueError as e:
-            pytest.fail(f"{self.test_raise_exceptions_false.__name__} raised an exception: {e}")
+        await stop_on_exception_task()
+        await self.completed.wait()
+
+        assert self.counter == 1
 
     @pytest.mark.asyncio
-    async def test_raise_exceptions_true(
-        self, seconds: float, suppressed_exception_task: NoArgsNoReturnAsyncFuncT
+    @pytest.mark.timeout(1)
+    @patch("asyncio.sleep")
+    async def test_continue_loop_on_exc(
+        self,
+        asyncio_sleep_mock: AsyncMock,
+        seconds: float,
+        max_repetitions: int,
+        suppressed_exception_task: NoArgsNoReturnAsyncFuncT,
     ) -> None:
-        with pytest.raises(ValueError):
-            await suppressed_exception_task()
+        await suppressed_exception_task()
+        await self.completed.wait()
+
+        assert self.counter == max_repetitions
+        asyncio_sleep_mock.assert_has_calls(max_repetitions * [call(seconds)], any_order=True)
