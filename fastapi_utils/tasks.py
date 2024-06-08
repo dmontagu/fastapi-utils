@@ -99,7 +99,7 @@ def repeat_every(
                             logger.error(formatted_exception)
                         if raise_exceptions:
                             warnings.warn(
-                                "'raise_excpeions' is to be deprecated in favor of 'on_exception' in the 1.0 release.",
+                                "'raise_exceptions' is to be deprecated in favor of 'on_exception' in the 1.0 release.",
                                 DeprecationWarning,
                             )
                             raise exc
