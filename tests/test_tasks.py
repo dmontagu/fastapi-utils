@@ -75,8 +75,10 @@ class TestRepeatEveryBase:
     @pytest.fixture
     def increase_counter_task(self, is_async: bool, seconds: float, max_repetitions: int) -> NoArgsNoReturnAsyncFuncT:
         decorator = repeat_every(seconds=seconds, max_repetitions=max_repetitions, on_complete=self.loop_completed)
-        func = self.increase_counter_async if is_async else self.increase_counter
-        return decorator(func)
+        if is_async:
+            return decorator(self.increase_counter_async)
+        else:
+            return decorator(self.increase_counter)
 
     @pytest.fixture
     def wait_first_increase_counter_task(
@@ -85,36 +87,50 @@ class TestRepeatEveryBase:
         decorator = repeat_every(
             seconds=seconds, max_repetitions=max_repetitions, wait_first=wait_first, on_complete=self.loop_completed
         )
-        func = self.increase_counter_async if is_async else self.increase_counter
-        return decorator(func)
+        if is_async:
+            return decorator(self.increase_counter_async)
+        else:
+            return decorator(self.increase_counter)
 
     @pytest.fixture
     def stop_on_exception_task(self, is_async: bool, seconds: float, max_repetitions: int) -> NoArgsNoReturnAsyncFuncT:
-        on_complete = self.loop_completed_async if is_async else self.loop_completed
-        on_exception = self.kill_loop_async if is_async else self.kill_loop
-        decorator = repeat_every(
-            seconds=seconds,
-            max_repetitions=max_repetitions,
-            on_complete=on_complete,
-            on_exception=on_exception,
-        )
-        func = self.raise_exc_async if is_async else self.raise_exc
-        return decorator(func)
+        if is_async:
+            decorator = repeat_every(
+                seconds=seconds,
+                max_repetitions=max_repetitions,
+                on_complete=self.loop_completed_async,
+                on_exception=self.kill_loop_async,
+            )
+            return decorator(self.raise_exc_async)
+        else:
+            decorator = repeat_every(
+                seconds=seconds,
+                max_repetitions=max_repetitions,
+                on_complete=self.loop_completed,
+                on_exception=self.kill_loop,
+            )
+            return decorator(self.raise_exc)
 
     @pytest.fixture
     def suppressed_exception_task(
         self, is_async: bool, seconds: float, max_repetitions: int
     ) -> NoArgsNoReturnAsyncFuncT:
-        on_complete = self.loop_completed_async if is_async else self.loop_completed
-        on_exception = self.continue_loop_async if is_async else self.continue_loop
-        decorator = repeat_every(
-            seconds=seconds,
-            max_repetitions=max_repetitions,
-            on_complete=on_complete,
-            on_exception=on_exception,
-        )
-        func = self.raise_exc_async if is_async else self.raise_exc
-        return decorator(func)
+        if is_async:
+            decorator = repeat_every(
+                seconds=seconds,
+                max_repetitions=max_repetitions,
+                on_complete=self.loop_completed_async,
+                on_exception=self.continue_loop_async,
+            )
+            return decorator(self.raise_exc_async)
+        else:
+            decorator = repeat_every(
+                seconds=seconds,
+                max_repetitions=max_repetitions,
+                on_complete=self.loop_completed,
+                on_exception=self.continue_loop,
+            )
+            return decorator(self.raise_exc)
 
 
 class TestRepeatEveryWithSynchronousFunction(TestRepeatEveryBase):
