@@ -48,9 +48,6 @@ The highlighted lines above show the results of performing each of the numbered 
 Note how the signature of each endpoint definition now includes only the parts specific
 to that endpoint. 
 
-(Also note that we've also used the [`InferringRouter`](inferring-router.md){.internal-link target=_blank}
-here to remove the need to specify a `response_model` in the endpoint decorators.)
-
 Hopefully this helps you to better reuse dependencies across endpoints!
 
 !!! info

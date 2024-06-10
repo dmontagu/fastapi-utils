@@ -31,7 +31,7 @@ You can connect with the maintainer on
 
 ## Create issues
 
-You can <a href="https://github.com/dmontagu/fastapis-utils/issues/new/choose" class="external-link" target="_blank">create a new issue</a> in the GitHub repository, for example to:
+You can <a href="https://github.com/dmontagu/fastapi-utils/issues/new/choose" class="external-link" target="_blank">create a new issue</a> in the GitHub repository, for example to:
 
 * Report a bug/issue.
 * Suggest a new feature.

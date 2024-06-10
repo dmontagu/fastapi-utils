@@ -25,7 +25,7 @@ class MyEnum(str, Enum):
 One nuisance with this approach is that if you rename one of the enum values (for example, using an IDE),
 you can end up with the name and value differing, which may lead to confusing errors.
 
-For example, if you refactored the above as follows (forgetting to çhange the associated values), you'll get
+For example, if you refactored the above as follows (forgetting to change the associated values), you'll get
 pydantic parsing errors if you use the new *names* instead of the values in JSON bodies:  
 
 ```python
