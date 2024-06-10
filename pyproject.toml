@@ -83,6 +83,7 @@ session = ["sqlalchemy"]
 
 [tool.poetry.group.dev.dependencies]
 codecov = "^2.1.13"
+pytest-timeout = "^2.3.1"
 
 [tool.black]
 line-length = 120
