@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-utils"
-version = "0.6.0"
+version = "0.7.0"
 description = "Reusable utilities for FastAPI"
 license = "MIT"
 authors = ["Yuval Levi <yuvall9313@gmail.com>", "David Montague <davwmont@gmail.com>"]
