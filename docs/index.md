@@ -62,11 +62,11 @@ This package is intended for use with any recent version of FastAPI (depending o
 ## Installation
 
 ```bash
-pip install fastapi-restful  # For basic slim package :)
+pip install fastapi-utils  # For basic slim package :)
 
-pip install fastapi-restful[session]  # To add sqlalchemy session maker
+pip install fastapi-utils[session]  # To add sqlalchemy session maker
 
-pip install fastapi-restful[all]  # For all the packages
+pip install fastapi-utils[all]  # For all the packages
 ```
 
 ## License
