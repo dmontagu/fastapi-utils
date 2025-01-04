@@ -1,9 +1,8 @@
+
 #### Source module: [`fastapi_utils.sessions`](https://github.com/dmontagu/fastapi-utils/blob/master/fastapi_utils/session.py){.internal-link target=_blank}
 
 !!! Note
-    #### To use please install with: `pip install fastapi-restful[session]` or `pip install fastapi-restful[all]`
----
-
+    #### To use, please install with: `pip install fastapi-utils[session]` or `pip install fastapi-utils[all]`
 
 One of the most commonly used ways to power database functionality with FastAPI is SQLAlchemy's ORM.
 
@@ -19,20 +18,37 @@ managing SQLAlchemy sessions with FastAPI.
 ---
 
 ## `FastAPISessionMaker`
-The `fastapi_utils.session.FastAPISessionMaker` class conveniently wraps session-making functionality for use with
-FastAPI. This section contains an example showing how to use this class. 
 
-Let's begin with some infrastructure. The first thing we'll do is make sure we have an ORM
-table to query:  
+The `fastapi_utils.session.FastAPISessionMaker` class conveniently wraps session-making functionality for use with FastAPI. This section contains an example showing how to use this class.
 
-```python hl_lines="8 9 11 14 17 18 19 20"
-{!./src/session1.py!}
+### Step 1: Define the ORM Table  
+
+First, ensure you have an ORM table to query:  
+
+```
+class User(Base):
+    __tablename__ = "user"
+    id = sa.Column(GUID, primary_key=True, default=GUID_DEFAULT_SQLITE)
+    name = sa.Column(sa.String, nullable=False)
+
 ```
 
-Next, we set up infrastructure for loading the database uri from the environment:
+Here, the example sets up a basic table using SQLAlchemy. This table will act as the basis for database queries.
 
-```python hl_lines="23 24 25 26"
-{!./src/session1.py!}
+### Step 2: Configure the Database URI  
+
+Next, set up infrastructure for loading the database URI from the environment:  
+
+```
+class DBSettings(BaseSettings):
+    """Parses variables from environment on instantiation"""
+    # This will automatically load the database URI from environment variables or a config file
+    database_uri: str  # This should contain the URI of the database (e.g., 'postgresql://user:password@localhost/dbname')
+
+    class Config:
+        # Optional: this specifies the file that contains the environment variables (e.g., `.env` file)
+        env_file = ".env"  # If you have an .env file, it will load from there automatically
+
 ```
 
 We use the `pydantic.BaseSettings` to load variables from the environment. There is documentation for this class in the
@@ -45,55 +61,54 @@ are read from the environment if possible.
     variable is not set.
 
 !!! info
-    For finer grained control, you could remove the `database_uri` field, and replace it with
+    For finer-grained control, you could remove the `database_uri` field, and replace it with
     separate fields for `scheme`, `username`, `password`, `host`, and `db`. You could then give the model a `@property`
-    called `database_uri` that builds the uri from these components.
+    called `database_uri` that builds the URI from these components.
 
-Now that we have a way to load the database uri, we can create the FastAPI dependency we'll use
-to obtain the sqlalchemy session:
+### Step 3: Create the `get_db` Dependency  
 
-```python hl_lines="29 30 31 34 35 36 37 38"
-{!./src/session1.py!}
+Now that we have a way to load the database URI, we can create the FastAPI dependency we'll use to obtain the SQLAlchemy session:
+
+```
+def get_db() -> Iterator[Session]:
+    """FastAPI dependency that provides a SQLAlchemy session"""
+    yield from _get_fastapi_sessionmaker().get_db()
 ```
 
+This dependency provides an SQLAlchemy session for each request. It's designed to integrate seamlessly with FastAPI's dependency injection system.
+
 !!! info
-    The `get_db` dependency makes use of a context-manager dependency, rather than a middleware-based approach.
-    This means that any endpoints that don't make use of a sqlalchemy session will not be exposed to any
-    session-related overhead.
-    
-    This is in contrast with middleware-based approaches, where the handling of every request would result in
-    a session being created and closed, even if the endpoint would not make use of it. 
+    The `get_db` dependency makes use of a context-manager dependency, rather than a middleware-based approach.  
+    This means that any endpoints that don't make use of an SQLAlchemy session will not incur session-related overhead.  
+
+    In contrast, middleware-based approaches create and close sessions for every request, even if the endpoint doesn't use them.
 
 !!! warning
-    The `get_db` dependency **will not finalize your ORM session until *after* a response is returned to the user**.
-    
-    This has minor response-latency benefits, but also means that if you have any uncommitted
-    database writes that will raise errors, you may return a success response to the user (status code 200),
-    but still raise an error afterward during request clean-up.
+    The `get_db` dependency **will not finalize your ORM session until *after* a response is returned to the user.**  
+    This has minor response-latency benefits, but also means that uncommitted database writes that cause errors may
+    surface during request clean-up, after a success response (status code 200) is returned.
 
-    To deal with this, for any request where you expect a database write to potentially fail, you should **manually
-    perform a commit inside your endpoint logic and appropriately handle any resulting errors.**
+    To mitigate this, for any request where a database write might fail, **manually perform a commit in your endpoint logic and handle errors appropriately.**
 
-    -----
-    
-    Note that while middleware-based approaches can automatically ensure database errors are visible to users, the
-    result would be a generic 500 internal server error, which you should strive to avoid sending to clients under
-    normal circumstances.
+    -----  
 
-    You can still log any database errors raised during cleanup by appropriately modifying the `get_db` function
-    with a `try: except:` block.
+    Middleware-based approaches ensure database errors are visible to users but often result in generic 500 internal server errors. Strive to provide more informative error responses in production systems.  
 
-The `get_db` function can be used as a FastAPI dependency that will inject a sqlalchemy ORM session where used:
+    You can log database errors raised during cleanup by wrapping the `get_db` function in a `try-except` block.
+
+### Step 4: Inject the Dependency  
+
+The `get_db` function can be used as a FastAPI dependency, injecting an SQLAlchemy ORM session wherever required:  
+
+The final Code example below:
 
 ```python hl_lines="45 46"
 {!./src/session1.py!}
 ```
 
 !!! info
-    We make use of `@lru_cache` on `_get_fastapi_sessionmaker` to ensure the same `FastAPISessionMaker` instance is
-    reused across requests. This reduces the per-request overhead while still ensuring the instance is created
-    lazily, making it possible to have the `database_uri` reflect modifications to the environment performed *after*
-    importing the relevant source file.
-    
-    This can be especially useful during testing if you want to override environment variables programmatically using
-    your testing framework.
+    To optimize resource usage, the `_get_fastapi_sessionmaker` function is decorated with `@lru_cache`.  
+    This ensures the same `FastAPISessionMaker` instance is reused across requests, reducing overhead.  
+
+    The lazy initialization also ensures that modifications to environment variables (e.g., during testing) are reflected in new instances.
+
