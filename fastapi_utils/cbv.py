@@ -13,7 +13,7 @@ from typing import (
 
 import pydantic
 from fastapi import APIRouter, Depends
-from fastapi.routing import APIRoute
+from fastapi.routing import APIRoute, APIWebSocketRoute
 from starlette.routing import Route, WebSocketRoute
 
 PYDANTIC_VERSION = pydantic.VERSION
@@ -108,12 +108,16 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
         _allocate_routes_by_method_name(router, url, function_members)
     router_roles = []
     for route in router.routes:
-        if not isinstance(route, APIRoute):
-            raise ValueError("The provided routes should be of type APIRoute")
+        if not isinstance(route, APIRoute) and not isinstance(route, APIWebSocketRoute):
+            raise ValueError("The provided routes should be of type APIRoute or APIWebSocketRoute")
 
-        route_methods: Any = route.methods
-        cast(Tuple[Any], route_methods)
-        router_roles.append((route.path, tuple(route_methods)))
+        if isinstance(route, APIRoute):
+            route_methods: Any = route.methods
+            cast(Tuple[Any], route_methods)
+            router_roles.append((route.path, tuple(route_methods)))
+
+        if isinstance(route, APIWebSocketRoute):
+            router_roles.append((route.path, tuple(["WS"])))
 
     if len(set(router_roles)) != len(router_roles):
         raise Exception("An identical route role has been implemented more then once")
