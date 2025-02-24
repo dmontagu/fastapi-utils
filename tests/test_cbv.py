@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import Any, ClassVar, Optional
 
 import pytest
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request, WebSocket
 from starlette.testclient import TestClient
+from starlette.websockets import WebSocketDisconnect
 
 from fastapi_utils.cbv import cbv
 
@@ -147,3 +148,19 @@ class TestCBV:
         client = TestClient(router)
         response = client.get("/foo")
         assert response.json() == "http://testserver/bar"
+
+    def test_websocket_router(self, router: APIRouter) -> None:
+        @cbv(router)
+        class Foo:
+            @router.websocket("/ws")
+            async def example(self, websocket: WebSocket) -> None:
+                await websocket.accept()
+                await websocket.send_text("hello")
+                await websocket.close()
+
+        client = TestClient(router)
+        with client.websocket_connect("/ws") as websocket:
+            assert websocket.receive_text() == "hello"
+
+            with pytest.raises(WebSocketDisconnect):
+                assert websocket.receive_text()
