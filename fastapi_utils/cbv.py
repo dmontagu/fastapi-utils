@@ -108,7 +108,7 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
         _allocate_routes_by_method_name(router, url, function_members)
     router_roles = []
     for route in router.routes:
-        if not isinstance(route, APIRoute) and not isinstance(route, APIWebSocketRoute):
+        if not (isinstance(route, APIRoute) or isinstance(route, APIWebSocketRoute)):
             raise ValueError("The provided routes should be of type APIRoute or APIWebSocketRoute")
 
         if isinstance(route, APIRoute):
