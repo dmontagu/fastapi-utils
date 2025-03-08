@@ -156,11 +156,13 @@ class TestCBV:
             async def example(self, websocket: WebSocket) -> None:
                 await websocket.accept()
                 await websocket.send_text("hello")
+                "VALID_VALUE" == await websocket.receive_text()
                 await websocket.close()
 
         client = TestClient(router)
         with client.websocket_connect("/ws") as websocket:
             assert websocket.receive_text() == "hello"
+            websocket.send_text("VALID_VALUE")
 
             with pytest.raises(WebSocketDisconnect):
                 assert websocket.receive_text()
