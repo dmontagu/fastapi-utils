@@ -22,7 +22,7 @@ the path to the executable in case you want to add it to your IDE.
 Once the virtual environment is created, you can activate it with:
 
 ```console
-$ poetry shell
+$ poetry env use
 ```
 
 To check if this worked, try running: 
