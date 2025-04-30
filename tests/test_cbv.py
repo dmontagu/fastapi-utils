@@ -131,6 +131,45 @@ class TestCBV:
         assert response.status_code == 200
         assert response.json() == "hello"
 
+    def test_empty_path(self) -> None:
+        router_root = APIRouter(prefix="/api")
+        router = APIRouter(prefix="/item")
+
+        @cbv(router)
+        class CBV:
+            @router.get("")
+            def root(self) -> str:
+                return "hello"
+
+        router_root.include_router(router)
+
+        client = TestClient(router_root)
+        response = client.get("/api/item")
+        assert response.status_code == 200
+        assert response.json() == "hello"
+
+    def test_route_outside_cbv(self):
+        router = APIRouter(prefix="/api")
+
+        @cbv(router)
+        class CBV:
+            @router.get("/item")
+            def root(self) -> str:
+                return "Response: item"
+
+        @router.get("/another_item")
+        def get_another_item() -> str:
+            return "Response: another item"
+
+        client = TestClient(router)
+        response = client.get("/api/item")
+        assert response.status_code == 200
+        assert response.json() == "Response: item"
+
+        response = client.get("/api/another_item")
+        assert response.status_code == 200
+        assert response.json() == "Response: another item"
+
     def test_url_for(self, router: APIRouter) -> None:
         @cbv(router)
         class Foo:
