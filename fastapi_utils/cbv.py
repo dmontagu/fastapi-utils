@@ -29,6 +29,15 @@ INCLUDE_INIT_PARAMS_KEY = "__include_init_params__"
 RETURN_TYPES_FUNC_KEY = "__return_types_func__"
 
 
+class AlwaysTrueString(str):
+    """
+    String that always return True then casted to boolean
+    """
+
+    def __bool__(self):
+        return True
+
+
 def cbv(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
@@ -128,6 +137,8 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
     for route in cbv_routes:
         router.routes.remove(route)
         route.path = route.path[prefix_length:]
+        if not route.path:
+            route.path = AlwaysTrueString("")
         _update_cbv_route_endpoint_signature(cls, route)
         route.name = cls.__name__ + "." + route.name
         cbv_router.routes.append(route)
