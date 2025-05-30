@@ -53,7 +53,7 @@ It also adds a variety of more basic utilities that are useful across a wide var
 * **CamelCase Conversions**: Convenience functions for converting strings from `snake_case` to `camelCase` or `PascalCase` and back
 * **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables
 
-See the [docs](https://https://fastapiutils.github.io/fastapi-utils//) for more details and examples.
+See the [docs](https://fastapiutils.github.io/fastapi-utils//) for more details and examples.
 
 ## Requirements
 

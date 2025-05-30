@@ -92,3 +92,4 @@ venv.bak/
 site
 
 .tool-versions
+.qodo/

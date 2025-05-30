@@ -108,12 +108,18 @@ def _register_endpoints(router: APIRouter, cls: Type[Any], *urls: str) -> None:
         _allocate_routes_by_method_name(router, url, function_members)
     router_roles = []
     for route in router.routes:
-        if not isinstance(route, APIRoute):
-            raise ValueError("The provided routes should be of type APIRoute")
+        # Fix: Allow both APIRoute and WebSocketRoute to be consistent with processing logic
+        if not isinstance(route, (APIRoute, WebSocketRoute)):
+            raise ValueError("The provided routes should be of type APIRoute or WebSocketRoute")
 
-        route_methods: Any = route.methods
-        cast(Tuple[Any], route_methods)
-        router_roles.append((route.path, tuple(route_methods)))
+        # Only process route_methods for APIRoute (WebSocketRoute doesn't have methods)
+        if isinstance(route, APIRoute):
+            route_methods: Any = route.methods
+            cast(Tuple[Any], route_methods)
+            router_roles.append((route.path, tuple(route_methods)))
+        else:
+            # For WebSocketRoute, the actual route type name
+            router_roles.append((route.path, (type(route).__name__,)))
 
     if len(set(router_roles)) != len(router_roles):
         raise Exception("An identical route role has been implemented more then once")

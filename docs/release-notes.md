@@ -1,5 +1,7 @@
 ## Latest changes
 
+* Fix: tasks.repeat_every() and related tests [#305](https://github.com/dmontagu/fastapi-utils/issues/305)
+* Fix typo [#306](https://github.com/dmontagu/fastapi-utils/issues/306)
 * Merge with [fastapi-utils](https://github.com/dmontagu/fastapi-utils)
 
 ## 0.6.0
