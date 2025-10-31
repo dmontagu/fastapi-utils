@@ -74,7 +74,7 @@ def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
     ]
 
     dependency_names: List[str] = []
-    for name, hint in get_type_hints(cls).items():
+    for name, hint in get_type_hints(cls, include_extras=True).items():
         if is_classvar(hint):
             continue
         parameter_kwargs = {"default": getattr(cls, name, Ellipsis)}
