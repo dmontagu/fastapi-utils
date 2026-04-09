@@ -6,6 +6,7 @@ import warnings
 from functools import wraps
 from traceback import format_exception
 from typing import Any, Callable, Coroutine, Union
+from weakref import WeakKeyDictionary
 
 from starlette.concurrency import run_in_threadpool
 
@@ -16,6 +17,33 @@ ExcArgNoReturnAsyncFuncT = Callable[[Exception], Coroutine[Any, Any, None]]
 NoArgsNoReturnAnyFuncT = Union[NoArgsNoReturnFuncT, NoArgsNoReturnAsyncFuncT]
 ExcArgNoReturnAnyFuncT = Union[ExcArgNoReturnFuncT, ExcArgNoReturnAsyncFuncT]
 NoArgsNoReturnDecorator = Callable[[NoArgsNoReturnAnyFuncT], NoArgsNoReturnAsyncFuncT]
+
+
+_REPEATED_TASKS: WeakKeyDictionary[NoArgsNoReturnAsyncFuncT, asyncio.Task[None]] = WeakKeyDictionary()
+
+
+def get_repeated_task(task_func: NoArgsNoReturnAsyncFuncT) -> asyncio.Task[None] | None:
+    """Return the currently running repeated task for a wrapped function, if any."""
+    return _REPEATED_TASKS.get(task_func)
+
+
+async def cancel_repeated_task(task_func: NoArgsNoReturnAsyncFuncT) -> bool:
+    """Cancel the running repeated task for a wrapped function.
+
+    Returns True when a running task existed and cancellation was requested.
+    Returns False when there is no active task to cancel.
+    """
+    task = _REPEATED_TASKS.get(task_func)
+    if task is None or task.done():
+        return False
+
+    task.cancel()
+    try:
+        await task
+    except asyncio.CancelledError:
+        pass
+
+    return True
 
 
 async def _handle_func(func: NoArgsNoReturnAnyFuncT) -> None:
@@ -111,7 +139,9 @@ def repeat_every(
                 if on_complete:
                     await _handle_func(on_complete)
 
-            asyncio.ensure_future(loop())
+            task = asyncio.create_task(loop())
+            _REPEATED_TASKS[wrapped] = task
+            task.add_done_callback(lambda _: _REPEATED_TASKS.pop(wrapped, None))
 
         return wrapped
 

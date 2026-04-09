@@ -4,7 +4,12 @@ from unittest.mock import AsyncMock, call, patch
 
 import pytest
 
-from fastapi_utils.tasks import NoArgsNoReturnAsyncFuncT, repeat_every
+from fastapi_utils.tasks import (
+    NoArgsNoReturnAsyncFuncT,
+    cancel_repeated_task,
+    get_repeated_task,
+    repeat_every,
+)
 
 
 # Fixtures:
@@ -161,6 +166,26 @@ class TestRepeatEveryWithSynchronousFunction(TestRepeatEveryBase):
 
     @pytest.mark.asyncio
     @pytest.mark.timeout(1)
+    async def test_exposes_task_handle_and_cancel_path(self, seconds: float) -> None:
+        def increase_counter_forever() -> None:
+            self.increase_counter()
+
+        wrapped = repeat_every(seconds=seconds)(increase_counter_forever)
+
+        await wrapped()
+        await asyncio.sleep(seconds * 2)
+
+        task = get_repeated_task(wrapped)
+        assert task is not None
+        assert not task.done()
+
+        canceled = await cancel_repeated_task(wrapped)
+        assert canceled
+
+        assert get_repeated_task(wrapped) is None
+
+    @pytest.mark.asyncio
+    @pytest.mark.timeout(1)
     async def test_stop_loop_on_exc(
         self,
         stop_on_exception_task: NoArgsNoReturnAsyncFuncT,
@@ -223,6 +248,26 @@ class TestRepeatEveryWithAsynchronousFunction(TestRepeatEveryBase):
 
         assert self.counter == max_repetitions
         asyncio_sleep_mock.assert_has_calls((max_repetitions + 1) * [call(seconds)], any_order=True)
+
+    @pytest.mark.asyncio
+    @pytest.mark.timeout(1)
+    async def test_exposes_task_handle_and_cancel_path(self, seconds: float) -> None:
+        async def increase_counter_forever_async() -> None:
+            self.increase_counter()
+
+        wrapped = repeat_every(seconds=seconds)(increase_counter_forever_async)
+
+        await wrapped()
+        await asyncio.sleep(seconds * 2)
+
+        task = get_repeated_task(wrapped)
+        assert task is not None
+        assert not task.done()
+
+        canceled = await cancel_repeated_task(wrapped)
+        assert canceled
+
+        assert get_repeated_task(wrapped) is None
 
     @pytest.mark.asyncio
     @pytest.mark.timeout(1)
