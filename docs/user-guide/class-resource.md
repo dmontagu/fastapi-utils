@@ -31,7 +31,7 @@ we can just insert our dependencies in the instance init: (`app.py`)
 ``` 
 
 #### Responses
-FastApi swagger is all beautiful with the responses and fit status codes,
+FastAPI's Swagger UI displays responses and status codes nicely,
 it is no sweat to declare those.
 
 Inside the resource class have `@set_responses` before the function  
