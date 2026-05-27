@@ -27,6 +27,7 @@ nav:
           - APISettings: "user-guide/basics/api-settings.md"
           - String-Valued Enums: "user-guide/basics/enums.md"
           - CamelCase Conversion: "user-guide/basics/camelcase.md"
+          - Pagination: "user-guide/basics/pagination.md"
           - GUID Type: "user-guide/basics/guid-type.md"
   - Get Help: "help-fastapi-utils.md"
   - Development - Contributing: "contributing.md"
