@@ -51,6 +51,7 @@ It also adds a variety of more basic utilities that are useful across a wide var
 * **APISettings**: A subclass of `pydantic.BaseSettings` that makes it easy to configure FastAPI through environment variables
 * **String-Valued Enums**: The `StrEnum` and `CamelStrEnum` classes make string-valued enums easier to maintain
 * **CamelCase Conversions**: Convenience functions for converting strings from `snake_case` to `camelCase` or `PascalCase` and back
+* **Pagination**: Reusable limit/offset pagination parameters and response models
 * **GUID Type**: The provided GUID type makes it easy to use UUIDs as the primary keys for your database tables
 
 See the [docs](https://https://fastapiutils.github.io/fastapi-utils//) for more details and examples.
