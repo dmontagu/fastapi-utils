@@ -1,12 +1,34 @@
 from __future__ import annotations
 
+import importlib
+import sys
 from typing import Any, ClassVar, Optional
 
 import pytest
 from fastapi import APIRouter, Depends, Request
 from starlette.testclient import TestClient
 
+import fastapi_utils.cbv
 from fastapi_utils.cbv import cbv
+
+
+def test_cbv_importable_without_typing_inspect(monkeypatch: pytest.MonkeyPatch) -> None:
+    """`typing-inspect` is an optional dependency (only pulled in by the `all` extra), so
+    importing `fastapi_utils.cbv` must not require it to be installed. See #318.
+
+    Setting `sys.modules["typing_inspect"] = None` makes the import machinery raise
+    `ImportError` for any `import typing_inspect` / `from typing_inspect import ...`
+    statement, simulating an environment where the package isn't installed.
+    """
+    monkeypatch.setitem(sys.modules, "typing_inspect", None)
+
+    try:
+        reloaded = importlib.reload(fastapi_utils.cbv)
+        assert reloaded.cbv is not None
+    finally:
+        # Restore the real module state for any tests that run afterwards.
+        monkeypatch.undo()
+        importlib.reload(fastapi_utils.cbv)
 
 
 class TestCBV:

@@ -1,4 +1,5 @@
 import inspect
+import typing
 from typing import (
     Any,
     Callable,
@@ -18,7 +19,15 @@ from starlette.routing import Route, WebSocketRoute
 
 PYDANTIC_VERSION = pydantic.VERSION
 if PYDANTIC_VERSION[0] == "2":
-    from typing_inspect import is_classvar
+    # Implemented with the stdlib `typing` module rather than the optional
+    # `typing-inspect` dependency, so that simply importing `fastapi_utils`
+    # doesn't require an extra to be installed. This covers both the bare
+    # `ClassVar` and the subscripted `ClassVar[...]` forms, matching the
+    # behavior of `typing_inspect.is_classvar` for the annotations `cbv`
+    # encounters here.
+    def is_classvar(hint: Any) -> bool:
+        return hint is typing.ClassVar or typing.get_origin(hint) is typing.ClassVar
+
 else:
     from pydantic.typing import is_classvar  # type: ignore[no-redef]
 
